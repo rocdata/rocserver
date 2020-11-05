@@ -1,0 +1,18 @@
+Django==3.1.1
+
+# api
+djangorestframework==3.12.1
+markdown==3.3.3
+installed django-filter==2.4.0
+
+# frontend
+django-webpack-loader==0.7.0
+
+# for importrs
+requests==2.24.0
+
+# for prod
+gunicorn==20.0.4
+
+# dev
+django_debug_toolbar
