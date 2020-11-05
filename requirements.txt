@@ -3,16 +3,25 @@ Django==3.1.1
 # api
 djangorestframework==3.12.1
 markdown==3.3.3
-installed django-filter==2.4.0
+django-filter==2.4.0
+django-treebeard
+psycopg2-binary
+django-allauth
+django-cors-headers
 
 # frontend
 django-webpack-loader==0.7.0
 
-# for importrs
+# data
 requests==2.24.0
+pandas
+numpy
 
 # for prod
 gunicorn==20.0.4
 
 # dev
 django_debug_toolbar
+django-extensions
+ipython
+pyflakes
