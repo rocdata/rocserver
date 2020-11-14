@@ -25,3 +25,9 @@ django_debug_toolbar
 django-extensions
 ipython
 pyflakes
+
+# devops
+python-dotenv==0.14.0
+# fab-classic is a Fabric fork with py3 support, but faithful to the old API
+fab-classic==1.18.1
+
