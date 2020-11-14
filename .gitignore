@@ -1,4 +1,7 @@
 
+# initial dev -- DIY migraitons
+standards/migrations/*
+
 # project-specific draft stuff
 cut_material.py
 

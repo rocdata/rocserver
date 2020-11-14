@@ -21,6 +21,7 @@ numpy
 gunicorn==20.0.4
 
 # dev
+pytest-django
 django_debug_toolbar
 django-extensions
 ipython
