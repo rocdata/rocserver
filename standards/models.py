@@ -38,11 +38,16 @@ class Jurisdiction(models.Model):
     def __str__(self):
         return self.name + ' (id=' + self.id.__str__()[0:7] +')'
 
+
+
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile")
     background = models.CharField(max_length=200, help_text="What is your background?")
     jurisdiction = models.ForeignKey(Jurisdiction, related_name="userprofiles", on_delete=models.CASCADE)
     # roles wihin jurisdiction are: admin/editor/approver/technical
+
+    def __str__(self):
+        return self.user.username + ' (email=' + self.user.email +')'
 
 
 
@@ -63,13 +68,17 @@ class ControlledVocabulary(models.Model):
     alt_label = models.CharField(max_length=200, blank=True, null=True, help_text="Alternative label" )
     hidden_label = models.CharField(max_length=200, blank=True, null=True, help_text="Hidden label" )
     description = models.TextField(blank=True, null=True, help_text="Explain where this vocab. is used")
+    language = models.CharField(max_length=20, blank=True, null=True, help_text="BCP47/RFC5646 codes like en, es, fr-CA.")
     # metadata
-    notes = models.TextField(blank=True, null=True, help_text="Other comments and notes about the vocabulary.")
+    notes = models.TextField(blank=True, null=True, help_text="Comments and notes about this vocabulary")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True,
                                 related_name="vocabularies", on_delete=models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
-    extra_fields = models.JSONField(default=dict)  # for extensibility
+    extra_fields = models.JSONField(default=dict, blank=True)  # for extensibility
+
+    class Meta: 
+        verbose_name_plural = 'Controlled vocabularies'
 
     def __str__(self):
         return self.name
@@ -87,25 +96,20 @@ class Term(models.Model):
     vocabulary = models.ForeignKey("ControlledVocabulary", related_name="terms", on_delete=models.CASCADE)
     path = models.CharField(max_length=200, help_text="Term path as it appears in URI")
     label = models.CharField(max_length=200, help_text="Human-readable label" )
-    alt_label = models.CharField(max_length=200, help_text="Alternative label" )
-    hidden_label = models.CharField(max_length=200, help_text="Hidden label" )
-    notation = models.CharField(max_length=200, blank=True, null=True,
-                                help_text="Other unique identifier for this term")
-    definition = models.TextField(help_text="Explain the meaning of this term")
-    notes = models.TextField(help_text="Comments and notes about the term")
-    language = models.CharField(max_length=20, blank=True, null=True,
-                help_text="BCP47/RFC5646 codes like en, es, fr-CA.")
+    alt_label = models.CharField(max_length=200, blank=True, null=True, help_text="Alternative label" )
+    hidden_label = models.CharField(max_length=200, blank=True, null=True, help_text="Hidden label" )
+    notation = models.CharField(max_length=200, blank=True, null=True, help_text="Other unique identifier for this term")
+    definition = models.TextField(blank=True, null=True, help_text="Explain the meaning of this term")
+    notes = models.TextField(blank=True, null=True, help_text="Comments and notes about the term")
+    language = models.CharField(max_length=20, blank=True, null=True, help_text="BCP47/RFC5646 codes like en, es, fr-CA.")
 
     # B. structural
     sort_order = models.FloatField(default=1.0)  # sort order among siblings
-    parent = models.ForeignKey("Term", related_name="children",
-                               on_delete=models.CASCADE, blank=True, null=True)
-                               # e.g. None if term is a top concept in scheme
 
     # C. metadata
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
-    extra_fields = models.JSONField(default=dict)  # for extensibility
+    extra_fields = models.JSONField(default=dict, blank=True)  # for extensibility
 
 
     def get_term_path(self):
@@ -123,8 +127,7 @@ class Term(models.Model):
         "Canonical URI for term eg. https://vd.link/terms/Ghana/SubjectAreas/PE"
         return self.get_absolute_url()
 
-    @property
-    def parent(self):
+    def get_parent(self):
         if '/' not in self.path:
             return None
         else:
@@ -132,6 +135,9 @@ class Term(models.Model):
             parent_path = '/'.join(path_list[:-1])
             parent = Term.objects.get(path=parent_path, vocabulary=self.vocabulary)
             return parent
+
+    def get_descendants(self):
+        return Term.objects.filter(path__startswith=self.path)
 
     def __str__(self):
         return self.vocabulary.name + '/' + self.path
@@ -142,13 +148,13 @@ TERMREL_KINDS = Choices(
     # skos:semanticRelation (within-vocabulary links)
     ('broader',      'has parent (a broader term)'),
     ('narrower',     'has child (a more specific term)'),
-    ('related',      'has a related term'),
+    ('related',      'has related term (same vocabulary)'),
     # skos:mappingRelation (links to other vocabularies including external URIs)
-    ('exactMatch',   'matches exactly'),      # 100% identity matches (foreign keys)
-    ('closeMatch',   'matches closely'),      # 80% match (subjective)
-    ('relatedMatch', 'has related match'),    # source and target are related (40% match) and of same "size"
-    ('broadMatch',   'has broader match'),    # source is related to a subset of the target
-    ('narrowMatch',  'has narrower match'),   # target is related to a subset of the source
+    ('exactMatch',   'matches exactly'),        # 100% identity matches (FKs)
+    ('closeMatch',   'matches closely'),        # 80% match (subjective)
+    ('relatedMatch', 'source and target are related and of similar size'),
+    ('broadMatch',   'source is related to a subset of the target'),
+    ('narrowMatch',  'target is related to a subset of the source'),
 )
 
 class TermRelation(models.Model):
@@ -191,4 +197,5 @@ class TermRelation(models.Model):
 
 # CONTENT CORRELATIONS
 ################################################################################
+
 
