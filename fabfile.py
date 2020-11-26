@@ -27,6 +27,12 @@ env.DOCKER_HOST = "ssh://ivan@35.203.84.59"
 
 
 
+@task
+def reset_n_load():
+    local('./manage.py reset_db')
+    local('./manage.py migrate')
+
+
 
 # PROVISION DOCKER ON REMOTE HOST
 ################################################################################
