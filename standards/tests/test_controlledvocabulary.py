@@ -11,7 +11,6 @@ def test_vocab(juri):
         jurisdiction=juri)
     vocab.save()
     assert vocab.id
-    # print(vocab.__dict__)
 
 
 @pytest.mark.django_db

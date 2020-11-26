@@ -9,7 +9,7 @@ from django.db.models import Q, UniqueConstraint
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django_countries.fields import CountryField
-from extended_choices import Choices
+from model_utils import Choices
 from rest_framework.authtoken.models import Token
 from treebeard.mp_tree import MP_Node
 
@@ -28,18 +28,21 @@ class Jurisdiction(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(max_length=200, help_text="Official name of the organization or government body")
     short_name = models.CharField(max_length=200, help_text="the name used in URIs")
-    country = CountryField()
+    country = CountryField(blank=True, help_text='Country of jurisdiction')
     alt_name = models.CharField(max_length=200, blank=True, null=True, help_text="Alternative name")
     language = models.CharField(max_length=20, blank=True, null=True,
                                 help_text="BCP47 lang codes like en, es, fr-CA")
     notes = models.TextField(blank=True, null=True, help_text="Public comments and notes about this jurisdiction.")
 
+    def __str__(self):
+        return self.name + ' (id=' + self.id.__str__()[0:7] +')'
 
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile")
     background = models.CharField(max_length=200, help_text="What is your background?")
     jurisdiction = models.ForeignKey(Jurisdiction, related_name="userprofiles", on_delete=models.CASCADE)
     # roles wihin jurisdiction are: admin/editor/approver/technical
+
 
 
 
@@ -106,7 +109,7 @@ class Term(models.Model):
             raise NotImplementedError('TODO')
         else:
             v = self.vocabulary
-            return '/'.join([v.jurisdiction.name, v.name, self.name])
+            return '/'.join([v.jurisdiction.short_name, v.name, self.name])
 
     def get_absolute_url(self):
         return "/terms/" + self.get_term_path()
@@ -116,38 +119,54 @@ class Term(models.Model):
         "Canonical URI for term eg. https://vd.link/terms/Ghana/SubjectAreas/PE"
         return self.get_absolute_url()
 
+    @property
+    def parent(self):
+        if '/' not in self.name:
+            return None
+        else:
+            path_list = self.name.split('/')
+            parent_path = '/'.join(path_list[:-1])
+            parent = Term.objects.get(path=parent_path, vocabulary=self.vocabulary)
+            return parent
+
+    def __str__(self):
+        return self.vocabulary.name + '/' + self.name
 
 
 
 TERMREL_KINDS = Choices(
     # skos:semanticRelation (within-vocabulary links)
-    ('broader',      0,  'has parent (a broader term)'),
-    ('narrower',     1,  'has child (a more specific term)'),
-    ('related',      2,  'has a related term'),
+    ('broader',      'has parent (a broader term)'),
+    ('narrower',     'has child (a more specific term)'),
+    ('related',      'has a related term'),
     # skos:mappingRelation (links to other vocabularies including external URIs)
-    ('exactMatch', 100,  'matches exactly'),        # identity matches (foreign keys)
-    ('closeMatch',  80,  'matches closely'),        # 80%+ match (subjective)
-    ('relatedMatch',40,  'has a related match'),    # source and target are of same "size" and related
-    ('broadMatch',  21,  'has a broader match'),    # source is related to a subset of the target
-    ('narrowMatch', 20,  'has a narrower match'),   # target is related to a subset of the source
+    ('exactMatch',   'matches exactly'),      # 100% identity matches (foreign keys)
+    ('closeMatch',   'matches closely'),      # 80% match (subjective)
+    ('relatedMatch', 'has related match'),    # source and target are related (40% match) and of same "size"
+    ('broadMatch',   'has broader match'),    # source is related to a subset of the target
+    ('narrowMatch',  'has narrower match'),   # target is related to a subset of the source
 )
 
 class TermRelation(models.Model):
     """
-    A relation between two Terms.
-    Defines a sub-property of skos:semanticRelation property from the origin concept to the target concept
+    A relation between two Terms (`source` and `target`) or a source Terms and
+    an external target URI (`target_uri`).
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    source = models.ForeignKey(Term, related_name='source+', on_delete=models.CASCADE)
+    source = models.ForeignKey(Term, related_name='relations_source', on_delete=models.CASCADE)
     target_uri = models.CharField(max_length=500, null=True, blank=True)
     # for internal references target_uri is NULL and and target is a FK
-    target = models.ForeignKey(Term, related_name='target+', blank=True, null=True, on_delete=models.CASCADE)
-    kind = models.PositiveSmallIntegerField(choices=TERMREL_KINDS.choices)
+    target = models.ForeignKey(Term, related_name='relations_target', blank=True, null=True, on_delete=models.CASCADE)
+    kind = models.CharField(max_length=32, choices=TERMREL_KINDS)
 
     # metadata
     notes = models.TextField(help_text="Comments and notes about the relation")
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        target_str = self.target_uri if self.target_uri else str(self.target)
+        return str(self.source) + '--' + self.kind + '-->' + target_str
 
 
 

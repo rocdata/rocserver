@@ -6,7 +6,11 @@ from standards.models import ControlledVocabulary, Term, TermRelation
 
 @pytest.fixture
 def juri():
-    juri = Jurisdiction(name="Ghana NaCCA", short_name="Ghana")
+    juri = Jurisdiction(
+        short_name="Ghana",
+        name="Ghana NaCCA",
+        country='GH'
+    )
     juri.save()
     return juri
 
