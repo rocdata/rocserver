@@ -26,8 +26,9 @@ class Jurisdiction(models.Model):
     curriculum bodies, an assesment boards, professional organizations, etc.
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=200, help_text="Official name of the organization or government body")
-    short_name = models.CharField(max_length=200, help_text="the name used in URIs")
+    # data
+    display_name = models.CharField(max_length=200, help_text="Official name of the organization or government body")
+    name = models.CharField(max_length=200, help_text="the name used in URIs")
     country = CountryField(blank=True, help_text='Country of jurisdiction')
     alt_name = models.CharField(max_length=200, blank=True, null=True, help_text="Alternative name")
     language = models.CharField(max_length=20, blank=True, null=True,
@@ -70,18 +71,21 @@ class ControlledVocabulary(models.Model):
     date_modified = models.DateTimeField(auto_now=True)
     extra_fields = models.JSONField(default=dict)  # for extensibility
 
+    def __str__(self):
+        return self.name
+
 
 class Term(models.Model):
     """
     A term within a controlled vocabulary that corresponds to an URL like
-    `/terms/{juri}/{vocab.name}/{self.name}` if a top-level term, or path like
-    `/terms/{juri}/{vocab.name}/{self.parent.name}/{self.name}` in a hierarchy.
+    `/terms/{juri.name}/{vocab.name}/{self.path}`. Paths can a be either simple
+    terms or a /-separated taxon path of terms.
     This is a Django model (DB table) that closely resembles skos:Concept.
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # A. data 
     vocabulary = models.ForeignKey("ControlledVocabulary", related_name="terms", on_delete=models.CASCADE)
-    name = models.CharField(max_length=200, help_text="Term name as it appears in URIs")
+    path = models.CharField(max_length=200, help_text="Term path as it appears in URI")
     label = models.CharField(max_length=200, help_text="Human-readable label" )
     alt_label = models.CharField(max_length=200, help_text="Alternative label" )
     hidden_label = models.CharField(max_length=200, help_text="Hidden label" )
@@ -109,7 +113,7 @@ class Term(models.Model):
             raise NotImplementedError('TODO')
         else:
             v = self.vocabulary
-            return '/'.join([v.jurisdiction.short_name, v.name, self.name])
+            return '/'.join([v.jurisdiction.name, v.name, self.path])
 
     def get_absolute_url(self):
         return "/terms/" + self.get_term_path()
@@ -121,16 +125,16 @@ class Term(models.Model):
 
     @property
     def parent(self):
-        if '/' not in self.name:
+        if '/' not in self.path:
             return None
         else:
-            path_list = self.name.split('/')
+            path_list = self.path.split('/')
             parent_path = '/'.join(path_list[:-1])
             parent = Term.objects.get(path=parent_path, vocabulary=self.vocabulary)
             return parent
 
     def __str__(self):
-        return self.vocabulary.name + '/' + self.name
+        return self.vocabulary.name + '/' + self.path
 
 
 
