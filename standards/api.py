@@ -13,7 +13,7 @@ from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.views.decorators.csrf import csrf_exempt
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import serializers, viewsets, views, status, response
+from rest_framework import viewsets, views, status, response
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import api_view
@@ -30,54 +30,29 @@ from standards.models import Jurisdiction, UserProfile
 from standards.models import ControlledVocabulary, Term
 from standards.models import TERMREL_KINDS, TermRelation
 
-# FLAT REST API
-################################################################################
-class JurisdictionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Jurisdiction
-        lookup_field = "name"
-        fields = '__all__'
 
-class JurisdictionViewSet(viewsets.ModelViewSet):
+from standards.serializers import JurisdictionSerializer
+from standards.serializers import ControlledVocabularySerializer
+from standards.serializers import TermSerializer
+
+
+
+
+
+# HEARARCHICAL API   /api/terms/{juri_name}/{vocab_name}/{term_path}
+#                         isomorphic to the canonical URIs but as REST endpoints
+################################################################################
+
+class JuriViewSet(viewsets.ModelViewSet):
     queryset = Jurisdiction.objects.all()
     serializer_class = JurisdictionSerializer
     lookup_field = "name"
-
-
-class ControlledVocabularySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ControlledVocabulary
-        lookup_field = "name"
-        fields = '__all__'
-
-class ControlledVocabularyViewSet(viewsets.ModelViewSet):
-    queryset = ControlledVocabulary.objects.all()
-    serializer_class = ControlledVocabularySerializer
-
-
-class TermSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Term
-        fields = '__all__'
-
-class TermViewSet(viewsets.ModelViewSet):
-    queryset = Term.objects.all()
-    serializer_class = TermSerializer
-
-
-
-
-
-
-
-
-# HEARARCHICAL API
-################################################################################
 
 class MultipleFieldLookupMixin:
     """
     Apply this mixin to any view or viewset to get multiple field filtering based
     on a `lookup_fields` attribute, instead of the default single field filtering.
+    via django-rest-framework.org/api-guide/generic-views/#creating-custom-mixins
     """
     def get_object(self):
         queryset = self.get_queryset()             # Get the base queryset
@@ -90,8 +65,16 @@ class MultipleFieldLookupMixin:
         self.check_object_permissions(self.request, obj)
         return obj
 
-
-class JurisdictionControlledVocabularyViewSet(MultipleFieldLookupMixin, viewsets.ModelViewSet):
-    serializer_class = ControlledVocabularySerializer
+class JuriVocabViewSet(MultipleFieldLookupMixin, viewsets.ModelViewSet):
+    queryset = ControlledVocabulary.objects.select_related('jurisdiction').all()
+    for vocab in queryset:
+        print(vocab.__dict__)
+        print(vocab.jurisdiction.__dict__)
     lookup_fields = ["jurisdiction__name", "name"]
-    queryset = ControlledVocabulary.objects.all()
+    serializer_class = ControlledVocabularySerializer
+
+
+class JuriVocabTermViewSet(MultipleFieldLookupMixin, viewsets.ModelViewSet):
+    queryset = Term.objects.all()
+    lookup_fields = ["vocabulary__jurisdiction__name", "vocabulary__name", "path"]
+    serializer_class = TermSerializer

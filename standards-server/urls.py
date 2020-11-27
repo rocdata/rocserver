@@ -15,50 +15,59 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-#from django.conf.urls import include, url
-from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from standards.api import JurisdictionViewSet
-from standards.api import ControlledVocabularyViewSet
-from standards.api import TermViewSet
+from standards.api import JuriViewSet, JuriVocabViewSet, JuriVocabTermViewSet
 
-from standards.api import JurisdictionControlledVocabularyViewSet
 
-router = routers.DefaultRouter()
-router.register(r"jurisdiction", JurisdictionViewSet)
-router.register(r"vocabulary", ControlledVocabularyViewSet)
-router.register(r"term", TermViewSet)  # TODO: change to custom /terms/ APIView
 
 urlpatterns = [
     path('admin/',  admin.site.urls),
-    path("api/",    include(router.urls)),
 ]
 
 
+# HEARARCHICAL API   /api/terms/{juri_name}/{vocab_name}/{term_path}
+################################################################################
 
-jurisdiction_list = JurisdictionViewSet.as_view({
+juri_list = JuriViewSet.as_view({
     'get': 'list',
     'post': 'create'
 })
-
-jurisdiction_detail = JurisdictionViewSet.as_view({
-    'get': 'retrieve',
-    'put': 'update',
-    'patch': 'partial_update',
-    'delete': 'destroy'
-})
-jurisdiction_vocab_detail = JurisdictionControlledVocabularyViewSet.as_view({
+juri_detail = JuriViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
     'patch': 'partial_update',
     'delete': 'destroy'
 })
 
+juri_vocab_list = JuriVocabViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+juri_vocab_detail = JuriVocabViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
 
+juri_vocab_term_list = JuriVocabTermViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+juri_vocab_term_detail = JuriVocabTermViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
 
 urlpatterns += format_suffix_patterns([
-    path('terms/', jurisdiction_list, name='jurisdiction-list'),
-    path('terms/<name>', jurisdiction_detail, name='jurisdiction-detail'),
-    path('terms/<jurisdiction__name>/<name>', jurisdiction_vocab_detail, name='jurisdiction-vocab-detail'),
+    path('api/terms/', juri_list, name='jurisdiction-list'),
+    path('api/terms/<name>', juri_detail, name='jurisdiction-detail'),
+    path('api/terms/<name>/', juri_vocab_list, name='jurisdiction-vocab-list'),
+    path('api/terms/<jurisdiction__name>/<name>', juri_vocab_detail, name='jurisdiction-vocab-detail'),
+    path('api/terms/<jurisdiction__name>/<name>/', juri_vocab_term_list, name='jurisdiction-vocab-term-list'),
+    path('api/terms/<vocabulary__jurisdiction__name>/<vocabulary__name>/<path>', juri_vocab_term_detail, name='jurisdiction-vocab-term-detail'),
 ])
+
