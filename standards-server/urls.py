@@ -19,11 +19,13 @@ from django.urls import path, include
 from rest_framework import routers
 
 from standards.api import JurisdictionViewSet
+from standards.api import ControlledVocabularyViewSet
+from standards.api import TermViewSet
 
 router = routers.DefaultRouter()
 router.register(r"jurisdiction", JurisdictionViewSet)
-
-
+router.register(r"vocabulary", ControlledVocabularyViewSet)
+router.register(r"term", TermViewSet)  # TODO: change to custom /terms/ APIView
 
 urlpatterns = [
     path('admin/',  admin.site.urls),

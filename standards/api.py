@@ -38,3 +38,27 @@ class JurisdictionSerializer(serializers.ModelSerializer):
 class JurisdictionViewSet(viewsets.ModelViewSet):
     queryset = Jurisdiction.objects.all()
     serializer_class = JurisdictionSerializer
+
+
+
+
+class ControlledVocabularySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ControlledVocabulary
+        fields = '__all__'
+
+class ControlledVocabularyViewSet(viewsets.ModelViewSet):
+    queryset = ControlledVocabulary.objects.all()
+    serializer_class = ControlledVocabularySerializer
+
+
+
+
+class TermSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Term
+        fields = '__all__'
+
+class TermViewSet(viewsets.ModelViewSet):
+    queryset = Term.objects.all()
+    serializer_class = TermSerializer
