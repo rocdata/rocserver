@@ -17,10 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 #from django.conf.urls import include, url
 from rest_framework import routers
+from rest_framework.urlpatterns import format_suffix_patterns
 
 from standards.api import JurisdictionViewSet
 from standards.api import ControlledVocabularyViewSet
 from standards.api import TermViewSet
+
+from standards.api import JurisdictionControlledVocabularyViewSet
 
 router = routers.DefaultRouter()
 router.register(r"jurisdiction", JurisdictionViewSet)
@@ -31,3 +34,31 @@ urlpatterns = [
     path('admin/',  admin.site.urls),
     path("api/",    include(router.urls)),
 ]
+
+
+
+jurisdiction_list = JurisdictionViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+
+jurisdiction_detail = JurisdictionViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+jurisdiction_vocab_detail = JurisdictionControlledVocabularyViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+
+
+
+urlpatterns += format_suffix_patterns([
+    path('terms/', jurisdiction_list, name='jurisdiction-list'),
+    path('terms/<name>', jurisdiction_detail, name='jurisdiction-detail'),
+    path('terms/<jurisdiction__name>/<name>', jurisdiction_vocab_detail, name='jurisdiction-vocab-detail'),
+])
