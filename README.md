@@ -14,7 +14,6 @@ pip install -r requirements.txt
 ```
 
 
-
 ## Local dev setup
 
 ```
@@ -23,13 +22,15 @@ pip install -r requirements.txt
 ./manage.py createsuperuser
 ```
 
-
 ## Load global vocabularies
-
-
-
 
 
 ## Load sample fixtures
 
+
+
+
+
+
+Admin http://localhost:8000/admin/
 

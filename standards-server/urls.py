@@ -20,12 +20,6 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from standards.api import JuriViewSet, JuriVocabViewSet, JuriVocabTermViewSet
 
 
-
-urlpatterns = [
-    path('admin/',  admin.site.urls),
-]
-
-
 # HEARARCHICAL API   /api/terms/{juri_name}/{vocab_name}/{term_path}
 ################################################################################
 
@@ -62,12 +56,16 @@ juri_vocab_term_detail = JuriVocabTermViewSet.as_view({
     'delete': 'destroy'
 })
 
-urlpatterns += format_suffix_patterns([
-    path('api/terms/', juri_list, name='jurisdiction-list'),
-    path('api/terms/<name>', juri_detail, name='jurisdiction-detail'),
-    path('api/terms/<name>/', juri_vocab_list, name='jurisdiction-vocab-list'),
-    path('api/terms/<jurisdiction__name>/<name>', juri_vocab_detail, name='jurisdiction-vocab-detail'),
-    path('api/terms/<jurisdiction__name>/<name>/', juri_vocab_term_list, name='jurisdiction-vocab-term-list'),
-    path('api/terms/<vocabulary__jurisdiction__name>/<vocabulary__name>/<path>', juri_vocab_term_detail, name='jurisdiction-vocab-term-detail'),
+urlpatterns = format_suffix_patterns([
+    path('terms/', juri_list, name='api-juri-list'),
+    path('terms/<name>', juri_detail, name='api-juri-detail'),
+    path('terms/<name>/', juri_vocab_list, name='api-juri-vocab-list'),  # -> juri_vocab_create
+    path('terms/<jurisdiction__name>/<name>', juri_vocab_detail, name='api-juri-vocab-detail'),
+    path('terms/<jurisdiction__name>/<name>/', juri_vocab_term_list, name='api-juri-vocab-term-list'), # -> juri_vocab_term_create
+    path('terms/<vocabulary__jurisdiction__name>/<vocabulary__name>/<path>', juri_vocab_term_detail, name='api-juri-vocab-term-detail'),
 ])
 
+
+urlpatterns += [
+    path('admin/',  admin.site.urls),
+]
