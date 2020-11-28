@@ -1,32 +1,45 @@
-<html>
-    <head>
-        <title>{{ object }}</title>
-    </head>
-<body>    
-    <a href="https://www.json.org" title="JSON">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/JSON_vector_logo.svg/60px-JSON_vector_logo.svg.png"
-             style="border:0px;width:64px;height:59.5px;" alt="JSON Logo" />
-    </a>    
-    <a href="https://json-ld.org/" title="JSON-LD">
-        <img src="https://json-ld.org/images/json-ld-logo-64.png"
-             style="border:0px;width:64px;height:59.5px;" alt="JSON-LD Logo" />
-    </a>
-    <a href="http://www.w3.org/RDF/" title="RDF Resource Description Framework">
-        <img src="http://www.w3.org/RDF/icons/rdf_w3c_icon.64" 
-             style="border:0px;" alt="RDF Resource Description Framework Logo"/>
-    </a>
+{% extends "standards/base.html" %}
 
-    <h1>{{ object.name }} (Jurisdiction)</h1>
-    <ul>
-        <li>{{ object.display_name }}</li>
-        <li>{{ object.id }}</li>
-    </ul>
+{% block extrahead %}
+<title>{{ object.name }} (Jurisdiction)</title>
+{% endblock %}
+
+
+{% block maincontent %}
+<div class="container">
+
+    <span class="float-right badge badge-primary">Jurisdiction</span>
+    <h2>{{ object.name }}</h2>
 
     <hr/>
-    <ul>
-        {% for vocab in object.vocabularies.all %}
-            <li>{{ vocab.name }} - {{ vocab.id }} </li>
+
+    <ul class="skos-property list-group">
+        {% for name, value in object.get_fields %}
+            {% if value %}
+                <li class="list-group-item">
+                    <h5 class="list-group-item-heading">{{ name }}</h5>
+                    <p class="list-group-item-text">
+                        {{ value }}
+                    </p>
+                </li>
+            {% endif %}
         {% endfor %}
+
+        <li class="list-group-item">
+            <h5 class="list-group-item-heading">vocabularies</h5>
+            <ul>
+            {% for vocab in object.vocabularies.all %}
+                <li>
+                <a href="/terms/{{ object.name }}/{{ vocab.name }}">
+                    {{ vocab.name }}
+                </a>
+                </li>
+            {% endfor %}
+            </ul>
+
+        </li>
+
     </ul>
-</body>
-</html>
+
+</div><!-- /container -->
+{% endblock %}

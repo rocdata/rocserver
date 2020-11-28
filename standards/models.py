@@ -38,6 +38,17 @@ class Jurisdiction(models.Model):
     def __str__(self):
         return self.name + ' (id=' + self.id.__str__()[0:7] +')'
 
+    def get_absolute_url(self):
+        return "/terms/" + self.name
+
+    def get_fields(self):
+        fields = [('uri', self.get_absolute_url())]      # for display in HTML
+        for field in Jurisdiction._meta.fields:
+            if getattr(self, field.name):
+                fields.append(
+                    (field.name, field.value_to_string(self))
+                )
+        return fields
 
 
 class UserProfile(models.Model):
@@ -83,6 +94,18 @@ class ControlledVocabulary(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return "/terms/" + self.jurisdiction.name + '/' + self.name
+
+    def get_fields(self):
+        fields = [('uri', self.get_absolute_url())]      # for display in HTML
+        for field in ControlledVocabulary._meta.fields:
+            if getattr(self, field.name):
+                fields.append(
+                    (field.name, field.value_to_string(self))
+                )
+        return fields
+
 
 class Term(models.Model):
     """
@@ -113,11 +136,8 @@ class Term(models.Model):
 
 
     def get_term_path(self):
-        if self.parent:
-            raise NotImplementedError('TODO')
-        else:
-            v = self.vocabulary
-            return '/'.join([v.jurisdiction.name, v.name, self.path])
+        v = self.vocabulary
+        return '/'.join([v.jurisdiction.name, v.name, self.path])
 
     def get_absolute_url(self):
         return "/terms/" + self.get_term_path()
@@ -142,6 +162,14 @@ class Term(models.Model):
     def __str__(self):
         return self.vocabulary.name + '/' + self.path
 
+    def get_fields(self):
+        fields = [('uri', self.get_absolute_url())]      # for display in HTML
+        for field in Term._meta.fields:
+            if getattr(self, field.name):
+                fields.append(
+                    (field.name, field.value_to_string(self))
+                )
+        return fields
 
 
 TERMREL_KINDS = Choices(

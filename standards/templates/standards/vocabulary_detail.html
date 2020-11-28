@@ -1,14 +1,45 @@
-<html>
-    <head>
-        <title>juri:{{ object.name }}</title>
-    </head>
-    <body>
-        <h1>{{ object.jurisdiction.name }}/{{ object.name }} (Controlled vocabulary)</h1>
-        <ul>
-            <li>{{ object.label }}</li>
-            <li>id = {{ object.id }}</li>
-            <li>date_created = {{ object.date_created }}</li>
-            <li>last_modified = {{ object.date_modified }}</li>
-        </ul>
-    </body>
-</html>
+{% extends "standards/base.html" %}
+
+{% block extrahead %}
+<title>{{ object.jurisdiction.name }}/{{ object.name }} (Controlled vocabulary)</title>
+{% endblock %}
+
+
+{% block maincontent %}
+<div class="container">
+
+    <span class="float-right badge badge-primary">ControlledVocabulary</span>
+    <h2>{{ object.jurisdiction.name }}/{{ object.name }}</h2>
+
+    <hr/>
+
+    <ul class="skos-property list-group">
+        {% for name, value in object.get_fields %}
+            {% if value %}
+                <li class="list-group-item">
+                    <h5 class="list-group-item-heading">{{ name }}</h5>
+                    <p class="list-group-item-text">
+                        {{ value }}
+                    </p>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        <li class="list-group-item">
+            <h5 class="list-group-item-heading">terms</h5>
+            <ul>
+            {% for term in object.terms.all %}
+                <li>
+                <a href="/terms/{{ object.jurisdiction.name }}/{{ object.name }}/{{ term.path }}">
+                    {{ term.path }}
+                </a>
+                </li>
+            {% endfor %}
+            </ul>
+
+        </li>
+
+    </ul>
+
+</div><!-- /container -->
+{% endblock %}
