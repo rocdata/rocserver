@@ -81,6 +81,7 @@ class ControlledVocabulary(models.Model):
     description = models.TextField(blank=True, null=True, help_text="Explain where this vocab. is used")
     language = models.CharField(max_length=20, blank=True, null=True, help_text="BCP47/RFC5646 codes like en, es, fr-CA.")
     # metadata
+    source = models.TextField(blank=True, null=True, help_text="Where is this vocabulary defined?")
     notes = models.TextField(blank=True, null=True, help_text="Comments and notes about this vocabulary")
     creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True,
                                 related_name="vocabularies", on_delete=models.SET_NULL)

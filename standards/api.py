@@ -69,9 +69,6 @@ class JuriViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
 
 class JuriVocabViewSet(MultipleFieldLookupMixin, CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     queryset = ControlledVocabulary.objects.select_related('jurisdiction').all()
-    for vocab in queryset:
-        print(vocab.__dict__)
-        print(vocab.jurisdiction.__dict__)
     lookup_fields = ["jurisdiction__name", "name"]
     serializer_class = ControlledVocabularySerializer
     template_name = 'standards/vocabulary_detail.html'
