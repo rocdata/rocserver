@@ -28,7 +28,7 @@ class Jurisdiction(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     # data
     display_name = models.CharField(max_length=200, help_text="Official name of the organization or government body")
-    name = models.CharField(max_length=200, help_text="the name used in URIs")
+    name = models.CharField(max_length=200, unique=True, help_text="the name used in URIs")
     country = CountryField(blank=True, help_text='Country of jurisdiction')
     alt_name = models.CharField(max_length=200, blank=True, null=True, help_text="Alternative name")
     language = models.CharField(max_length=20, blank=True, null=True,
@@ -88,8 +88,9 @@ class ControlledVocabulary(models.Model):
     date_modified = models.DateTimeField(auto_now=True)
     extra_fields = models.JSONField(default=dict, blank=True)  # for extensibility
 
-    class Meta: 
+    class Meta:
         verbose_name_plural = 'Controlled vocabularies'
+        unique_together = [['jurisdiction', 'name']]
 
     def __str__(self):
         return self.name
@@ -134,6 +135,8 @@ class Term(models.Model):
     date_modified = models.DateTimeField(auto_now=True)
     extra_fields = models.JSONField(default=dict, blank=True)  # for extensibility
 
+    class Meta:
+        unique_together = [['vocabulary', 'path']]
 
     def get_absolute_url(self):
         v = self.vocabulary
@@ -211,8 +214,6 @@ class TermRelation(models.Model):
 
 # CROSSWALKS
 ################################################################################
-
-
 
 
 
