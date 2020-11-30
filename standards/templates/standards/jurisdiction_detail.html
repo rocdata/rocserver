@@ -8,8 +8,15 @@
 {% block maincontent %}
 <div class="container">
 
+    <div class="float-right">
+        Data also available as:
+        <a href="{{ request.path }}?format=json" title="JSON">JSON</a>,
+        <a href="{{ request.path }}?format=api" title="REST API">REST API</a>.
+    </div>
+    <div class="clearfix"></div>
     <span class="float-right badge badge-primary">Jurisdiction</span>
     <h2>{{ object.name }}</h2>
+
 
     <hr/>
 
