@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from standards.api import JuriViewSet, JuriVocabViewSet, JuriVocabTermViewSet
@@ -63,6 +63,7 @@ urlpatterns = format_suffix_patterns([
     path('terms/<jurisdiction__name>/<name>', juri_vocab_detail, name='api-juri-vocab-detail'),
     path('terms/<jurisdiction__name>/<name>/', juri_vocab_term_list, name='api-juri-vocab-term-list'), # -> juri_vocab_term_create
     path('terms/<vocabulary__jurisdiction__name>/<vocabulary__name>/<path>', juri_vocab_term_detail, name='api-juri-vocab-term-detail'),
+    re_path(r'^terms/(?P<vocabulary__jurisdiction__name>\w*)/(?P<vocabulary__name>\w*)/(?P<path>[\w/]*)', juri_vocab_term_detail, name='api-juri-vocab-term-detail'),
 ])
 
 

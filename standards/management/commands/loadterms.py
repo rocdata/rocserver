@@ -34,15 +34,9 @@ class Command(BaseCommand):
         Process the `termsdata` (dict) to create ControlledVocabulary and Terms.
         """
         assert termsdata['type'] == 'ControlledVocabulary'
-        # 
+        # vocab check
         vocab_language = ensure_language_code(termsdata.get('language', 'en'))
-        #
-        country_raw = termsdata.get('country', None)
-        if country_raw:
-            country = pycountry.countries.lookup(country_raw).alpha_2
-        else:
-            country = None
-        #
+        # load jurisdiction
         jurisdiction_name = termsdata['jurisdiction']
         if 'jurisdiction' in options and options['jurisdiction']:
             jurisdiction_name = options['jurisdiction']
@@ -52,9 +46,20 @@ class Command(BaseCommand):
             print('Jurisdiction', jurisdiction_name, 'does not exist yet')
             print('Use the ./manage.py createjurisdiction command')
             sys.exit(-5)
-
+        # country check
+        country_raw = termsdata.get('country', None)
+        if country_raw:
+            vocab_country = pycountry.countries.lookup(country_raw).alpha_2
+        else:
+            vocab_country = None
+        assert juri.country.code == vocab_country, 'vocab country code differs from Jurisdiction country code'
+        # get or create vocab
         vocab_name = termsdata['name'].strip()
-        vocab = ControlledVocabulary.objects.get(name=vocab_name, jurisdiction=juri)
+        try:
+            vocab = ControlledVocabulary.objects.get(name=vocab_name, jurisdiction=juri)
+        except ControlledVocabulary.DoesNotExist:
+            vocab = None
+
         if vocab and not options['overwrite']:
             print('Vocabulary', vocab, 'already exist. Use --overwrite to overwrite.')
             sys.exit(-6)
@@ -62,7 +67,6 @@ class Command(BaseCommand):
             vocab.label = termsdata.get('label') or termsdata['title']
             vocab.description = termsdata.get('description')
             vocab.source = termsdata.get('source')
-            vocab.country = country
             vocab.save()
             print('Vocab', vocab, 'already exists; overwriting terms.')
             Term.objects.filter(vocabulary=vocab).delete()
@@ -73,17 +77,16 @@ class Command(BaseCommand):
                 description=termsdata.get('description'),
                 language=vocab_language,
                 source=termsdata.get('source'),
-                country=country,
                 jurisdiction=juri,
             )
             vocab.save()
             print('Created vocab:', vocab)
 
         print('Adding', len(termsdata['terms']), 'terms to vocab...')
-        for idx, term_dict in enumerate(termsdata['terms']):
+        for idxi, term_dict in enumerate(termsdata['terms']):
             term_path = term_dict['term'].strip()
-            label = term_dict.get('label') or name.title()
-            term_language_raw = termsdata.get('language', None)
+            label = term_dict.get('label') or term_path
+            term_language_raw = term_dict.get('language', None)
             if term_language_raw:
                 term_language = ensure_language_code(term_language_raw)
             else:
@@ -92,7 +95,7 @@ class Command(BaseCommand):
                 path=term_path,                        # TODO: check if URL-safe
                 label=label,
                 vocabulary=vocab,
-                sort_order=float(idx+1),
+                sort_order=float(idxi+1),
                 language=term_language,
             )
             OPTIONAL_ATTRS = ['definition', 'notes', 'alt_label', 'hidden_label']
@@ -101,6 +104,33 @@ class Command(BaseCommand):
                 if val:
                     setattr(term, attr, val)
             term.save()
+
+            if 'children' in term_dict:
+                for idxj, subterm_dict in enumerate(term_dict['children']):
+                    subterm_path = term_path + '/' + subterm_dict['term'].strip()
+                    subterm_label = subterm_dict.get('label') or subterm_dict['term'].strip()
+                    subterm_language_raw = subterm_dict.get('language', None)
+                    if subterm_language_raw:
+                        subterm_language = ensure_language_code(subterm_language_raw)
+                    else:
+                        subterm_language = vocab_language
+                    subterm = Term(
+                        path=subterm_path,             # TODO: check if URL-safe
+                        label=subterm_label,
+                        vocabulary=vocab,
+                        sort_order=float(idxj+1),
+                        language=subterm_language,
+                    )
+                    OPTIONAL_ATTRS = ['definition', 'notes', 'alt_label', 'hidden_label']
+                    for attr in OPTIONAL_ATTRS:
+                        val = subterm_dict.get(attr)
+                        if val:
+                            setattr(subterm, attr, val)
+                    subterm.save()
+
+                    if 'children' in subterm_dict:
+                        raise NotImplementedError('Loading deeply nexted vocabularies not supported yet.')
+
 
         print('DONE')
 
