@@ -22,7 +22,13 @@ pip install -r requirements.txt
 ./manage.py createsuperuser
 ```
 
+
 ## Load global vocabularies
+
+```
+./manage.py loadterms data/terms/TermRelationKinds.yml
+```
+
 
 
 ## Load sample fixtures
