@@ -135,16 +135,12 @@ class Term(models.Model):
     extra_fields = models.JSONField(default=dict, blank=True)  # for extensibility
 
 
-    def get_term_path(self):
-        v = self.vocabulary
-        return '/'.join([v.jurisdiction.name, v.name, self.path])
-
     def get_absolute_url(self):
-        return "/terms/" + self.get_term_path()
+        v = self.vocabulary
+        return "/terms/" + v.jurisdiction.name + '/' + v.name + '/' + self.path
 
     @property
     def uri(self):
-        "Canonical URI for term eg. https://vd.link/terms/Ghana/SubjectAreas/PE"
         return self.get_absolute_url()
 
     def get_parent(self):
@@ -172,13 +168,14 @@ class Term(models.Model):
         return fields
 
 
+
 TERMREL_KINDS = Choices(
     # skos:semanticRelation (within-vocabulary links)
     ('broader',      'has parent (a broader term)'),
     ('narrower',     'has child (a more specific term)'),
     ('related',      'has related term (same vocabulary)'),
     # skos:mappingRelation (links to other vocabularies including external URIs)
-    ('exactMatch',   'matches exactly'),        # 100% identity matches (FKs)
+    ('exactMatch',   'matches exactly'),        # 100% identity matches
     ('closeMatch',   'matches closely'),        # 80% match (subjective)
     ('relatedMatch', 'source and target are related and of similar size'),
     ('broadMatch',   'source is related to a subset of the target'),
@@ -187,7 +184,7 @@ TERMREL_KINDS = Choices(
 
 class TermRelation(models.Model):
     """
-    A relation between two Terms (`source` and `target`) or a source Terms and
+    A relation between two Terms (`source` and `target`) or a source Term and
     an external target URI (`target_uri`).
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
