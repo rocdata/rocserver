@@ -45,9 +45,7 @@ class Jurisdiction(models.Model):
         fields = [('uri', self.get_absolute_url())]      # for display in HTML
         for field in Jurisdiction._meta.fields:
             if getattr(self, field.name):
-                fields.append(
-                    (field.name, field.value_to_string(self))
-                )
+                fields.append((field.name, field.value_to_string(self)))
         return fields
 
 
@@ -103,9 +101,7 @@ class ControlledVocabulary(models.Model):
         fields = [('uri', self.get_absolute_url())]      # for display in HTML
         for field in ControlledVocabulary._meta.fields:
             if getattr(self, field.name):
-                fields.append(
-                    (field.name, field.value_to_string(self))
-                )
+                fields.append((field.name, field.value_to_string(self)))
         return fields
 
 
@@ -166,9 +162,7 @@ class Term(models.Model):
         fields = [('uri', self.get_absolute_url())]      # for display in HTML
         for field in Term._meta.fields:
             if getattr(self, field.name):
-                fields.append(
-                    (field.name, field.value_to_string(self))
-                )
+                fields.append((field.name, field.value_to_string(self)))
         return fields
 
 
