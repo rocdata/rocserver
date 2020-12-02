@@ -57,14 +57,22 @@ juri_vocab_term_detail = JurisdictionVocabularyTermViewSet.as_view({
 })
 
 urlpatterns = format_suffix_patterns([
+    #
+    # jurisdiction CRUD
     path('terms/', juri_list, name='api-juri-list'),
-    path('terms/<name>', juri_detail, name='api-juri-detail'),
+    re_path(r'^terms/(?P<name>\w*)$',
+            juri_detail, name='api-juri-detail'),
+    #
+    # vocab CRUD  (in jurisdiction)
     path('terms/<name>/', juri_vocab_list, name='api-juri-vocab-list'),  # -> juri_vocab_create
-    path('terms/<jurisdiction__name>/<name>', juri_vocab_detail, name='api-juri-vocab-detail'),
+    re_path(r'^terms/(?P<jurisdiction__name>\w*)/(?P<name>\w*)$',
+            juri_vocab_detail, name='api-juri-vocab-detail'),
     path('terms/<jurisdiction__name>/<name>/', juri_vocab_term_list, name='api-juri-vocab-term-list'), # -> juri_vocab_term_create
-    path('terms/<vocabulary__jurisdiction__name>/<vocabulary__name>/<path>', juri_vocab_term_detail, name='api-juri-vocab-term-detail'),
-    re_path(r'^terms/(?P<vocabulary__jurisdiction__name>\w*)/(?P<vocabulary__name>\w*)/(?P<path>[\w/]*)', juri_vocab_term_detail, name='api-juri-vocab-term-detail'),
-])
+    #
+    # term CRUD (in vocab, in jurisdiction)
+    re_path(r'^terms/(?P<vocabulary__jurisdiction__name>\w*)/(?P<vocabulary__name>\w*)/(?P<path>[\w/]*)$',
+            juri_vocab_term_detail, name='api-juri-vocab-term-detail'),
+], allowed=['json', 'html'])
 
 
 urlpatterns += [
