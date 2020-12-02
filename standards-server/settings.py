@@ -130,3 +130,15 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
     )
 }
+
+
+APPEND_SLASH = False
+
+
+if DEBUG:
+    INTERNAL_IPS = ['127.0.0.1']
+    INSTALLED_APPS += [
+        'debug_toolbar',
+    ]
+    MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware'] + MIDDLEWARE
+    TEMPLATES[0]['OPTIONS']['context_processors'] = ['django.template.context_processors.debug'] + TEMPLATES[0]['OPTIONS']['context_processors']
