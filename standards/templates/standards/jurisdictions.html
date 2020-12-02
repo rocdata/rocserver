@@ -1,0 +1,37 @@
+{% extends "standards/base.html" %}
+
+{% block extrahead %}
+<title>List of all controlled vocabularies in jurisdiction</title>
+{% endblock %}
+
+
+{% block maincontent %}
+<div class="container">
+
+    <div class="float-right">
+        Data also available as:
+        <a href="{{ request.path }}?format=json" title="JSON">JSON</a>,
+        <a href="{{ request.path }}?format=api" title="REST API">REST API</a>.
+    </div>
+
+
+    <div class="clearfix"></div>
+    <span class="float-right badge badge-primary">list of ControlledVocabulary</span>
+    <h2>List of all controlled vocabularies in jurisdiction</h2>
+
+    <hr/>
+
+    <ul>
+        {% for vocab in results %}
+            <li>
+            <a href="/terms/{{ vocab.jurisdiction.name }}/{{ vocab.name }}">
+                {{ vocab.name }}
+            </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+
+
+</div><!-- /container -->
+{% endblock %}

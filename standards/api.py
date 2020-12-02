@@ -47,7 +47,22 @@ class CustomHTMLRendererRetrieve:
     Custom reteive method that skips the serialization when rendering HTML, via
     django-rest-framework.org/api-guide/renderers/#varying-behaviour-by-media-type
     """
+
+    def list(self, request, *args, **kwargs):
+        """
+        This is used for HTML format of the create-list endpoints (ending in /).
+        """
+        if request.accepted_renderer.format == 'html':
+            queryset = self.filter_queryset(self.get_queryset())
+            data = {'results': queryset}
+            return Response(data, template_name=self.list_template_name)
+        return super().list(request, *args, **kwargs)
+
+
     def retrieve(self, request, *args, **kwargs):
+        """
+        This is used for HTML format of details endpoints.
+        """
         instance = self.get_object()
         if request.accepted_renderer.format == 'html':
             data = {'object': instance}
@@ -57,26 +72,30 @@ class CustomHTMLRendererRetrieve:
 
 
 
-# HEARARCHICAL API    /terms/{juri_name}/{vocab_name}/{term_path}
+# HEARARCHICAL API    /terms/{juri_name}/{vocab}/{term.path}
 ################################################################################
 
 class JuriViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     queryset = Jurisdiction.objects.all()
     serializer_class = JurisdictionSerializer
     lookup_field = "name"
-    template_name = 'standards/jurisdiction_detail.html'
+    list_template_name = 'standards/jurisdictions.html'         # /terms/
+    template_name = 'standards/jurisdiction_detail.html'        # /terms/{juri}
 
 
 class JuriVocabViewSet(MultipleFieldLookupMixin, CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     queryset = ControlledVocabulary.objects.select_related('jurisdiction').all()
     lookup_fields = ["jurisdiction__name", "name"]
     serializer_class = ControlledVocabularySerializer
-    template_name = 'standards/vocabulary_detail.html'
+    list_template_name = 'standards/jurisdiction_vocabularies.html'  # /terms/{juri}/
+    template_name = 'standards/vocabulary_detail.html'               # /terms/{juri}/{vocab}
 
 
 class JuriVocabTermViewSet(MultipleFieldLookupMixin, CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     queryset = Term.objects.all()
     lookup_fields = ["vocabulary__jurisdiction__name", "vocabulary__name", "path"]
     serializer_class = TermSerializer
-    template_name = 'standards/term_detail.html'
+    list_template_name = 'standards/vocabulary_terms.html'       # /terms/{juri}/{vocab}/
+    template_name = 'standards/term_detail.html'                 # /terms/{juri}/{vocab}/{term.path}
+
 
