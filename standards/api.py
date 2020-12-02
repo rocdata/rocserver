@@ -35,7 +35,7 @@ class MultipleFieldLookupMixin:
         queryset = self.filter_queryset(queryset)  # Apply any filter backends
         filter = {}
         for field in self.lookup_fields:
-            if self.kwargs[field]: # Ignore empty fields.
+            if self.kwargs[field]:                  # Ignore empty fields.
                 filter[field] = self.kwargs[field]
         obj = get_object_or_404(queryset, **filter)  # Lookup the object
         self.check_object_permissions(self.request, obj)
@@ -47,17 +47,6 @@ class CustomHTMLRendererRetrieve:
     Custom reteive method that skips the serialization when rendering HTML, via
     django-rest-framework.org/api-guide/renderers/#varying-behaviour-by-media-type
     """
-
-    def list(self, request, *args, **kwargs):
-        """
-        This is used for HTML format of the create-list endpoints (ending in /).
-        """
-        if request.accepted_renderer.format == 'html':
-            queryset = self.filter_queryset(self.get_queryset())
-            data = {'results': queryset}
-            return Response(data, template_name=self.list_template_name)
-        return super().list(request, *args, **kwargs)
-
 
     def retrieve(self, request, *args, **kwargs):
         """
@@ -79,23 +68,51 @@ class JuriViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     queryset = Jurisdiction.objects.all()
     serializer_class = JurisdictionSerializer
     lookup_field = "name"
-    list_template_name = 'standards/jurisdictions.html'         # /terms/
-    template_name = 'standards/jurisdiction_detail.html'        # /terms/{juri}
+    template_name = 'standards/jurisdiction_detail.html'         # /terms/{juri}
+
+
+    def list(self, request, *args, **kwargs):                    # /terms/
+        """Used for HTML format of the jurisdiction create-list endpoint."""
+        if request.accepted_renderer.format == 'html':
+            queryset = self.filter_queryset(self.get_queryset())
+            data = {'jurisdictions': queryset}
+            return Response(data, template_name='standards/jurisdictions.html')
+        return super().list(request, *args, **kwargs)
+
+
 
 
 class JuriVocabViewSet(MultipleFieldLookupMixin, CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     queryset = ControlledVocabulary.objects.select_related('jurisdiction').all()
     lookup_fields = ["jurisdiction__name", "name"]
     serializer_class = ControlledVocabularySerializer
-    list_template_name = 'standards/jurisdiction_vocabularies.html'  # /terms/{juri}/
-    template_name = 'standards/vocabulary_detail.html'               # /terms/{juri}/{vocab}
+    template_name = 'standards/vocabulary_detail.html'           # /terms/{juri}/{vocab}
+
+
+    def list(self, request, *args, **kwargs):                    # /terms/{juri}/
+        """Used for HTML format of the vocabulary create-list endpoint."""
+        if request.accepted_renderer.format == 'html':
+            juri = Jurisdiction.objects.get(name=kwargs['name'])
+            queryset = self.filter_queryset(self.get_queryset())
+            data = {'vocabularies': queryset.filter(jurisdiction=juri)}
+            return Response(data, template_name='standards/jurisdiction_vocabularies.html')
+        return super().list(request, *args, **kwargs)
+
 
 
 class JuriVocabTermViewSet(MultipleFieldLookupMixin, CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     queryset = Term.objects.all()
     lookup_fields = ["vocabulary__jurisdiction__name", "vocabulary__name", "path"]
     serializer_class = TermSerializer
-    list_template_name = 'standards/vocabulary_terms.html'       # /terms/{juri}/{vocab}/
     template_name = 'standards/term_detail.html'                 # /terms/{juri}/{vocab}/{term.path}
 
 
+    def list(self, request, *args, **kwargs):                    # /terms/{juri}/{vocab}/
+        """Used for HTML format of the term create-list endpoint."""
+        if request.accepted_renderer.format == 'html':
+            juri = Jurisdiction.objects.get(name=kwargs['jurisdiction__name'])
+            vocab = ControlledVocabulary.objects.get(name=kwargs['name'])
+            queryset = self.filter_queryset(self.get_queryset())
+            data = {'terms': queryset.filter(vocabulary__jurisdiction=juri, vocabulary=vocab)}
+            return Response(data, template_name='standards/vocabulary_terms.html')
+        return super().list(request, *args, **kwargs)

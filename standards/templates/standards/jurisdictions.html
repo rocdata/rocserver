@@ -1,7 +1,7 @@
 {% extends "standards/base.html" %}
 
 {% block extrahead %}
-<title>List of all controlled vocabularies in jurisdiction</title>
+<title>List of all jurisdictions</title>
 {% endblock %}
 
 
@@ -16,16 +16,16 @@
 
 
     <div class="clearfix"></div>
-    <span class="float-right badge badge-primary">list of ControlledVocabulary</span>
-    <h2>List of all controlled vocabularies in jurisdiction</h2>
+    <span class="float-right badge badge-primary">list of Jurisdiction</span>
+    <h2>List of all jurisdictions</h2>
 
     <hr/>
 
     <ul>
-        {% for vocab in results %}
+        {% for juri in jurisdictions %}
             <li>
-            <a href="/terms/{{ vocab.jurisdiction.name }}/{{ vocab.name }}">
-                {{ vocab.name }}
+            <a href="/terms/{{ juri.name }}">
+                {{ juri.name }}
             </a>
             </li>
         {% endfor %}
