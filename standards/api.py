@@ -64,7 +64,7 @@ class CustomHTMLRendererRetrieve:
 # HEARARCHICAL API    /terms/{juri_name}/{vocab}/{term.path}
 ################################################################################
 
-class JuriViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
+class JurisdictionViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     queryset = Jurisdiction.objects.all()
     serializer_class = JurisdictionSerializer
     lookup_field = "name"
@@ -82,7 +82,7 @@ class JuriViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
 
 
 
-class JuriVocabViewSet(MultipleFieldLookupMixin, CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
+class JurisdictionVocabularyViewSet(MultipleFieldLookupMixin, CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     queryset = ControlledVocabulary.objects.select_related('jurisdiction').all()
     lookup_fields = ["jurisdiction__name", "name"]
     serializer_class = ControlledVocabularySerializer
@@ -100,7 +100,7 @@ class JuriVocabViewSet(MultipleFieldLookupMixin, CustomHTMLRendererRetrieve, vie
 
 
 
-class JuriVocabTermViewSet(MultipleFieldLookupMixin, CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
+class JurisdictionVocabularyTermViewSet(MultipleFieldLookupMixin, CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     queryset = Term.objects.all()
     lookup_fields = ["vocabulary__jurisdiction__name", "vocabulary__name", "path"]
     serializer_class = TermSerializer

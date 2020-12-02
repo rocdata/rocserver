@@ -17,39 +17,39 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from standards.api import JuriViewSet, JuriVocabViewSet, JuriVocabTermViewSet
+from standards.api import JurisdictionViewSet, JurisdictionVocabularyViewSet, JurisdictionVocabularyTermViewSet
 
 
 # HEARARCHICAL API   /api/terms/{juri_name}/{vocab_name}/{term_path}
 ################################################################################
 
-juri_list = JuriViewSet.as_view({
+juri_list = JurisdictionViewSet.as_view({
     'get': 'list',
     'post': 'create'
 })
-juri_detail = JuriViewSet.as_view({
+juri_detail = JurisdictionViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
     'patch': 'partial_update',
     'delete': 'destroy'
 })
 
-juri_vocab_list = JuriVocabViewSet.as_view({
+juri_vocab_list = JurisdictionVocabularyViewSet.as_view({
     'get': 'list',
     'post': 'create'
 })
-juri_vocab_detail = JuriVocabViewSet.as_view({
+juri_vocab_detail = JurisdictionVocabularyViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
     'patch': 'partial_update',
     'delete': 'destroy'
 })
 
-juri_vocab_term_list = JuriVocabTermViewSet.as_view({
+juri_vocab_term_list = JurisdictionVocabularyTermViewSet.as_view({
     'get': 'list',
     'post': 'create'
 })
-juri_vocab_term_detail = JuriVocabTermViewSet.as_view({
+juri_vocab_term_detail = JurisdictionVocabularyTermViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
     'patch': 'partial_update',
