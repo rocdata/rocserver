@@ -26,11 +26,70 @@ env.DOCKER_HOST = "ssh://ivan@35.203.84.59"
 
 
 
+# DEV TASKS
+################################################################################
 
 @task
-def reset_n_load():
+def reset_and_migrate():
+    """
+    Completely delete the local DB and start from scratch (empty tables).
+    """
     local('./manage.py reset_db')
+    local('trash standards/migrations/00*py')
+    local('./manage.py makemigrations')
     local('./manage.py migrate')
+    # TODO: load admin superuser fixture?
+
+@task
+def graph_models(subsets="terms;frameworks;content"):
+    """
+    Generate a graphviz visualization for models.py
+    see https://django-extensions.readthedocs.io/en/latest/graph_models.html
+    """
+
+    cmd = './manage.py graph_models standards -g '
+
+    subsets_to_include = subsets.split(';')
+    models_to_include = []
+    if 'terms' in subsets_to_include:
+        models_to_include.extend([
+            'Jurisdiction',
+            'UserProfile',
+            'ControlledVocabulary',
+            'Term',
+            'TermRelation',
+        ])
+    if 'frameworks' in subsets_to_include:
+        models_to_include.extend([
+            'Framework',
+            'FrameworkNode',
+            'FrameworkCrosswalk',
+            'AlignmentEdge',
+        ])
+    if 'content' in subsets_to_include:
+        models_to_include.extend([
+            'ContentSource',
+            'ContentCollection',
+            'ContentNode',
+            'ContentNodeRelation',
+            'ContentCorrelation',
+            'ContentCorrelationEdge',
+        ])
+    cmd += ' -I ' + ','.join(models_to_include)
+    outfilename = 'standards_models__' + '_'.join(subsets_to_include) + '.png'
+    cmd += ' -o ' + outfilename
+    local(cmd)
+    print(green('Models graph generated. See file ' + outfilename))
+
+
+@task
+def load_jurisdictions():
+    pass
+
+@task
+def load_terms():
+    load_jurisdictions()
+    local('./manage.py loadterms "https://raw.githubusercontent.com/GROCCAD/standards-ghana/main/terms/KeyPhases.yml" --overwrite')
 
 
 

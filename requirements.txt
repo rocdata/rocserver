@@ -26,9 +26,14 @@ gunicorn==20.0.4
 # dev
 pytest-django
 django_debug_toolbar
-django-extensions
 ipython
 pyflakes
+
+# django extensions tools
+django-extensions
+pydot==1.4.1
+pyparsing==2.4.7
+
 
 # devops
 python-dotenv==0.14.0

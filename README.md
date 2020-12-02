@@ -17,8 +17,7 @@ pip install -r requirements.txt
 ## Local dev setup
 
 ```
-./manage.py makemigrations
-./manage.py migrate
+fab reset_and_migrate
 ./manage.py createsuperuser
 ```
 
@@ -32,9 +31,6 @@ pip install -r requirements.txt
 
 
 ## Load sample fixtures
-
-
-
 
 
 
