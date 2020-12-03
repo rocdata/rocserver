@@ -101,7 +101,7 @@ class JurisdictionVocabularyViewSet(MultipleFieldLookupMixin, CustomHTMLRenderer
 
 
 class JurisdictionVocabularyTermViewSet(MultipleFieldLookupMixin, CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
-    queryset = Term.objects.all()
+    queryset = Term.objects.select_related('vocabulary', 'vocabulary__jurisdiction').all()
     lookup_fields = ["vocabulary__jurisdiction__name", "vocabulary__name", "path"]
     serializer_class = TermSerializer
     template_name = 'standards/term_detail.html'                 # /terms/{juri}/{vocab}/{term.path}
