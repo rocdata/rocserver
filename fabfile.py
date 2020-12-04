@@ -46,9 +46,7 @@ def graph_models(subsets="terms;frameworks;content"):
     Generate a graphviz visualization for models.py
     see https://django-extensions.readthedocs.io/en/latest/graph_models.html
     """
-
     cmd = './manage.py graph_models standards -g '
-
     subsets_to_include = subsets.split(';')
     models_to_include = []
     if 'terms' in subsets_to_include:
@@ -83,14 +81,32 @@ def graph_models(subsets="terms;frameworks;content"):
 
 
 @task
-def load_jurisdictions():
-    pass
+def create_jurisdictions():
+    local('./manage.py createjurisdiction --name Honduras --display_name "Secretaría de Educación de Honduras" --language "es" --country "hn"')
+    local('./manage.py createjurisdiction --name Ghana --display_name "Ghana NaCCA" --language "en" --country "gn"')
 
 @task
 def load_terms():
-    load_jurisdictions()
-    local('./manage.py loadterms "https://raw.githubusercontent.com/GROCCAD/standards-ghana/main/terms/KeyPhases.yml" --overwrite')
-
+    with settings(warn_only=True), hide('stdout', 'stderr', 'warnings'):
+        create_jurisdictions()
+    ALL_TERMS_FILES = [
+        # Ghana
+        "https://raw.githubusercontent.com/GROCCAD/standards-ghana/main/terms/Values.yml",
+        "https://raw.githubusercontent.com/GROCCAD/standards-ghana/main/terms/CoreCompetencies.yml",
+        "https://raw.githubusercontent.com/GROCCAD/standards-ghana/main/terms/KeyPhases.yml",
+        "https://raw.githubusercontent.com/GROCCAD/standards-ghana/main/terms/CurriculumElements.yml",
+        "https://raw.githubusercontent.com/GROCCAD/standards-ghana/main/terms/GradeLevels.yml",
+        "https://raw.githubusercontent.com/GROCCAD/standards-ghana/main/terms/Subjects.yml",
+        #
+        # Honduras
+        "https://raw.githubusercontent.com/GROCCAD/standards-honduras/main/terms/Areas.yml",
+        "https://raw.githubusercontent.com/GROCCAD/standards-honduras/main/terms/CurriculumElements.yml",
+        "https://raw.githubusercontent.com/GROCCAD/standards-honduras/main/terms/Grados.yml",
+    ]
+    for terms_url in ALL_TERMS_FILES:
+        if "raw.githubusercontent" in terms_url:
+            terms_url += '?flush_cache=True'  # bypass 5 minute cache
+        local('./manage.py loadterms "{}" --overwrite'.format(terms_url))
 
 
 # PROVISION DOCKER ON REMOTE HOST

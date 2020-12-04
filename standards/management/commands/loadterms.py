@@ -64,7 +64,7 @@ class Command(BaseCommand):
             print('Vocabulary', vocab, 'already exist. Use --overwrite to overwrite.')
             sys.exit(-6)
         if vocab and options['overwrite']:
-            vocab.label = termsdata.get('label') or termsdata['title']
+            vocab.label = termsdata.get('label') if termsdata.get('label') else vocab_name
             vocab.description = termsdata.get('description')
             vocab.source = termsdata.get('source')
             vocab.save()
@@ -73,7 +73,7 @@ class Command(BaseCommand):
         else:
             vocab = ControlledVocabulary(
                 name=vocab_name,                       # TODO: check if URL-safe
-                label=termsdata.get('label') or termsdata['title'],
+                label=termsdata.get('label') if termsdata.get('label') else vocab_name,
                 description=termsdata.get('description'),
                 language=vocab_language,
                 source=termsdata.get('source'),
