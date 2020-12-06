@@ -14,14 +14,16 @@ from django.test import (
 
 from standards.tests.models import (
     UUIDModel,
+    UUIDModelWithPrefix,
     NullableUUIDModel,
     PrimaryKeyUUIDModel,
     RelatedToUUIDModel,
     UUIDChild,
     UUIDGrandchild
 )
-from standards.utils import ShortUUIDField, generate_short_code
-from standards.utils import short_code_to_uuid, uuid_to_short_code
+from standards.fields import ShortUUIDField
+
+from standards.utils import short_code_to_uuid
 
 
 
@@ -31,7 +33,7 @@ from standards.utils import short_code_to_uuid, uuid_to_short_code
 
 class TestSaveLoad(TestCase):
     def test_uuid_instance(self):
-        instance = UUIDModel.objects.create(field=generate_short_code())
+        instance = UUIDModel.objects.create(field=ShortUUIDField.generate_short_code_with_prefix())
         loaded = UUIDModel.objects.get()
         self.assertEqual(loaded.field, instance.field)
 
@@ -60,6 +62,27 @@ class TestSaveLoad(TestCase):
         with self.assertRaisesMessage(exceptions.ValidationError, 'is not a valid shortuuid'):
             UUIDModel.objects.create(field='01')
 
+
+class TestSaveLoadWithPrefix(TestCase):
+
+    def test_auto_generated(self):
+        instance = UUIDModelWithPrefix.objects.create()
+        loaded = UUIDModelWithPrefix.objects.get()
+        self.assertEqual(loaded.field[0:2], 'WP')
+        self.assertEqual(loaded.field, instance.field)
+
+    def test_manual_field_shorter_than_expected(self):
+        UUIDModelWithPrefix.objects.create(field='WPkhLnNzX')
+        loaded = UUIDModelWithPrefix.objects.get()
+        self.assertEqual(loaded.field, 'WPkhLnNzX')
+        self.assertEqual(short_code_to_uuid(loaded.field[2:]), uuid.UUID('00000000-0000-0000-0000-0154e40df060'))
+
+    def test_manual_field(self):
+        UUIDModelWithPrefix.objects.create(field='WPhxFQDpJdcv')
+        loaded = UUIDModelWithPrefix.objects.get()
+        self.assertEqual(loaded.field, 'WPhxFQDpJdcv')
+        self.assertEqual(loaded.field[0:2], 'WP')
+        self.assertEqual(short_code_to_uuid(loaded.field[2:]), uuid.UUID('00000000-0000-0000-0385-809d0d78d5da'))
 
 
 class TestMethods(SimpleTestCase):
@@ -116,6 +139,7 @@ class TestQuerying(TestCase):
         )
 
 
+
 class TestSerialization(SimpleTestCase):
     test_data = (
         '[{"fields": {"field": "JymifvX"}, '
@@ -140,6 +164,7 @@ class TestSerialization(SimpleTestCase):
         self.assertIsNone(instance.field)
 
 
+
 class TestValidation(SimpleTestCase):
     def test_invalid_uuid(self):
         field = ShortUUIDField()
@@ -151,6 +176,7 @@ class TestValidation(SimpleTestCase):
     def test_uuid_instance_ok(self):
         field = ShortUUIDField()
         field.clean('JymifvX', None)  # no error
+
 
 
 class TestAsPrimaryKey(TestCase):
@@ -206,6 +232,7 @@ class TestAsPrimaryKey(TestCase):
         self.assertIsInstance(gc.uuidchild_ptr_id, str)
         gc.refresh_from_db()
         self.assertIsInstance(gc.uuidchild_ptr_id, str)
+
 
 
 class TestAsPrimaryKeyTransactionTests(TransactionTestCase):

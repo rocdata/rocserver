@@ -2,7 +2,8 @@ from functools import partial
 
 from django.db import models
 
-from standards.utils import ShortUUIDField, generate_short_code
+from standards.fields import ShortUUIDField
+
 
 
 # MODEL FIXTURES
@@ -11,11 +12,14 @@ from standards.utils import ShortUUIDField, generate_short_code
 class UUIDModel(models.Model):
     field = ShortUUIDField()
 
+class UUIDModelWithPrefix(models.Model):
+    field = ShortUUIDField(prefix='WP', length=10)
+
 class NullableUUIDModel(models.Model):
     field = ShortUUIDField(blank=True, null=True)
 
 class PrimaryKeyUUIDModel(models.Model):
-    id = ShortUUIDField(primary_key=True, default=partial(generate_short_code, length=7))
+    id = ShortUUIDField(primary_key=True)
 
 class RelatedToUUIDModel(models.Model):
     uuid_fk = models.ForeignKey('PrimaryKeyUUIDModel', models.CASCADE)
