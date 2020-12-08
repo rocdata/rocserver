@@ -82,6 +82,7 @@ def graph_models(subsets="terms;frameworks;content"):
 
 @task
 def create_jurisdictions():
+    local('./manage.py createjurisdiction --name Global --display_name "Global Terms" --language "en" ')
     local('./manage.py createjurisdiction --name Honduras --display_name "Secretaría de Educación de Honduras" --language "es" --country "HN"')
     local('./manage.py createjurisdiction --name Ghana --display_name "Ghana NaCCA" --language "en" --country "GH"')
 

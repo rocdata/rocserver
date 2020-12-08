@@ -31,7 +31,7 @@ class Jurisdiction(models.Model):
     # data
     display_name = models.CharField(max_length=200, help_text="Official name of the organization or government body")
     name = models.CharField(max_length=200, unique=True, help_text="the name used in URIs")
-    country = CountryField(blank=True, help_text='Country of jurisdiction')
+    country = CountryField(blank=True, null=True, help_text='Country of jurisdiction')
     alt_name = models.CharField(max_length=200, blank=True, null=True, help_text="Alternative name")
     language = models.CharField(max_length=20, blank=True, null=True,
                                 help_text="BCP47 lang codes like en, es, fr-CA")

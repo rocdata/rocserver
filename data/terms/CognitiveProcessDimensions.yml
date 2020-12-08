@@ -1,0 +1,44 @@
+type: ControlledVocabulary
+jurisdiction: Global
+name: CognitiveProcessDimensions
+uri: https://qv.link/terms/Global/CognitiveProcessDimensions
+title: Cognitive Process Dimensions
+description: >
+  The cognitive process dimension represents a continuum of increasing cognitive
+  complexity—from remember to create. Anderson and Krathwohl identify 19 specific
+  cognitive processes that further clarify the bounds of the six categories (Anderson and Krathwohl, 2001, p. 67)
+source: https://www.celt.iastate.edu/teaching/effective-teaching-practices/revised-blooms-taxonomy/
+language: en
+country: null
+terms:
+  - term: Remember
+    definition: >
+      recognizing (identifying);
+      recalling (retrieving)
+  - term: Understand
+    definition: >
+      interpreting (clarifying, paraphrasing, representing, translating);
+      exemplifying (illustrating, instantiating);
+      classifying (categorizing, subsuming);
+      summarizing (abstracting, generalizing);
+      inferring (concluding, extrapolating, interpolating, predicting);
+      comparing (contrasting, mapping, matching);
+      explaining (constructing models)
+  - term: Apply
+    definition: >
+      executing (carrying out);
+      implementing (using)
+  - term: Analyze
+    definition: >
+      differentiating (discriminating, distinguishing, focusing, selecting);
+      organizing (finding, coherence, integrating, outlining, parsing, structuring);
+      attributing (deconstructing)
+  - term: Evaluate
+    definition: >
+      checking (coordinating, detecting, monitoring, testing);
+      critiquing (judging)
+  - term: Create
+    definition: >
+      generating (hypothesizing)
+      planning (designing)
+      producing (construct)

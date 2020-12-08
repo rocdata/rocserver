@@ -1,0 +1,48 @@
+type: ControlledVocabulary
+jurisdiction: Global
+name: KnoledgeDimensions
+uri: https://qv.link/terms/Global/KnoledgeDimensions
+title: Knowledge dimensions
+description: >
+  The knowledge dimension represents a range from concrete (factual) to abstract
+  (metacognitive) categories used to classify learning objectives (Anderson and Krathwohl, 2001, p. 44).
+source: https://www.celt.iastate.edu/teaching/effective-teaching-practices/revised-blooms-taxonomy/
+language: en
+country: null
+terms:
+  - term: Factual
+    definition: >
+      knowledge of terminology;
+      knowledge of specific details and elements
+    notes: >
+      Factual knowledge is knowledge of discrete, isolated content elements - "bits of inIorrnation".
+      It indudes knowledge oI terminology and knowledge oI specific details and elements.
+  - term: Conceptual
+    definition: >
+      knowledge of classifications and categories;
+      knowledge of principles and generalizations;
+      knowledge of theories, models, and structures
+    notes: >
+      Conceptual knowledge is knowledge of "more complex, organized knowledge forms".
+      It indudes knowledge of dassifications and categories, principles and
+      generalizations, and theories, models, and structures.
+  - term: Procedural
+    definition: >
+      knowledge of subject-specific skills and algorithms;
+      knowledge of subject-specific techniques and methods;
+      knowledge of criteria for determining when to use appropriate procedures
+    notes: >
+      Procedural knwledge is "knowledge of how to do something".
+      It indudes knowledge of skills and algorithms, techniques and melhods,
+      as well as knowledge of lhe criteria used to determine and/or justify
+      "when lo do what" within specific domains and disciplines.
+  - term: Metacognitive
+    definition: >
+      strategic knowledge;
+      knowledge about cognitive tasks, including appropriate contextual and conditional knowledge;
+      self-knowledge
+    notes: >
+      Metacognitive knowledge is "knowledge about cognition in general as well
+      as awareness of and knowledge about one's own cognition".
+      It encompasses strategic knowledge; knowledge about cognitive tasks,
+      induding contextual and conditional knowledge; and self-knowledge.
