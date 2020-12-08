@@ -38,7 +38,7 @@ def reset_and_migrate():
     local('trash standards/migrations/00*py')
     local('./manage.py makemigrations')
     local('./manage.py migrate')
-    # TODO: load admin superuser fixture?
+    local('./manage.py loaddata data/fixtures/admin_user.yaml')
 
 @task
 def graph_models(subsets="terms;frameworks;content"):
@@ -82,8 +82,8 @@ def graph_models(subsets="terms;frameworks;content"):
 
 @task
 def create_jurisdictions():
-    local('./manage.py createjurisdiction --name Honduras --display_name "Secretaría de Educación de Honduras" --language "es" --country "hn"')
-    local('./manage.py createjurisdiction --name Ghana --display_name "Ghana NaCCA" --language "en" --country "gn"')
+    local('./manage.py createjurisdiction --name Honduras --display_name "Secretaría de Educación de Honduras" --language "es" --country "HN"')
+    local('./manage.py createjurisdiction --name Ghana --display_name "Ghana NaCCA" --language "en" --country "GH"')
 
 @task
 def load_terms():

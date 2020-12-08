@@ -2,7 +2,8 @@ from django.contrib import admin
 
 from standards.models import Jurisdiction, UserProfile
 from standards.models import ControlledVocabulary, Term
-from standards.models import TERMREL_KINDS, TermRelation
+from standards.models import TermRelation
+
 
 
 
@@ -46,5 +47,6 @@ class TermRelationAdmin(admin.ModelAdmin):
     list_display = ["id", "source", "kind", "target_uri", "target", "date_created", "date_modified"]
     list_filter = ("kind", "source", "target", "target_uri")
     search_fields = ["id", "path", "label", "alt_label", "hidden_label", "notation", "definition", "notes"]
+    readonly_fields = ["id"]
     model = TermRelation
 

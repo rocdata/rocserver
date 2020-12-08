@@ -1,0 +1,15 @@
+- model: auth.user
+  pk: 1
+  fields:
+    password: pbkdf2_sha256$216000$x8N5M6dIIuEX$NxOrQIs50s5j8sVkhNiUnreDHIcT8yd3/TVmZHKF2ec=
+    last_login: 2020-11-30 17:41:47.972836+00:00
+    is_superuser: true
+    username: admin
+    first_name: 'Admin'
+    last_name: 'Adminoff'
+    email: admin@groccad.org
+    is_staff: true
+    is_active: true
+    date_joined: 2020-11-26 22:06:33.136652+00:00
+    groups: []
+    user_permissions: []

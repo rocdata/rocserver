@@ -12,7 +12,7 @@ from rest_framework.reverse import reverse
 
 from standards.models import Jurisdiction
 from standards.models import ControlledVocabulary, Term
-from standards.models import TERMREL_KINDS, TermRelation
+from standards.models import TermRelation
 
 
 from standards.serializers import JurisdictionSerializer

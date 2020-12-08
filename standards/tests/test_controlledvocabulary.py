@@ -4,7 +4,7 @@ import pytest
 
 from standards.models import ControlledVocabulary
 from standards.models import Term
-from standards.models import TermRelation, TERMREL_KINDS
+from standards.models import TermRelation, TERM_REL_KINDS
 
 
 # VOCABS
@@ -55,6 +55,6 @@ def test_no_duplicate_terms_within_vocab(vocab):
 def test_terms_relation(vocab):
     b1  = Term.objects.create(path='B1', label='Basic 1', vocabulary=vocab)
     b2  = Term.objects.create(path='B2', label='Basic 2', vocabulary=vocab)
-    rel12 = TermRelation(source=b1, kind=TERMREL_KINDS.related, target=b2)
+    rel12 = TermRelation(source=b1, kind=TERM_REL_KINDS.related, target=b2)
     rel12.save()
     assert rel12.id

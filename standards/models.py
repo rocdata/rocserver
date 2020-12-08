@@ -11,7 +11,9 @@ from django.dispatch import receiver
 from django_countries.fields import CountryField
 from model_utils import Choices
 from rest_framework.authtoken.models import Token
+from standards.fields import ShortUUIDField
 from treebeard.mp_tree import MP_Node
+
 
 
 
@@ -25,7 +27,7 @@ class Jurisdiction(models.Model):
     published, promulgated. Institutions that publish standards include ministries,
     curriculum bodies, an assesment boards, professional organizations, etc.
     """
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = ShortUUIDField(primary_key=True, editable=False, prefix='J')
     # data
     display_name = models.CharField(max_length=200, help_text="Official name of the organization or government body")
     name = models.CharField(max_length=200, unique=True, help_text="the name used in URIs")
@@ -34,12 +36,17 @@ class Jurisdiction(models.Model):
     language = models.CharField(max_length=20, blank=True, null=True,
                                 help_text="BCP47 lang codes like en, es, fr-CA")
     notes = models.TextField(blank=True, null=True, help_text="Public comments and notes about this jurisdiction.")
+    # website_url
 
     def __str__(self):
         return self.name + ' (id=' + self.id.__str__()[0:7] +')'
 
     def get_absolute_url(self):
         return "/terms/" + self.name
+
+    @property
+    def uri(self):
+        return self.get_absolute_url()
 
     def get_fields(self):
         fields = [('uri', self.get_absolute_url())]      # for display in HTML
@@ -69,11 +76,11 @@ class ControlledVocabulary(models.Model):
     A set of controlled terms served under /terms/{juri}/{self.name}/.
     This is a Django model (DB table) that closely resembles skos:ConceptScheme.
     """
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = ShortUUIDField(primary_key=True, editable=False, prefix='V')
     # uri   (e.g. https://groccad.org/terms/{jury}/{self.name})
     jurisdiction = models.ForeignKey(Jurisdiction, related_name="vocabularies", on_delete=models.CASCADE)
     name = models.CharField(max_length=200, help_text="The name used in URIs")
-    label = models.CharField(max_length=200, help_text="Human-readable label" )
+    label = models.CharField(max_length=200, help_text="Human-readable label")
     alt_label = models.CharField(max_length=200, blank=True, null=True, help_text="Alternative label" )
     hidden_label = models.CharField(max_length=200, blank=True, null=True, help_text="Hidden label" )
     description = models.TextField(blank=True, null=True, help_text="Explain where this vocab. is used")
@@ -97,6 +104,10 @@ class ControlledVocabulary(models.Model):
     def get_absolute_url(self):
         return "/terms/" + self.jurisdiction.name + '/' + self.name
 
+    @property
+    def uri(self):
+        return self.get_absolute_url()
+
     def get_fields(self):
         fields = [('uri', self.get_absolute_url())]      # for display in HTML
         for field in ControlledVocabulary._meta.fields:
@@ -112,8 +123,10 @@ class Term(models.Model):
     terms or a /-separated taxon path of terms.
     This is a Django model (DB table) that closely resembles skos:Concept.
     """
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    # A. data 
+    id = ShortUUIDField(primary_key=True, editable=False, prefix='T')
+    canonical_uri = models.CharField(max_length=500, null=True, blank=True)
+    source_uri = models.CharField(max_length=500, null=True, blank=True)
+    # A. data
     vocabulary = models.ForeignKey("ControlledVocabulary", related_name="terms", on_delete=models.CASCADE)
     path = models.CharField(max_length=200, help_text="Term path as it appears in URI")
     label = models.CharField(max_length=200, help_text="Human-readable label" )
@@ -167,7 +180,7 @@ class Term(models.Model):
 
 
 
-TERMREL_KINDS = Choices(
+TERM_REL_KINDS = Choices(
     # skos:semanticRelation (within-vocabulary links)
     ('broader',      'has parent (a broader term)'),
     ('narrower',     'has child (a more specific term)'),
@@ -185,12 +198,12 @@ class TermRelation(models.Model):
     A relation between two Terms (`source` and `target`) or a source Term and
     an external target URI (`target_uri`).
     """
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = ShortUUIDField(primary_key=True, editable=False, prefix='TR', length=10)
     source = models.ForeignKey(Term, related_name='relations_source', on_delete=models.CASCADE)
     target_uri = models.CharField(max_length=500, null=True, blank=True)
     # for internal references target_uri is NULL and and target is a FK
     target = models.ForeignKey(Term, related_name='relations_target', blank=True, null=True, on_delete=models.CASCADE)
-    kind = models.CharField(max_length=32, choices=TERMREL_KINDS)
+    kind = models.CharField(max_length=32, choices=TERM_REL_KINDS)
 
     # metadata
     notes = models.TextField(help_text="Comments and notes about the relation")
