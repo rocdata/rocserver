@@ -24,3 +24,11 @@ def vocab(juri):
     )
     vocab.save()
     return vocab
+
+
+@pytest.fixture
+def vocabterms(vocab):
+    b1  = Term.objects.create(path='B1', label='Basic 1', vocabulary=vocab)
+    b2  = Term.objects.create(path='B2', label='Basic 2', vocabulary=vocab)
+    b22 = Term.objects.create(path='B2/2', label='Basic 2.2', vocabulary=vocab)
+    return dict(b1=b1, b2=b2, b22=b22)

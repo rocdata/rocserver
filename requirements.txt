@@ -29,6 +29,10 @@ django_debug_toolbar
 ipython
 pyflakes
 
+# testing
+beautifulsoup4==4.9.3
+html5lib==1.1
+
 # django extensions tools
 django-extensions
 pydot==1.4.1

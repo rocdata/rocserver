@@ -124,6 +124,7 @@ class JurisdictionSerializer(serializers.ModelSerializer):
 
 
 class ControlledVocabularySerializer(serializers.ModelSerializer):
+    jurisdiction = JurisdictionHyperlink(required=True)
     terms = TermHyperlink(many=True, required=False)
 
     class Meta:
