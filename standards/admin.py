@@ -1,8 +1,8 @@
 from django.contrib import admin
 
 from standards.models import Jurisdiction, UserProfile
-from standards.models import ControlledVocabulary, Term
-from standards.models import TermRelation
+from standards.models import ControlledVocabulary, Term, TermRelation
+from standards.models import StandardsDocument
 
 
 
@@ -49,4 +49,18 @@ class TermRelationAdmin(admin.ModelAdmin):
     search_fields = ["id", "path", "label", "alt_label", "hidden_label", "notation", "definition", "notes"]
     readonly_fields = ["id"]
     model = TermRelation
+
+
+
+
+# CURRICULUM STANDARDS
+################################################################################
+
+@admin.register(StandardsDocument)
+class StandardsDocumentAdmin(admin.ModelAdmin):
+    list_display = ["id", "jurisdiction", "short_name", "title", "version", "publication_status", "digitization_method"]
+    list_filter = ("jurisdiction", "publication_status", "subjects")
+    search_fields = ["id", "title", "short_name", "description", "publisher", "notes"]
+    readonly_fields = ["id"]
+    model = StandardsDocument
 

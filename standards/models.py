@@ -3,7 +3,6 @@ import uuid
 import zipfile
 
 from django.conf import settings
-from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.db.models import Q, UniqueConstraint
 from django.db.models.signals import post_save
@@ -235,20 +234,80 @@ class TermRelation(models.Model):
 
 
 
-# CURRICULUM STANARDS
+
+
+
+# CURRICULUM STANDARDS
 ################################################################################
 
+DIGITIZATION_METHODS = Choices(
+    ("manual_entry",    "Manual data entry"),
+    ("manual_scan",     "Manual data entry based on OCR"),
+    ("automated_scan",  "Semi-automated stucture extraction through OCR"),
+    ("website_scrape",  "Curriculum data scraped from website"),
+    ("asn_import",      "Curriculum data imported from Achievement Standards Network (ASN)"),
+    ("case_import",     "Curriculum data imported from CASE registry"),
+)
 
-# CROSSWALKS
-################################################################################
+PUBLICATION_STATUSES = Choices(
+    ("draft",       "Draft"),
+    ("published",   "Published (active)"),
+    ("retired",     "Retired, deprecated, or superceded"),
+)
+
+class StandardsDocument(models.Model):
+    """
+    General Stores the metadata for a curriculum standard, usually one document.
+    """
+    # IDs
+    id = ShortUUIDField(primary_key=True, editable=False, prefix='D')
+    canonical_uri = models.URLField(max_length=512, null=True, blank=True)
+    # uri = computed field = localhost + get_absolute_url()
+    #
+    # Document info
+    jurisdiction = models.ForeignKey(Jurisdiction, related_name="documents", on_delete=models.CASCADE, help_text='Jurisdiction of standards document')
+    title = models.CharField(max_length=200, help_text="The offficial title of the document")
+    short_name = models.CharField(unique=True, max_length=200, help_text="A short, unique name for the document, e.g. CCSSM")
+    description = models.TextField(blank=True, null=True, help_text="Detailed info about this document")
+    language = models.CharField(max_length=20, blank=True, null=True, help_text="BCP47/RFC5646 codes like en, es, fr-CA.")
+    publisher = models.CharField(max_length=200, blank=True, null=True, help_text="The name of the organizaiton publishing the document")
+    version = models.CharField(max_length=50, blank=True, null=True, help_text="Document version or edition")
+    #
+    # Licensing
+    license	= models.ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=models.SET_NULL, limit_choices_to={'vocabulary__kind': 'license_kinds'})
+    license_description	= models.TextField(blank=True, null=True, help_text="Full text of the document's licencing information")
+    copyright_holder = models.CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to the document")
+    #
+    # Educational domain
+    subjects = models.ManyToManyField(Term, related_name="+", limit_choices_to={'vocabulary__kind': 'subjects'})
+    education_levels = models.ManyToManyField(Term, related_name="+", limit_choices_to={'vocabulary__kind': 'education_levels'})
+    date_valid = models.DateField(blank=True, null=True, help_text="Date when document started being valid")
+    date_retired = models.DateField(blank=True, null=True, help_text="Date when document stopped being valid")
+    #
+    # Digitization domain
+    digitization_method = models.CharField(max_length=200, choices=DIGITIZATION_METHODS, help_text="Digitization method")
+    source_url = models.URLField(max_length=512, blank=True, help_text="Where the data of this document was imported from")
+    publication_status	= models.CharField(max_length=30, choices=PUBLICATION_STATUSES, default=PUBLICATION_STATUSES.draft)
+    #
+    # Metadata
+    notes = models.TextField(blank=True, null=True, help_text="Additional notes about the document")
+    date_created = models.DateTimeField(auto_now_add=True, help_text="When the standards document was added to repository.")
+    date_modified = models.DateTimeField(auto_now=True, help_text="Date of last modification to document metadata.")
+    extra_fields = models.JSONField(default=dict, blank=True)  # for other data
 
 
+    # @property
+    # def root(self):
+    #     return StandardNode.get_root_nodes().get(document=self)
 
-# CONTENT
-################################################################################
+    def __str__(self):
+        return "{} ({})".format(self.title, self.id)
 
+    def get_absolute_url(self):
+        return "/documents/" + self.id
 
-# CONTENT CORRELATIONS
-################################################################################
+    @property
+    def uri(self):
+        return self.get_absolute_url()
 
 
