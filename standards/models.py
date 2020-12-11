@@ -3,7 +3,20 @@ import uuid
 import zipfile
 
 from django.conf import settings
-from django.db import models
+from django.db.models import CASCADE
+from django.db.models import CharField
+from django.db.models import DateField
+from django.db.models import DateTimeField
+from django.db.models import FloatField
+from django.db.models import ForeignKey
+from django.db.models import JSONField
+from django.db.models import OneToOneField
+from django.db.models import Manager
+from django.db.models import ManyToManyField
+from django.db.models import Model
+from django.db.models import SET_NULL
+from django.db.models import TextField
+from django.db.models import URLField
 from django.db.models import Q, UniqueConstraint
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -20,7 +33,7 @@ from treebeard.mp_tree import MP_Node
 # JURISDICTIONS and USERS
 ################################################################################
 
-class Jurisdiction(models.Model):
+class Jurisdiction(Model):
     """
     The top-level organizational structure in which the standards documents are
     published, promulgated. Institutions that publish standards include ministries,
@@ -28,17 +41,17 @@ class Jurisdiction(models.Model):
     """
     id = ShortUUIDField(primary_key=True, editable=False, prefix='J')
     # data
-    display_name = models.CharField(max_length=200, help_text="Official name of the organization or government body")
-    name = models.CharField(max_length=200, unique=True, help_text="the name used in URIs")
+    display_name = CharField(max_length=200, help_text="Official name of the organization or government body")
+    name = CharField(max_length=200, unique=True, help_text="the name used in URIs")
     country = CountryField(blank=True, null=True, help_text='Country of jurisdiction')
-    alt_name = models.CharField(max_length=200, blank=True, null=True, help_text="Alternative name")
-    language = models.CharField(max_length=20, blank=True, null=True,
+    alt_name = CharField(max_length=200, blank=True, null=True, help_text="Alternative name")
+    language = CharField(max_length=20, blank=True, null=True,
                                 help_text="BCP47 lang codes like en, es, fr-CA")
-    notes = models.TextField(blank=True, null=True, help_text="Public comments and notes about this jurisdiction.")
-    website_url = models.URLField(max_length=512, null=True, blank=True)
+    notes = TextField(blank=True, null=True, help_text="Public comments and notes about this jurisdiction.")
+    website_url = URLField(max_length=512, null=True, blank=True)
 
     def __str__(self):
-        return self.name + ' (id=' + self.id.__str__()[0:7] +')'
+        return self.name
 
     def get_absolute_url(self):
         return "/terms/" + self.name
@@ -55,10 +68,10 @@ class Jurisdiction(models.Model):
         return fields
 
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="profile")
-    background = models.CharField(max_length=200, help_text="What is your background?")
-    jurisdiction = models.ForeignKey(Jurisdiction, related_name="userprofiles", on_delete=models.CASCADE)
+class UserProfile(Model):
+    user = OneToOneField(settings.AUTH_USER_MODEL, on_delete=CASCADE, related_name="profile")
+    background = CharField(max_length=200, help_text="What is your background?")
+    jurisdiction = ForeignKey(Jurisdiction, related_name="userprofiles", on_delete=CASCADE)
     # roles wihin jurisdiction are: admin/editor/approver/technical
 
     def __str__(self):
@@ -81,28 +94,28 @@ SPECIAL_VOCABULARY_KINDS = Choices(
 )
 
 
-class ControlledVocabulary(models.Model):
+class ControlledVocabulary(Model):
     """
     A set of controlled terms served under /terms/{juri}/{self.name}/.
     This is a Django model (DB table) that closely resembles skos:ConceptScheme.
     """
     id = ShortUUIDField(primary_key=True, editable=False, prefix='V')
     # uri   (e.g. https://groccad.org/terms/{jury}/{self.name})
-    jurisdiction = models.ForeignKey(Jurisdiction, related_name="vocabularies", on_delete=models.CASCADE)
-    kind = models.CharField(max_length=50, blank=True, null=True, choices=SPECIAL_VOCABULARY_KINDS, help_text="Vocabulay kind (e.g. education_levels)")
-    name = models.CharField(max_length=200, help_text="The name used in URIs")
-    label = models.CharField(max_length=200, help_text="Human-readable label")
-    alt_label = models.CharField(max_length=200, blank=True, null=True, help_text="Alternative label" )
-    hidden_label = models.CharField(max_length=200, blank=True, null=True, help_text="Hidden label" )
-    description = models.TextField(blank=True, null=True, help_text="Explain where this vocab. is used")
-    language = models.CharField(max_length=20, blank=True, null=True, help_text="BCP47/RFC5646 codes like en, es, fr-CA.")
+    jurisdiction = ForeignKey(Jurisdiction, related_name="vocabularies", on_delete=CASCADE)
+    kind = CharField(max_length=50, blank=True, null=True, choices=SPECIAL_VOCABULARY_KINDS, help_text="Vocabulay kind (e.g. education_levels)")
+    name = CharField(max_length=200, help_text="The name used in URIs")
+    label = CharField(max_length=200, help_text="Human-readable label")
+    alt_label = CharField(max_length=200, blank=True, null=True, help_text="Alternative label" )
+    hidden_label = CharField(max_length=200, blank=True, null=True, help_text="Hidden label" )
+    description = TextField(blank=True, null=True, help_text="Explain where this vocab. is used")
+    language = CharField(max_length=20, blank=True, null=True, help_text="BCP47/RFC5646 codes like en, es, fr-CA.")
     # metadata
-    source = models.TextField(blank=True, null=True, help_text="Where is this vocabulary defined?")
-    notes = models.TextField(blank=True, null=True, help_text="Comments and notes about this vocabulary")
-    creator = models.CharField(max_length=200, blank=True, null=True, help_text="Person or organization that published this vocabulary")
-    date_created = models.DateTimeField(auto_now_add=True)
-    date_modified = models.DateTimeField(auto_now=True)
-    extra_fields = models.JSONField(default=dict, blank=True)  # for extensibility
+    source = TextField(blank=True, null=True, help_text="Where is this vocabulary defined?")
+    notes = TextField(blank=True, null=True, help_text="Comments and notes about this vocabulary")
+    creator = CharField(max_length=200, blank=True, null=True, help_text="Person or organization that published this vocabulary")
+    date_created = DateTimeField(auto_now_add=True)
+    date_modified = DateTimeField(auto_now=True)
+    extra_fields = JSONField(default=dict, blank=True)  # for extensibility
 
     class Meta:
         verbose_name_plural = 'Controlled vocabularies'
@@ -112,7 +125,7 @@ class ControlledVocabulary(models.Model):
         return self.jurisdiction.name + '/' + self.name
 
     def get_absolute_url(self):
-        return "/terms/" + self.jurisdiction.name + '/' + self.name
+        return "/terms/" + self.__str__()
 
     @property
     def uri(self):
@@ -126,11 +139,11 @@ class ControlledVocabulary(models.Model):
         return fields
 
 
-class TermModelManager(models.Manager):
+class TermModelManager(Manager):
     def get_queryset(self):
         return super(TermModelManager, self).get_queryset().select_related("vocabulary", "vocabulary__jurisdiction")
 
-class Term(models.Model):
+class Term(Model):
     """
     A term within a controlled vocabulary that corresponds to an URL like
     `/terms/{juri.name}/{vocab.name}/{self.path}`. Paths can a be either simple
@@ -139,27 +152,27 @@ class Term(models.Model):
     """
     id = ShortUUIDField(primary_key=True, editable=False, prefix='T')
     # Data
-    vocabulary = models.ForeignKey("ControlledVocabulary", related_name="terms", on_delete=models.CASCADE)
-    path = models.CharField(max_length=200, help_text="Term path as it appears in URI")
-    label = models.CharField(max_length=200, help_text="Human-readable label" )
-    alt_label = models.CharField(max_length=200, blank=True, null=True, help_text="Alternative label" )
-    hidden_label = models.CharField(max_length=200, blank=True, null=True, help_text="Hidden label" )
-    notation = models.CharField(max_length=200, blank=True, null=True, help_text="Other unique identifier for this term")
-    definition = models.TextField(blank=True, null=True, help_text="Explain the meaning of this term")
-    notes = models.TextField(blank=True, null=True, help_text="Comments and notes about the term")
-    language = models.CharField(max_length=20, blank=True, null=True, help_text="BCP47/RFC5646 codes like en, es, fr-CA.")
+    vocabulary = ForeignKey("ControlledVocabulary", related_name="terms", on_delete=CASCADE)
+    path = CharField(max_length=200, help_text="Term path as it appears in URI")
+    label = CharField(max_length=200, help_text="Human-readable label" )
+    alt_label = CharField(max_length=200, blank=True, null=True, help_text="Alternative label" )
+    hidden_label = CharField(max_length=200, blank=True, null=True, help_text="Hidden label" )
+    notation = CharField(max_length=200, blank=True, null=True, help_text="Other unique identifier for this term")
+    definition = TextField(blank=True, null=True, help_text="Explain the meaning of this term")
+    notes = TextField(blank=True, null=True, help_text="Comments and notes about the term")
+    language = CharField(max_length=20, blank=True, null=True, help_text="BCP47/RFC5646 codes like en, es, fr-CA.")
 
     # Import and publishing
-    source_uri = models.URLField(max_length=512, null=True, blank=True)
-    canonical_uri = models.URLField(max_length=512, null=True, blank=True)
+    source_uri = URLField(max_length=512, null=True, blank=True)
+    canonical_uri = URLField(max_length=512, null=True, blank=True)
 
     # Structural
-    sort_order = models.FloatField(default=1.0)  # sort order among siblings
+    sort_order = FloatField(default=1.0)  # sort order among siblings
 
     # Metadata
-    date_created = models.DateTimeField(auto_now_add=True)
-    date_modified = models.DateTimeField(auto_now=True)
-    extra_fields = models.JSONField(default=dict, blank=True)  # for extensibility
+    date_created = DateTimeField(auto_now_add=True)
+    date_modified = DateTimeField(auto_now=True)
+    extra_fields = JSONField(default=dict, blank=True)  # for extensibility
 
     objects = TermModelManager()
 
@@ -211,22 +224,22 @@ TERM_REL_KINDS = Choices(
     ('narrowMatch',  'target is related to a subset of the source'),
 )
 
-class TermRelation(models.Model):
+class TermRelation(Model):
     """
     A relation between two Terms (`source` and `target`) or a source Term and
     an external target URI (`target_uri`).
     """
     id = ShortUUIDField(primary_key=True, editable=False, prefix='TR', length=10)
-    source = models.ForeignKey(Term, related_name='relations_source', on_delete=models.CASCADE)
-    target_uri = models.CharField(max_length=500, null=True, blank=True)
+    source = ForeignKey(Term, related_name='relations_source', on_delete=CASCADE)
+    target_uri = CharField(max_length=500, null=True, blank=True)
     # for internal references target_uri is NULL and and target is a FK
-    target = models.ForeignKey(Term, related_name='relations_target', blank=True, null=True, on_delete=models.CASCADE)
-    kind = models.CharField(max_length=32, choices=TERM_REL_KINDS)
+    target = ForeignKey(Term, related_name='relations_target', blank=True, null=True, on_delete=CASCADE)
+    kind = CharField(max_length=32, choices=TERM_REL_KINDS)
 
     # metadata
-    notes = models.TextField(help_text="Additional notes about the relation")
-    date_created = models.DateTimeField(auto_now_add=True)
-    date_modified = models.DateTimeField(auto_now=True)
+    notes = TextField(help_text="Additional notes about the relation")
+    date_created = DateTimeField(auto_now_add=True)
+    date_modified = DateTimeField(auto_now=True)
 
     def __str__(self):
         target_str = self.target_uri if self.target_uri else str(self.target)
@@ -255,45 +268,45 @@ PUBLICATION_STATUSES = Choices(
     ("retired",     "Retired, deprecated, or superceded"),
 )
 
-class StandardsDocument(models.Model):
+class StandardsDocument(Model):
     """
     General Stores the metadata for a curriculum standard, usually one document.
     """
     # IDs
     id = ShortUUIDField(primary_key=True, editable=False, prefix='D')
-    canonical_uri = models.URLField(max_length=512, null=True, blank=True)
+    canonical_uri = URLField(max_length=512, null=True, blank=True)
     # uri = computed field = localhost + get_absolute_url()
     #
     # Document info
-    jurisdiction = models.ForeignKey(Jurisdiction, related_name="documents", on_delete=models.CASCADE, help_text='Jurisdiction of standards document')
-    title = models.CharField(max_length=200, help_text="The offficial title of the document")
-    short_name = models.CharField(unique=True, max_length=200, help_text="A short, unique name for the document, e.g. CCSSM")
-    description = models.TextField(blank=True, null=True, help_text="Detailed info about this document")
-    language = models.CharField(max_length=20, blank=True, null=True, help_text="BCP47/RFC5646 codes like en, es, fr-CA.")
-    publisher = models.CharField(max_length=200, blank=True, null=True, help_text="The name of the organizaiton publishing the document")
-    version = models.CharField(max_length=50, blank=True, null=True, help_text="Document version or edition")
+    jurisdiction = ForeignKey(Jurisdiction, related_name="documents", on_delete=CASCADE, help_text='Jurisdiction of standards document')
+    title = CharField(max_length=200, help_text="The offficial title of the document")
+    short_name = CharField(unique=True, max_length=200, help_text="A short, unique name for the document, e.g. CCSSM")
+    description = TextField(blank=True, null=True, help_text="Detailed info about this document")
+    language = CharField(max_length=20, blank=True, null=True, help_text="BCP47/RFC5646 codes like en, es, fr-CA.")
+    publisher = CharField(max_length=200, blank=True, null=True, help_text="The name of the organizaiton publishing the document")
+    version = CharField(max_length=50, blank=True, null=True, help_text="Document version or edition")
     #
     # Licensing
-    license	= models.ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=models.SET_NULL, limit_choices_to={'vocabulary__kind': 'license_kinds'})
-    license_description	= models.TextField(blank=True, null=True, help_text="Full text of the document's licencing information")
-    copyright_holder = models.CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to the document")
+    license	= ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'license_kinds'})
+    license_description	= TextField(blank=True, null=True, help_text="Full text of the document's licencing information")
+    copyright_holder = CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to the document")
     #
     # Educational domain
-    subjects = models.ManyToManyField(Term, related_name="+", limit_choices_to={'vocabulary__kind': 'subjects'})
-    education_levels = models.ManyToManyField(Term, related_name="+", limit_choices_to={'vocabulary__kind': 'education_levels'})
-    date_valid = models.DateField(blank=True, null=True, help_text="Date when document started being valid")
-    date_retired = models.DateField(blank=True, null=True, help_text="Date when document stopped being valid")
+    subjects = ManyToManyField(Term, related_name="+", limit_choices_to={'vocabulary__kind': 'subjects'})
+    education_levels = ManyToManyField(Term, related_name="+", limit_choices_to={'vocabulary__kind': 'education_levels'})
+    date_valid = DateField(blank=True, null=True, help_text="Date when document started being valid")
+    date_retired = DateField(blank=True, null=True, help_text="Date when document stopped being valid")
     #
     # Digitization domain
-    digitization_method = models.CharField(max_length=200, choices=DIGITIZATION_METHODS, help_text="Digitization method")
-    source_url = models.URLField(max_length=512, blank=True, help_text="Where the data of this document was imported from")
-    publication_status	= models.CharField(max_length=30, choices=PUBLICATION_STATUSES, default=PUBLICATION_STATUSES.draft)
+    digitization_method = CharField(max_length=200, choices=DIGITIZATION_METHODS, help_text="Digitization method")
+    source_url = URLField(max_length=512, blank=True, help_text="Where the data of this document was imported from")
+    publication_status	= CharField(max_length=30, choices=PUBLICATION_STATUSES, default=PUBLICATION_STATUSES.draft)
     #
     # Metadata
-    notes = models.TextField(blank=True, null=True, help_text="Additional notes about the document")
-    date_created = models.DateTimeField(auto_now_add=True, help_text="When the standards document was added to repository.")
-    date_modified = models.DateTimeField(auto_now=True, help_text="Date of last modification to document metadata.")
-    extra_fields = models.JSONField(default=dict, blank=True)  # for other data
+    notes = TextField(blank=True, null=True, help_text="Additional notes about the document")
+    date_created = DateTimeField(auto_now_add=True, help_text="When the standards document was added to repository.")
+    date_modified = DateTimeField(auto_now=True, help_text="Date of last modification to document metadata.")
+    extra_fields = JSONField(default=dict, blank=True)  # for other data
 
 
     # @property
