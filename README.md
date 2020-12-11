@@ -1,8 +1,11 @@
-# GROCCAD
-Backend code for the Global Registry of Open Content and Curriculum Alignment Database (GROCCAD)
+# Repository of Organized Curriculums Server
 
-`standards-server` = a reusable Django app for serving the contents of a standards repo
+The backend code for the Repository of Organized Curriculums (ROC) consists of:
 
+- `standards` and `standards-server`: a web application for browsing and publishing
+  vocabularies, curriculum standards, standards crosswalks, and content correlations data.
+- `data`: the "Global" controlled vocabularies used in the system
+- `doc`: general info about the project (for developers)
 
 
 ## Install
