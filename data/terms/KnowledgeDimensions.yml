@@ -2,7 +2,7 @@ type: ControlledVocabulary
 kind: knowledge_dimensions
 jurisdiction: Global
 name: KnoledgeDimensions
-uri: https://qv.link/terms/Global/KnoledgeDimensions
+uri: https://rocdata.global/terms/Global/KnoledgeDimensions
 title: Knowledge dimensions
 description: >
   The knowledge dimension represents a range from concrete (factual) to abstract

@@ -2,7 +2,7 @@ type: ControlledVocabulary
 kind: cognitive_process_dimensions
 jurisdiction: Global
 name: CognitiveProcessDimensions
-uri: https://qv.link/terms/Global/CognitiveProcessDimensions
+uri: https://rocdata.global/terms/Global/CognitiveProcessDimensions
 title: Cognitive Process Dimensions
 description: >
   The cognitive process dimension represents a continuum of increasing cognitive

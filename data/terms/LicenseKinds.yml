@@ -2,7 +2,7 @@ type: ControlledVocabulary
 kind: license_kinds
 jurisdiction: Global
 name: LicenseKinds
-uri: https://qv.link/terms/Global/LicenseKinds
+uri: https://rocdata.global/terms/Global/LicenseKinds
 title: Lincense Kinds
 description: >
   A controlled vocabulary to indicate common license types for standards documents
