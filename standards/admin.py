@@ -36,7 +36,7 @@ class ControlledVocabularyAdmin(admin.ModelAdmin):
 
 @admin.register(Term)
 class TermAdmin(admin.ModelAdmin):
-    list_display = ["path", "label", "vocabulary", "notation", "language", "id", "date_created", "date_modified"]
+    list_display = ["vocabulary", "path", "label", "notation", "language", "id", "date_created", "date_modified"]
     list_filter = ("vocabulary", "language")
     search_fields = ["id", "path", "label", "alt_label", "hidden_label", "notation", "definition", "notes"]
     model = Term

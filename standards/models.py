@@ -36,7 +36,7 @@ class Jurisdiction(models.Model):
     language = models.CharField(max_length=20, blank=True, null=True,
                                 help_text="BCP47 lang codes like en, es, fr-CA")
     notes = models.TextField(blank=True, null=True, help_text="Public comments and notes about this jurisdiction.")
-    # website_url
+    website_url = models.URLField(max_length=512, null=True, blank=True)
 
     def __str__(self):
         return self.name + ' (id=' + self.id.__str__()[0:7] +')'
@@ -88,8 +88,7 @@ class ControlledVocabulary(models.Model):
     # metadata
     source = models.TextField(blank=True, null=True, help_text="Where is this vocabulary defined?")
     notes = models.TextField(blank=True, null=True, help_text="Comments and notes about this vocabulary")
-    creator = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True,
-                                related_name="vocabularies", on_delete=models.SET_NULL)
+    creator = models.CharField(max_length=200, blank=True, null=True, help_text="Person or organization that published this vocabulary")
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     extra_fields = models.JSONField(default=dict, blank=True)  # for extensibility
@@ -99,7 +98,7 @@ class ControlledVocabulary(models.Model):
         unique_together = [['jurisdiction', 'name']]
 
     def __str__(self):
-        return self.name
+        return self.jurisdiction.name + '/' + self.name
 
     def get_absolute_url(self):
         return "/terms/" + self.jurisdiction.name + '/' + self.name
@@ -116,6 +115,10 @@ class ControlledVocabulary(models.Model):
         return fields
 
 
+class TermModelManager(models.Manager):
+    def get_queryset(self):
+        return super(TermModelManager, self).get_queryset().select_related("vocabulary", "vocabulary__jurisdiction")
+
 class Term(models.Model):
     """
     A term within a controlled vocabulary that corresponds to an URL like
@@ -124,9 +127,7 @@ class Term(models.Model):
     This is a Django model (DB table) that closely resembles skos:Concept.
     """
     id = ShortUUIDField(primary_key=True, editable=False, prefix='T')
-    canonical_uri = models.CharField(max_length=500, null=True, blank=True)
-    source_uri = models.CharField(max_length=500, null=True, blank=True)
-    # A. data
+    # Data
     vocabulary = models.ForeignKey("ControlledVocabulary", related_name="terms", on_delete=models.CASCADE)
     path = models.CharField(max_length=200, help_text="Term path as it appears in URI")
     label = models.CharField(max_length=200, help_text="Human-readable label" )
@@ -137,20 +138,29 @@ class Term(models.Model):
     notes = models.TextField(blank=True, null=True, help_text="Comments and notes about the term")
     language = models.CharField(max_length=20, blank=True, null=True, help_text="BCP47/RFC5646 codes like en, es, fr-CA.")
 
-    # B. structural
+    # Import and publishing
+    source_uri = models.URLField(max_length=512, null=True, blank=True)
+    canonical_uri = models.URLField(max_length=512, null=True, blank=True)
+
+    # Structural
     sort_order = models.FloatField(default=1.0)  # sort order among siblings
 
-    # C. metadata
+    # Metadata
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
     extra_fields = models.JSONField(default=dict, blank=True)  # for extensibility
 
+    objects = TermModelManager()
+
     class Meta:
         unique_together = [['vocabulary', 'path']]
 
-    def get_absolute_url(self):
+    def __str__(self):
         v = self.vocabulary
-        return "/terms/" + v.jurisdiction.name + '/' + v.name + '/' + self.path
+        return self.v.jurisdiction.name + '/' + self.v.name + '/' + self.path
+
+    def get_absolute_url(self):
+        return "/terms/" + self.__str__()
 
     @property
     def uri(self):
@@ -167,9 +177,6 @@ class Term(models.Model):
 
     def get_descendants(self):
         return Term.objects.filter(path__startswith=self.path)
-
-    def __str__(self):
-        return self.vocabulary.name + '/' + self.path
 
     def get_fields(self):
         fields = [('uri', self.get_absolute_url())]      # for display in HTML
@@ -206,7 +213,7 @@ class TermRelation(models.Model):
     kind = models.CharField(max_length=32, choices=TERM_REL_KINDS)
 
     # metadata
-    notes = models.TextField(help_text="Comments and notes about the relation")
+    notes = models.TextField(help_text="Additional notes about the relation")
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 

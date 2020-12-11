@@ -121,7 +121,7 @@ class Command(BaseCommand):
                         sort_order=float(idxj+1),
                         language=subterm_language,
                     )
-                    OPTIONAL_ATTRS = ['definition', 'notes', 'alt_label', 'hidden_label']
+                    OPTIONAL_ATTRS = ['definition', 'notes', 'alt_label', 'hidden_label', 'source_uri']
                     for attr in OPTIONAL_ATTRS:
                         val = subterm_dict.get(attr)
                         if val:
