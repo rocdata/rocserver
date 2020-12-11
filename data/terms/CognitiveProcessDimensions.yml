@@ -1,4 +1,5 @@
 type: ControlledVocabulary
+kind: cognitive_process_dimensions
 jurisdiction: Global
 name: CognitiveProcessDimensions
 uri: https://qv.link/terms/Global/CognitiveProcessDimensions

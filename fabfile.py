@@ -91,6 +91,10 @@ def load_terms():
     with settings(warn_only=True), hide('stdout', 'stderr', 'warnings'):
         create_jurisdictions()
     ALL_TERMS_FILES = [
+        # Global
+        "data/terms/LicenseKinds.yml",
+        # "data/terms/CognitiveProcessDimensions.yml",
+        # "data/terms/KnowledgeDimensions.yml",
         # Ghana
         "https://raw.githubusercontent.com/GROCCAD/standards-ghana/main/terms/Values.yml",
         "https://raw.githubusercontent.com/GROCCAD/standards-ghana/main/terms/CoreCompetencies.yml",

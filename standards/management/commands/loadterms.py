@@ -67,6 +67,7 @@ class Command(BaseCommand):
             vocab.label = termsdata.get('label') if termsdata.get('label') else vocab_name
             vocab.description = termsdata.get('description')
             vocab.source = termsdata.get('source')
+            vocab.kind = termsdata.get('kind')
             vocab.save()
             print('Vocab', vocab, 'already exists; overwriting terms.')
             Term.objects.filter(vocabulary=vocab).delete()
@@ -77,12 +78,13 @@ class Command(BaseCommand):
                 description=termsdata.get('description'),
                 language=vocab_language,
                 source=termsdata.get('source'),
+                kind = termsdata.get('kind'),
                 jurisdiction=juri,
             )
             vocab.save()
             print('Created vocab:', vocab)
 
-        print('Adding', len(termsdata['terms']), 'terms to vocab...')
+        print('Adding', len(termsdata['terms']), 'terms to vocab', vocab.name, '...')
         for idxi, term_dict in enumerate(termsdata['terms']):
             term_path = term_dict['term'].strip()
             label = term_dict.get('label') or term_path

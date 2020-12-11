@@ -71,6 +71,17 @@ class UserProfile(models.Model):
 # CONTROLLED VOCABULARIES
 ################################################################################
 
+SPECIAL_VOCABULARY_KINDS = Choices(
+    ('education_levels',     'Local education levels (local grade levels)'),
+    ('subjects',             'Local academic subjects'),
+    ('topic_terms',          'Global topic taxonomy terms'),
+    ('curriculum_elements',  'Curriculum standard elements'),
+    ('license_kinds',        'License kinds'),
+    # ('cognitive_process_dimensions', "Congitive Process Dimensions (Bloom's taxonomy level)"),
+    # ('knowledge_dimensions',         "Knoledge dimensions"),
+)
+
+
 class ControlledVocabulary(models.Model):
     """
     A set of controlled terms served under /terms/{juri}/{self.name}/.
@@ -79,6 +90,7 @@ class ControlledVocabulary(models.Model):
     id = ShortUUIDField(primary_key=True, editable=False, prefix='V')
     # uri   (e.g. https://groccad.org/terms/{jury}/{self.name})
     jurisdiction = models.ForeignKey(Jurisdiction, related_name="vocabularies", on_delete=models.CASCADE)
+    kind = models.CharField(max_length=50, blank=True, null=True, choices=SPECIAL_VOCABULARY_KINDS, help_text="Vocabulay kind (e.g. education_levels)")
     name = models.CharField(max_length=200, help_text="The name used in URIs")
     label = models.CharField(max_length=200, help_text="Human-readable label")
     alt_label = models.CharField(max_length=200, blank=True, null=True, help_text="Alternative label" )
@@ -157,7 +169,7 @@ class Term(models.Model):
 
     def __str__(self):
         v = self.vocabulary
-        return self.v.jurisdiction.name + '/' + self.v.name + '/' + self.path
+        return v.jurisdiction.name + '/' + v.name + '/' + self.path
 
     def get_absolute_url(self):
         return "/terms/" + self.__str__()

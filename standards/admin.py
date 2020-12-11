@@ -29,7 +29,7 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 @admin.register(ControlledVocabulary)
 class ControlledVocabularyAdmin(admin.ModelAdmin):
-    list_display = ["name", "label", "jurisdiction", "id", "date_created", "date_modified"]
+    list_display = ["name", "kind", "label", "jurisdiction", "id", "date_created", "date_modified"]
     list_filter = ("jurisdiction", "language")
     search_fields = ["id", "name", "label", "alt_label", "hidden_label", "description", "notes"]
     model = ControlledVocabulary

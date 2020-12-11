@@ -1,4 +1,5 @@
 type: ControlledVocabulary
+kind: knowledge_dimensions
 jurisdiction: Global
 name: KnoledgeDimensions
 uri: https://qv.link/terms/Global/KnoledgeDimensions
