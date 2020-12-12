@@ -17,6 +17,7 @@ pip install -r requirements.txt
 ```
 
 
+
 ## Local dev setup
 ```
 fab reset_and_migrate
@@ -35,3 +36,12 @@ vocabularies defined form them from the respective github repos.
 
 ## Load sample fixtures
 
+
+
+
+## Production run
+Check the `env.DOCKER_HOST` variable is set correctly, then simply run:
+```
+fab dcbuild
+fab dcup
+```

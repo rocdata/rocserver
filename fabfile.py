@@ -22,8 +22,6 @@ env.hosts = ['35.203.84.59']
 env.user = 'ivan'
 env.DOCKER_HOST = "ssh://ivan@35.203.84.59"
 
-# env.credentials_dotenv_path = 'credentials/??'
-
 
 
 # DEV TASKS
@@ -34,8 +32,8 @@ def reset_and_migrate():
     """
     Completely delete the local DB and start from scratch (empty tables).
     """
-    local('./manage.py reset_db')
-    local('trash standards/migrations/00*py')
+    local('./manage.py flush --no-input')
+    # local('trash standards/migrations/00*py')
     local('./manage.py makemigrations')
     local('./manage.py migrate')
     local('./manage.py loaddata data/fixtures/admin_user.yaml')

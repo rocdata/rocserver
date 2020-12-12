@@ -25,7 +25,7 @@ SECRET_KEY = '(8%+96rlt0k(=&=6^k*w@h(*u$tjcox20gt@yu#mn1)2ojw)$y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "[::1]", "0.0.0.0", "rocdata.global"]
 
 
 # Application definition

@@ -1,0 +1,5 @@
+# local dev virtualenv
+venv
+__pycache__
+
+credentials
