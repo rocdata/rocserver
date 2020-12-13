@@ -8,7 +8,7 @@ Controlled vocabularies
 -----------------------
 The digital representation of curriculum standards metadata types described below 
 is based on terms chosen from controlled vocabularies defined within the context
-of a jurisdiction. All examples show in this section assume jutisdicion=Ghana.
+of a jurisdiction. All examples show in this section assume jurisdiction=Ghana.
 
 When describing the standard statement with name `B4.1.3.1` within the Ghanian
 math curriculum standards, we would like to indicate it is part of the "Basic 4"
@@ -23,7 +23,7 @@ grade level. Let's look a the some options for representing this information:
    and `B4` is the term name. Using URIs as property values is a superset of
    literal values that provides some additional affordances for data consumers:
     - Browse `https://rocdata.global/terms/Ghana/`: all controlled vocabularies define within the Ghana jurisdiction
-    - Browse `https://rocdata.global/terms/Ghana/GradeLevels`: the Ghana grade levels vocabulary, see [POC](https://github.com/GROCCAD/standards-ghana/blob/main/terms/GradeLevels.yml).
+    - Browse `https://rocdata.global/terms/Ghana/GradeLevels`: the Ghana grade levels vocabulary, see [standards-ghana/terms/GradeLevels](https://github.com/rocdata/standards-ghana/blob/main/terms/GradeLevels.yml).
     - Browse `https://rocdata.global/terms/Ghana/GradeLevels/B4`: a webpage with human-readable info about label:"Basic 4" term
     - GET `https://rocdata.global/terms/Ghana/GradeLevels/B4.json`: all metadata for this term as JSON
     - GET `https://rocdata.global/terms/Ghana/GradeLevels/B4.{fmt}`: all metadata for this term as `{fmt}`

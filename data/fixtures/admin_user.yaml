@@ -7,7 +7,7 @@
     username: admin
     first_name: 'Admin'
     last_name: 'Adminoff'
-    email: admin@groccad.org
+    email: admin@rocdata.global
     is_staff: true
     is_active: true
     date_joined: 2020-11-26 22:06:33.136652+00:00

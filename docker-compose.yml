@@ -12,7 +12,7 @@ services:
       - "--providers.docker.exposedbydefault=false"
       # Let's Encrypt
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-      - "--certificatesresolvers.myresolver.acme.email=admin@learningequality.org"
+      - "--certificatesresolvers.myresolver.acme.email=admin@rocdata.global"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
       # Redirect http --> https
       - "--entrypoints.web.address=:80"

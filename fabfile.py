@@ -16,7 +16,7 @@ from fabric.context_managers import cd, prefix, settings, hide
 
 
 
-# GROCCAD HOST (GCP instance)
+# ROCHOST (GCP instance)
 ################################################################################
 env.hosts = ['35.203.84.59']
 env.user = 'ivan'
@@ -94,17 +94,17 @@ def load_terms():
         # "data/terms/CognitiveProcessDimensions.yml",
         # "data/terms/KnowledgeDimensions.yml",
         # Ghana
-        "https://raw.githubusercontent.com/GROCCAD/standards-ghana/main/terms/Values.yml",
-        "https://raw.githubusercontent.com/GROCCAD/standards-ghana/main/terms/CoreCompetencies.yml",
-        "https://raw.githubusercontent.com/GROCCAD/standards-ghana/main/terms/KeyPhases.yml",
-        "https://raw.githubusercontent.com/GROCCAD/standards-ghana/main/terms/CurriculumElements.yml",
-        "https://raw.githubusercontent.com/GROCCAD/standards-ghana/main/terms/GradeLevels.yml",
-        "https://raw.githubusercontent.com/GROCCAD/standards-ghana/main/terms/Subjects.yml",
+        "https://raw.githubusercontent.com/rocdata/standards-ghana/main/terms/Values.yml",
+        "https://raw.githubusercontent.com/rocdata/standards-ghana/main/terms/CoreCompetencies.yml",
+        "https://raw.githubusercontent.com/rocdata/standards-ghana/main/terms/KeyPhases.yml",
+        "https://raw.githubusercontent.com/rocdata/standards-ghana/main/terms/CurriculumElements.yml",
+        "https://raw.githubusercontent.com/rocdata/standards-ghana/main/terms/GradeLevels.yml",
+        "https://raw.githubusercontent.com/rocdata/standards-ghana/main/terms/Subjects.yml",
         #
         # Honduras
-        "https://raw.githubusercontent.com/GROCCAD/standards-honduras/main/terms/Areas.yml",
-        "https://raw.githubusercontent.com/GROCCAD/standards-honduras/main/terms/CurriculumElements.yml",
-        "https://raw.githubusercontent.com/GROCCAD/standards-honduras/main/terms/Grados.yml",
+        "https://raw.githubusercontent.com/rocdata/standards-honduras/main/terms/Areas.yml",
+        "https://raw.githubusercontent.com/rocdata/standards-honduras/main/terms/CurriculumElements.yml",
+        "https://raw.githubusercontent.com/rocdata/standards-honduras/main/terms/Grados.yml",
     ]
     for terms_url in ALL_TERMS_FILES:
         if "raw.githubusercontent" in terms_url:

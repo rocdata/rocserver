@@ -100,7 +100,7 @@ class ControlledVocabulary(Model):
     This is a Django model (DB table) that closely resembles skos:ConceptScheme.
     """
     id = ShortUUIDField(primary_key=True, editable=False, prefix='V')
-    # uri   (e.g. https://groccad.org/terms/{jury}/{self.name})
+    # uri, computed field, e.g., https://rocdata.global/terms/{jury}/{self.name}
     jurisdiction = ForeignKey(Jurisdiction, related_name="vocabularies", on_delete=CASCADE)
     kind = CharField(max_length=50, blank=True, null=True, choices=SPECIAL_VOCABULARY_KINDS, help_text="Vocabulay kind (e.g. education_levels)")
     name = CharField(max_length=200, help_text="The name used in URIs")
