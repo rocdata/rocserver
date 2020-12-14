@@ -1,0 +1,32 @@
+type: ControlledVocabulary
+kind: publication_statuses
+name: ASNPublicationStatus
+jurisdiction: ASN
+uri: http://purl.org/ASN/scheme/ASNPublicationStatus/
+label: ASN Publication Status Vocabulary
+country: null
+description: A vocabulary describing the various publication statuses of ASN documents and statements.
+source: http://purl.org/ASN/scheme/ASNPublicationStatus/
+language: en
+terms:
+- term: Draft
+  label: Draft
+  definition: >
+    A status assigned to all documents/statements during development. Draft
+    documents and statements should not be displayed to anyone other than their owners
+    and ASN Directorate administrators.
+  source_uri: http://purl.org/ASN/scheme/ASNPublicationStatus/Draft
+- term: Published
+  label: Published
+  definition: >
+    Status assigned to all documents that have been submitted by their owners
+    to the ASN Directorate and, upon quality review, published.
+  source_uri: http://purl.org/ASN/scheme/ASNPublicationStatus/Published
+- term: Deprecated
+  label: Deprecated
+  definition: >
+    Status assigned to a document/statement by the promulgating agency or
+    by the ASN Directorate on request of the promulgating agency asserting that the
+    document/statement has been superseded or its use otherwise disfavored. Documents/statements
+    are never removed from the ASN and never become dereferencable.
+  source_uri: http://purl.org/ASN/scheme/ASNPublicationStatus/Deprecated

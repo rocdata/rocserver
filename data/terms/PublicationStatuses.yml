@@ -1,0 +1,19 @@
+type: ControlledVocabulary
+kind: publication_statuses
+name: PublicationStatus
+jurisdiction: Global
+uri: https://rocdata.global/terms/Global/PublicationStatus
+label: Publication Statuses
+country: null
+description: A vocabulary describing the different possible publication statuses of curriculum standards documents.
+language: en
+terms:
+- term: draft
+  label: Draft
+  definition: A status assigned to all documents during development.
+- term: published
+  label: Published (active)
+  definition: Status assigned to all documents that have been published.
+- term: retired
+  label: Retired, deprecated, or superceded
+  definition: Status assigned to a documents asserting that the document has been superseded or its use otherwise disfavored.

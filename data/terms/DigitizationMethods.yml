@@ -1,0 +1,23 @@
+type: ControlledVocabulary
+kind: digitization_methods
+jurisdiction: Global
+name: DigitizationMethods
+uri: https://rocdata.global/terms/Global/DigitizationMethods
+country: null
+label: Digitization Methods
+description: Describes how the curriculum data for this standards document was obtained.
+source: null
+language: en
+terms:
+  - term: manual_entry
+    label: Manual data entry
+  - term: manual_scan
+    label: Manual data entry based on OCR    q
+  - term: automated_scan
+    label: Semi-automated stucture extraction through OCR
+  - term: website_scrape
+    label: Curriculum data scraped from website
+  - term: asn_import
+    label: Curriculum data imported from Achievement Standards Network (ASN)
+  - term: case_import
+    label: Curriculum data imported from CASE registry or other CASE server

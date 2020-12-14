@@ -1,0 +1,31 @@
+type: ControlledVocabulary
+kind: term_relation_kinds
+jurisdiction: Global
+name: TermRelationKinds
+uri: https://rocdata.global/terms/Global/TermRelationKinds
+country: null
+label: Term Relation Kinds
+description: The types of relations between Term objects in the ROC data.
+source: null
+language: en
+terms:
+  # skos:semanticRelation (within-vocabulary links)
+  - term: broader
+    label: has parent (a broader term)
+  - term: narrower
+    label: has child (a more specific term)
+  - term: related
+    label: has related term (same vocabulary)
+  # skos:mappingRelation (links to other vocabularies including external URIs)
+  - term: exactMatch
+    label: matches exactly
+    definition: 100% identity matches
+  - term: closeMatch
+    label: matches closely
+    definition: 80% match (subjective)
+  - term: broadMatch
+    label: source is related to a subset of the target
+  - term: narrowMatch
+    label: target is related to a subset of the source
+  - term: relatedMatch
+    label: source and target are related and of similar size

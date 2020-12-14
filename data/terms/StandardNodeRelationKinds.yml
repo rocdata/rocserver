@@ -1,0 +1,35 @@
+type: ControlledVocabulary
+kind: standard_node_relation_kinds
+jurisdiction: Global
+name: StandardNodeRelationKinds
+uri: https://rocdata.global/terms/Global/StandardNodeRelationKinds
+country: null
+label: StandardNode Relation Kinds
+description: The types of relations between StandardNode objects in the ROC data.
+source: null
+language: en
+terms:
+  - term: exactMatch
+    label: Exact Match
+    definition: TThe source node and the target standdard node are the same (identical nodes imported in different documents).
+  - term: exactAlignment
+    label: Exact Alignment
+    definition: The source and target standard nodes describe the same competency.
+  - term: majorAlignment
+    label: Major Alignment
+    definition: Major overlap of relevant concepts between the source and target standard nodes.
+  - term: minorAlignment
+    label: Minor Alignment
+    definition: Minor overlap of relevant concepts between the source and target standard nodes.
+  - term: broadAlignment
+    label: Broad Alignment
+    definition: The source standard node is aligned to a subset of the target standard node.
+  - term: narrowAlignment
+    label: Narrow Alignment
+    definition: The target standard node is aligned to a subset of the source standard node.
+  - term: related
+    label: Related
+    definition: The source and target node are related and of similar size.
+  - term: hasPrerequisite
+    label: Has Prerequisite
+    definition: The target standard node is a prerequisite to the source standard node.

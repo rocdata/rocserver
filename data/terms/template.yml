@@ -1,0 +1,15 @@
+type: ControlledVocabulary
+kind: null
+jurisdiction: 
+name: {name}
+uri: https://rocdata.global/terms/Global/{name}
+country: null
+label: {}
+description: 
+source: 
+language: en
+terms:
+  - term: 
+    label: 
+  - term: 
+    label: 

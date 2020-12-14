@@ -83,6 +83,8 @@ def create_jurisdictions():
     local('./manage.py createjurisdiction --name Global --display_name "Global Terms" --language "en" ')
     local('./manage.py createjurisdiction --name Honduras --display_name "Secretaría de Educación de Honduras" --language "es" --country "HN"')
     local('./manage.py createjurisdiction --name Ghana --display_name "Ghana NaCCA" --language "en" --country "GH"')
+    local('./manage.py createjurisdiction --name ASN --display_name "Achievement Standards Network" --language "en" --country "US"')
+    local('./manage.py createjurisdiction --name CCSS --display_name "Common Core State Standards Initiative" --language "en" --country "US"')
 
 @task
 def load_terms():
@@ -90,7 +92,12 @@ def load_terms():
         create_jurisdictions()
     ALL_TERMS_FILES = [
         # Global
+        # "data/terms/ContentRelationKinds.yml",
+        "data/terms/DigitizationMethods.yml",
         "data/terms/LicenseKinds.yml",
+        "data/terms/PublicationStatuses.yml",
+        "data/terms/StandardNodeRelationKinds.yml",
+        "data/terms/TermRelationKinds.yml",
         # "data/terms/CognitiveProcessDimensions.yml",
         # "data/terms/KnowledgeDimensions.yml",
         # Ghana

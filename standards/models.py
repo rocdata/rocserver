@@ -89,6 +89,7 @@ SPECIAL_VOCABULARY_KINDS = Choices(
     ('topic_terms',          'Global topic taxonomy terms'),
     ('curriculum_elements',  'Curriculum standard elements'),
     ('license_kinds',        'License kinds'),
+    # NEED FEEDBACK BEFORE INCLUSION
     # ('cognitive_process_dimensions', "Congitive Process Dimensions (Bloom's taxonomy level)"),
     # ('knowledge_dimensions',         "Knoledge dimensions"),
 )
@@ -115,7 +116,7 @@ class ControlledVocabulary(Model):
     creator = CharField(max_length=200, blank=True, null=True, help_text="Person or organization that published this vocabulary")
     date_created = DateTimeField(auto_now_add=True)
     date_modified = DateTimeField(auto_now=True)
-    extra_fields = JSONField(default=dict, blank=True)  # for extensibility
+    extra_fields = JSONField(default=dict, blank=True)  # for data extensibility
 
     class Meta:
         verbose_name_plural = 'Controlled vocabularies'
@@ -172,7 +173,7 @@ class Term(Model):
     # Metadata
     date_created = DateTimeField(auto_now_add=True)
     date_modified = DateTimeField(auto_now=True)
-    extra_fields = JSONField(default=dict, blank=True)  # for extensibility
+    extra_fields = JSONField(default=dict, blank=True)  # for data extensibility
 
     objects = TermModelManager()
 
@@ -219,9 +220,9 @@ TERM_REL_KINDS = Choices(
     # skos:mappingRelation (links to other vocabularies including external URIs)
     ('exactMatch',   'matches exactly'),        # 100% identity matches
     ('closeMatch',   'matches closely'),        # 80% match (subjective)
-    ('relatedMatch', 'source and target are related and of similar size'),
     ('broadMatch',   'source is related to a subset of the target'),
     ('narrowMatch',  'target is related to a subset of the source'),
+    ('relatedMatch', 'source and target are related and of similar size'),
 )
 
 class TermRelation(Model):
