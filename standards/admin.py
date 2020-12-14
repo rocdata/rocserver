@@ -1,8 +1,11 @@
 from django.contrib import admin
+from treebeard.admin import TreeAdmin
+from treebeard.forms import movenodeform_factory
 
 from standards.models import Jurisdiction, UserProfile
 from standards.models import ControlledVocabulary, Term, TermRelation
-from standards.models import StandardsDocument
+from standards.models import StandardsDocument, StandardNode
+
 
 
 
@@ -58,9 +61,18 @@ class TermRelationAdmin(admin.ModelAdmin):
 
 @admin.register(StandardsDocument)
 class StandardsDocumentAdmin(admin.ModelAdmin):
-    list_display = ["id", "jurisdiction", "short_name", "title", "version", "publication_status", "digitization_method"]
+    list_display = ["name", "id", "jurisdiction", "title", "version", "publication_status", "digitization_method"]
     list_filter = ("jurisdiction", "publication_status", "subjects")
-    search_fields = ["id", "title", "short_name", "description", "publisher", "notes"]
+    search_fields = ["id", "title", "name", "description", "publisher", "notes"]
     readonly_fields = ["id"]
     model = StandardsDocument
+
+
+@admin.register(StandardNode)
+class StandardNodeAdmin(TreeAdmin):
+    list_display = ["id", "document", "notation", "list_id", "title", "description", "path"]
+    list_filter = ("document__jurisdiction", "document", "kind", "language", "concept_keywords")
+    search_fields = ["id", "notation", "path", "title", "description", "concept_keywords", "notes", "extra_fields"]
+    readonly_fields = ["id"]
+    form = movenodeform_factory(StandardNode)
 
