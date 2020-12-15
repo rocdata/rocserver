@@ -70,9 +70,8 @@ class StandardsDocumentAdmin(admin.ModelAdmin):
 
 @admin.register(StandardNode)
 class StandardNodeAdmin(TreeAdmin):
-    list_display = ["id", "document", "notation", "list_id", "title", "description", "path"]
+    list_display = ["id", "notation", "list_id", "title", "description"]
     list_filter = ("document__jurisdiction", "document", "kind", "language", "concept_keywords")
-    search_fields = ["id", "notation", "path", "title", "description", "concept_keywords", "notes", "extra_fields"]
+    search_fields = ["id", "notation", "title", "description", "concept_keywords", "notes", "extra_fields"]
     readonly_fields = ["id"]
     form = movenodeform_factory(StandardNode)
-

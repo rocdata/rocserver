@@ -260,6 +260,7 @@ DIGITIZATION_METHODS = Choices(
     ("manual_scan",     "Manual data entry based on OCR"),
     ("automated_scan",  "Semi-automated stucture extraction through OCR"),
     ("website_scrape",  "Curriculum data scraped from website"),
+    ("hackathon_import", "Curriculum data imported from Hackathon DB"),
     ("asn_import",      "Curriculum data imported from Achievement Standards Network (ASN)"),
     ("case_import",     "Curriculum data imported from CASE registry"),
 )
@@ -388,6 +389,8 @@ class StandardNode(MP_Node):
                 condition=Q(depth=1),
             )
         ]
+        ordering = ('path', 'sort_order', )
+
 
     def __str__(self):
         description_start = self.description[0:30] + '...'
