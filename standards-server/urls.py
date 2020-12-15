@@ -61,17 +61,17 @@ urlpatterns = format_suffix_patterns([
     #
     # jurisdiction CRUD
     path('terms/', juri_list, name='api-juri-list'),
-    re_path(r'^terms/(?P<name>\w*)$',
+    re_path(r'^terms/(?P<name>[\w_\-]*)$',
             juri_detail, name='api-juri-detail'),
     #
     # vocab CRUD  (in jurisdiction)
     path('terms/<name>/', juri_vocab_list, name='api-juri-vocab-list'),  # -> juri_vocab_create
-    re_path(r'^terms/(?P<jurisdiction__name>\w*)/(?P<name>\w*)$',
+    re_path(r'^terms/(?P<jurisdiction__name>[\w_\-]*)/(?P<name>[\w_\-]*)$',
             juri_vocab_detail, name='api-juri-vocab-detail'),
     path('terms/<jurisdiction__name>/<name>/', juri_vocab_term_list, name='api-juri-vocab-term-list'), # -> juri_vocab_term_create
     #
     # term CRUD (in vocab, in jurisdiction)
-    re_path(r'^terms/(?P<vocabulary__jurisdiction__name>\w*)/(?P<vocabulary__name>\w*)/(?P<path>[\w/]*)$',
+    re_path(r'^terms/(?P<vocabulary__jurisdiction__name>[\w_\-]*)/(?P<vocabulary__name>[\w_\-]*)/(?P<path>[\w/_\-]*)$',
             juri_vocab_term_detail, name='api-juri-vocab-term-detail'),
 ], allowed=['json', 'html'])
 
