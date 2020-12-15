@@ -35,8 +35,8 @@ juri_detail = JurisdictionViewSet.as_view({
     'delete': 'destroy'
 })
 
-juri_vocab_list = JurisdictionVocabularyViewSet.as_view({
-    'get': 'list',
+juri_vocab_create = JurisdictionVocabularyViewSet.as_view({
+    'get': 'redirect_to_juri',
     'post': 'create'
 })
 juri_vocab_detail = JurisdictionVocabularyViewSet.as_view({
@@ -46,8 +46,8 @@ juri_vocab_detail = JurisdictionVocabularyViewSet.as_view({
     'delete': 'destroy'
 })
 
-juri_vocab_term_list = JurisdictionVocabularyTermViewSet.as_view({
-    'get': 'list',
+juri_vocab_term_create = JurisdictionVocabularyTermViewSet.as_view({
+    'get': 'redirect_to_vocab',
     'post': 'create'
 })
 juri_vocab_term_detail = JurisdictionVocabularyTermViewSet.as_view({
@@ -58,19 +58,22 @@ juri_vocab_term_detail = JurisdictionVocabularyTermViewSet.as_view({
 })
 
 urlpatterns = format_suffix_patterns([
-    #
-    # jurisdiction CRUD
+    # Jurisdiction
+    # LC
     path('terms/', juri_list, name='api-juri-list'),
-    re_path(r'^terms/(?P<name>[\w_\-]*)$',
-            juri_detail, name='api-juri-detail'),
+    # RUD
+    re_path(r'^terms/(?P<name>[\w_\-]*)$', juri_detail, name='api-juri-detail'),
     #
-    # vocab CRUD  (in jurisdiction)
-    path('terms/<name>/', juri_vocab_list, name='api-juri-vocab-list'),  # -> juri_vocab_create
-    re_path(r'^terms/(?P<jurisdiction__name>[\w_\-]*)/(?P<name>[\w_\-]*)$',
-            juri_vocab_detail, name='api-juri-vocab-detail'),
-    path('terms/<jurisdiction__name>/<name>/', juri_vocab_term_list, name='api-juri-vocab-term-list'), # -> juri_vocab_term_create
+    # Vocabularies (in jurisdiction)
+    # C
+    path('terms/<name>/', juri_vocab_create, name='api-juri-vocab-list'),
+    # RUD
+    re_path(r'^terms/(?P<jurisdiction__name>[\w_\-]*)/(?P<name>[\w_\-]*)$', juri_vocab_detail, name='api-juri-vocab-detail'),
     #
-    # term CRUD (in vocab, in jurisdiction)
+    # Terms (in vocab, in jurisdiction)
+    # C
+    path('terms/<jurisdiction__name>/<name>/', juri_vocab_term_create, name='api-juri-vocab-term-list'),
+    # RUD
     re_path(r'^terms/(?P<vocabulary__jurisdiction__name>[\w_\-]*)/(?P<vocabulary__name>[\w_\-]*)/(?P<path>[\w/_\-]*)$',
             juri_vocab_term_detail, name='api-juri-vocab-term-detail'),
 ], allowed=['json', 'html'])

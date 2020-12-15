@@ -5,6 +5,7 @@ import shutil
 import urllib.request
 
 from django.shortcuts import get_object_or_404
+from django.http.response import HttpResponseRedirect
 from rest_framework import serializers, viewsets, views, status, response
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
@@ -86,17 +87,14 @@ class JurisdictionVocabularyViewSet(MultipleFieldLookupMixin, CustomHTMLRenderer
     queryset = ControlledVocabulary.objects.select_related('jurisdiction').all()
     lookup_fields = ["jurisdiction__name", "name"]
     serializer_class = ControlledVocabularySerializer
-    template_name = 'standards/vocabulary_detail.html'           # /terms/{juri}/{vocab}
+    template_name = 'standards/vocabulary_detail.html'          # /terms/{juri}/{vocab}
 
-
-    def list(self, request, *args, **kwargs):                    # /terms/{juri}/
-        """Used for HTML format of the vocabulary create-list endpoint."""
+    def redirect_to_juri(self, request, *args, **kwargs):       # /terms/{juri}/
         if request.accepted_renderer.format == 'html':
-            juri = Jurisdiction.objects.get(name=kwargs['name'])
-            queryset = self.filter_queryset(self.get_queryset())
-            data = {'vocabularies': queryset.filter(jurisdiction=juri)}
-            return Response(data, template_name='standards/jurisdiction_vocabularies.html')
-        return super().list(request, *args, **kwargs)
+            r = reverse('api-juri-detail', kwargs=kwargs, request=request)
+            return HttpResponseRedirect(redirect_to=r)
+        else:
+            return super(JurisdictionVocabularyViewSet, self).list(request, *args, **kwargs)
 
 
 
@@ -106,13 +104,6 @@ class JurisdictionVocabularyTermViewSet(MultipleFieldLookupMixin, CustomHTMLRend
     serializer_class = TermSerializer
     template_name = 'standards/term_detail.html'                 # /terms/{juri}/{vocab}/{term.path}
 
-
-    def list(self, request, *args, **kwargs):                    # /terms/{juri}/{vocab}/
-        """Used for HTML format of the term create-list endpoint."""
-        if request.accepted_renderer.format == 'html':
-            juri = Jurisdiction.objects.get(name=kwargs['jurisdiction__name'])
-            vocab = ControlledVocabulary.objects.get(name=kwargs['name'])
-            queryset = self.filter_queryset(self.get_queryset())
-            data = {'terms': queryset.filter(vocabulary__jurisdiction=juri, vocabulary=vocab)}
-            return Response(data, template_name='standards/vocabulary_terms.html')
-        return super().list(request, *args, **kwargs)
+    def redirect_to_vocab(self, request, *args, **kwargs):       # /terms/{juri}/{vocab}/
+        r = reverse('api-juri-vocab-detail', kwargs=kwargs, request=request)
+        return HttpResponseRedirect(redirect_to=r)
