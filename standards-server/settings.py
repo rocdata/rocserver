@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "treebeard",  # for TreeAdmin views
     "django_extensions",
     "standards",
+    "website",
 ]
 
 MIDDLEWARE = [

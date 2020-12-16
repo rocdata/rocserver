@@ -20,6 +20,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 from standards.api import JurisdictionViewSet, JurisdictionVocabularyViewSet, JurisdictionVocabularyTermViewSet
 
+from website.views import index
 
 # HEARARCHICAL API   /api/terms/{juri_name}/{vocab_name}/{term_path}
 ################################################################################
@@ -58,6 +59,7 @@ juri_vocab_term_detail = JurisdictionVocabularyTermViewSet.as_view({
 })
 
 urlpatterns = format_suffix_patterns([
+    path('', index, name='index'),
     # Jurisdiction
     # LC
     path('terms/', juri_list, name='api-juri-list'),

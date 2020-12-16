@@ -1,0 +1,54 @@
+{% extends "standards/base.html" %}
+{% load static %}
+
+{% block extrahead %}
+<title>Repository of Organized Curriculums (ROC)</title>
+{% endblock %}
+
+
+{% block maincontent %}
+<div class="container">
+
+    <div class="float-right">
+        [<a href="https://learningequality.org/r/designsprint-mar19" title="Design sprint report">DS19</a>,
+         <a href="https://learningequality.org/r/hackathon-oct19-report" title="Hackathon report">HA19</a>]
+    </div>
+    <div class="clearfix"></div>
+
+    <h2 class="object-title">Repository of Organized Curriculums (ROC)</h2>
+    <span class="objectkindbadge badge badge-primary">beta</span>
+
+    <hr/>
+
+    <h2>About</h2>
+    <p>
+        This server will hosts the digital curriculum standards data for several countries.
+    </p>
+
+    <p>
+        <img style="max-width:80%;" src="{% static 'website/overview_of_domain_fig.png' %}" />
+    </p>
+
+    
+
+    <h3>Example of data available for browsing</h3>
+    <ul>
+        <li>Example Jurisdiction data:
+            <a href="https://rocdata.global/terms/Ghana">Ghana vocabularies</a>
+        </li>
+        <li>Example vocabulary datadata:
+            <a href="https://rocdata.global/terms/Ghana/GradeLevels">Ghana GradeLevels vocabulary</a>
+        </li>
+        <li>Example term within a vocabulary:
+            <a href="https://rocdata.global/terms/Ghana/GradeLevels/B4">Basic 4 grade level in Ghana</a>
+        </li>
+    </ul>
+
+    <h3>Example of data available for download</h3>
+    <p>
+        The <a href="https://github.com/rocdata/standards-ghana/tree/main/terms">controlled vocabulary terms</a>
+        used in Ghana curriculum standards documents.
+    </p>
+
+</div><!-- /container -->
+{% endblock %}
