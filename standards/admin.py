@@ -1,6 +1,6 @@
 from django.contrib import admin
-from treebeard.admin import TreeAdmin
-from treebeard.forms import movenodeform_factory
+from mptt.admin import MPTTModelAdmin
+from mptt.admin import DraggableMPTTAdmin
 
 from standards.models import Jurisdiction, UserProfile
 from standards.models import ControlledVocabulary, Term, TermRelation
@@ -69,9 +69,9 @@ class StandardsDocumentAdmin(admin.ModelAdmin):
 
 
 @admin.register(StandardNode)
-class StandardNodeAdmin(TreeAdmin):
-    list_display = ["id", "notation", "list_id", "title", "description"]
+class StandardNodeAdmin(DraggableMPTTAdmin):
+    list_display = ["tree_actions", "indented_title", "notation", "list_id", "title"]
+    list_display_links=["indented_title",]
     list_filter = ("document__jurisdiction", "document", "kind", "language", "concept_keywords")
     search_fields = ["id", "notation", "title", "description", "concept_keywords", "notes", "extra_fields"]
     readonly_fields = ["id"]
-    form = movenodeform_factory(StandardNode)

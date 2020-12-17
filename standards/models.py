@@ -23,9 +23,10 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django_countries.fields import CountryField
 from model_utils import Choices
+from mptt.models import MPTTModel
+from mptt.models import TreeForeignKey
 from rest_framework.authtoken.models import Token
 from standards.fields import ShortUUIDField
-from treebeard.mp_tree import MP_Node
 
 
 
@@ -331,18 +332,15 @@ class StandardsDocument(Model):
 
 
 
-
-class StandardNode(MP_Node):
+class StandardNode(MPTTModel):
     """
     An individual standard noe within the a curriculum standards document.
     """
     # IDs
-    intid = AutoField(primary_key=True)  # because TreeBeard works with int pks
-    id = ShortUUIDField(unique=True, db_index=True, editable=False, prefix='S')
+    id = ShortUUIDField(primary_key=True, editable=False, prefix='S')
     #
     # Structural
-    # parent provided by MP_Node
-    # path = inherited from MP_Node, e.g. ['0001'] for root node of tree_id 0001
+    parent = TreeForeignKey('self', on_delete=CASCADE, null=True, blank=True, related_name='children')
     document = ForeignKey(StandardsDocument, related_name="nodes", on_delete=CASCADE)
     kind = ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'curriculum_elements'})
     sort_order = FloatField(default=1.0)   # the position of node within parent
@@ -377,20 +375,19 @@ class StandardNode(MP_Node):
     extra_fields = JSONField(default=dict, blank=True)  # for data extensibility
 
 
-    # MP_Node settings
-    node_order_by = ["sort_order"]
-
     class Meta:
         # Make sure every document has at most one tree
         constraints = [
             UniqueConstraint(
                 name="single_root_per_document",
-                fields=["document", "depth"],
-                condition=Q(depth=1),
+                fields=["document", "tree_id"],
+                condition=Q(level=0),
             )
         ]
-        ordering = ('path', 'sort_order', )
+        ordering = ('sort_order', )
 
+    class MPTTMeta:
+        order_insertion_by = ['sort_order']
 
     def __str__(self):
         description_start = self.description[0:30] + '...'

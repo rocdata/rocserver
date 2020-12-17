@@ -134,7 +134,7 @@ def import_doc(doc_dict):
 
     dict_tree = treeify_doc_dict(doc_dict, doc_nodes)
 
-    root = StandardNode.add_root(
+    root = StandardNode.objects.create(
         document=stddoc,
         description='ROOT',
         sort_order=1.0,
@@ -174,10 +174,10 @@ def treeify_doc_dict(doc_dict, doc_nodes):
 ################################################################################
 
 def add_children_recustive(stdnode, children):
-    print('processing', len(children))
-
+    # print('processing', len(children))
     for i, child_dict in enumerate(children):        
-        child_node = stdnode.add_child(
+        child_node = StandardNode.objects.create(
+            parent=stdnode,
             document=stdnode.document,
             # kind=child_dict["fields"]["kind"]     # TODO
             sort_order=float(i+1),
