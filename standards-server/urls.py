@@ -21,6 +21,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from standards.api import JurisdictionViewSet, JurisdictionVocabularyViewSet, JurisdictionVocabularyTermViewSet
 
 from website.views import index
+from website.views import PublicModelIndexView, PublicModelDetailView
 
 # HEARARCHICAL API   /api/terms/{juri_name}/{vocab_name}/{term_path}
 ################################################################################
@@ -83,6 +84,19 @@ urlpatterns = format_suffix_patterns([
 
 urlpatterns += [
     path('admin/',  admin.site.urls),
+    # staf-only admin docs
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
+    # public admin docs, a.k.a. rocdocs
+    path(
+        'rocdocs/models/',
+        PublicModelIndexView.as_view(),
+        name='django-admindocs-models-index-public',
+    ),
+    re_path(
+        r'^rocdocs/models/(?P<app_label>[^\.]+)\.(?P<model_name>[^/]+)/$',
+        PublicModelDetailView.as_view(),
+        name='django-admindocs-models-detail-public',
+    ),
 ]
 
 

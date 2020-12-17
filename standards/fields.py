@@ -19,9 +19,9 @@ class ShortUUIDField(models.UUIDField):
     to users as an alphanumeric string.
     """
     default_error_messages = {
-        'invalid': '“%(value)s” is not a valid shortuuid.',
+        'invalid': '%(value)s is not a valid shortuuid.',
     }
-    description = "A Short UUID Field of length %(length). "
+    description = "A Short UUID Field."
 
     @classmethod
     def generate_short_code_with_prefix(cls, prefix='', length=7):
