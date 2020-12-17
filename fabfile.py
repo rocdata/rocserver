@@ -32,14 +32,14 @@ def reset_and_migrate():
     """
     Completely delete the local DB and start from scratch (empty tables).
     """
-    local('./manage.py flush --no-input')
-    # local('trash standards/migrations/00*py')
+    local('./manage.py reset_db --noinput')
+    local('rm standards/migrations/00*py')
     local('./manage.py makemigrations')
     local('./manage.py migrate')
     local('./manage.py loaddata data/fixtures/admin_user.yaml')
 
 @task
-def graph_models(subsets="terms;frameworks;content"):
+def graph_models(subsets="terms;standards;content"):
     """
     Generate a graphviz visualization for models.py
     see https://django-extensions.readthedocs.io/en/latest/graph_models.html
@@ -57,10 +57,10 @@ def graph_models(subsets="terms;frameworks;content"):
         ])
     if 'frameworks' in subsets_to_include:
         models_to_include.extend([
-            'Framework',
-            'FrameworkNode',
-            'FrameworkCrosswalk',
-            'AlignmentEdge',
+            'StandardsDocument',
+            'StandardNode',
+            'StandardsCrosswalk',
+            'StandardNodeRelation',
         ])
     if 'content' in subsets_to_include:
         models_to_include.extend([
@@ -83,6 +83,8 @@ def create_jurisdictions():
     local('./manage.py createjurisdiction --name Global --display_name "Global Terms" --language "en" ')
     local('./manage.py createjurisdiction --name Honduras --display_name "Secretaría de Educación de Honduras" --language "es" --country "HN"')
     local('./manage.py createjurisdiction --name Ghana --display_name "Ghana NaCCA" --language "en" --country "GH"')
+    local('./manage.py createjurisdiction --name Australia --display_name "Australia" --language "en" --country "AU"')
+    local('./manage.py createjurisdiction --name USA --display_name "United States" --language "en" --country "US"')
     local('./manage.py createjurisdiction --name ASN --display_name "Achievement Standards Network" --language "en" --country "US"')
     local('./manage.py createjurisdiction --name CCSS --display_name "Common Core State Standards Initiative" --language "en" --country "US"')
 
@@ -112,6 +114,11 @@ def load_terms():
         "https://raw.githubusercontent.com/rocdata/standards-honduras/main/terms/Areas.yml",
         "https://raw.githubusercontent.com/rocdata/standards-honduras/main/terms/CurriculumElements.yml",
         "https://raw.githubusercontent.com/rocdata/standards-honduras/main/terms/Grados.yml",
+        #
+        # USA
+        "https://raw.githubusercontent.com/rocdata/standards-usa/main/terms/Subjects.yml",
+        "https://raw.githubusercontent.com/rocdata/standards-usa/main/terms/CCSSCurriculumElements.yml",
+        "https://raw.githubusercontent.com/rocdata/standards-usa/main/terms/GradeLevels.yml",
     ]
     for terms_url in ALL_TERMS_FILES:
         if "raw.githubusercontent" in terms_url:
