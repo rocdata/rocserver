@@ -167,8 +167,8 @@ class StandardNode(MPTTModel):
         order_insertion_by = ['sort_order']
 
     def __str__(self):
-        description_start = self.description[0:30] + '...'
-        return "{} ({})".format(description_start, self.id)
+        description_start = self.description[0:30] + '..'
+        return "{}({})".format(description_start, self.id)
 
     def get_absolute_url(self):
         return "/standardnodes/" + self.id
@@ -182,6 +182,9 @@ class StandardNode(MPTTModel):
             kwargs["document"] = self.document
         return super().add_child(**kwargs)
 
+    @property
+    def relations(self):
+        return StandardNodeRelation.objects.filter(Q(source=self) | Q(target=self))
 
 
 
@@ -258,22 +261,30 @@ class StandardNodeRelation(Model):
     """
     id = ShortUUIDField(primary_key=True, editable=False, prefix='SR')
     #
+    # Structural
+    crosswalk = ForeignKey(StandardsCrosswalk, related_name="relations", on_delete=CASCADE)
+    #
     # Edge domain
-    crosswalk = ForeignKey(StandardsCrosswalk, related_name="edges", on_delete=CASCADE)
-    source = ForeignKey(StandardNode, related_name="+", on_delete=CASCADE)
-    target = ForeignKey(StandardNode, related_name="+", on_delete=CASCADE)
+    source = ForeignKey(StandardNode, related_name="souuce_rels", on_delete=CASCADE)
+    target = ForeignKey(StandardNode, related_name="target_rels", on_delete=CASCADE)
     kind = ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'standard_node_relation_kinds'})
     #
     # Publishing domain
-    canonical_uri = URLField(max_length=512, null=True, blank=True, help_text="URI for this alignment edge used when publishing")
-    source_uri = URLField(max_length=512, null=True, blank=True, help_text="External URI for imported alignment edge")
+    canonical_uri = URLField(max_length=512, null=True, blank=True, help_text="URI for this relation used when publishing")
+    source_uri = URLField(max_length=512, null=True, blank=True, help_text="External URI for imported relation")
     #
     # Metadata
     notes = TextField(blank=True, null=True, help_text="Additional notes and supporting text")
-    date_created = DateTimeField(auto_now_add=True, help_text="When the node was added to repository")
-    date_modified = DateTimeField(auto_now=True, help_text="Date of last modification to node")
+    date_created = DateTimeField(auto_now_add=True, help_text="When the relation was added to repository")
+    date_modified = DateTimeField(auto_now=True, help_text="Date of last modification to relation data")
     extra_fields = JSONField(default=dict, blank=True)  # for data extensibility
 
     def __str__(self):
         return str(self.source) + '--' + str(self.kind) + '-->' + str(self.target)
 
+    def get_absolute_url(self):
+        return "/standardnoderels/" + self.id
+
+    @property
+    def uri(self):
+        return self.get_absolute_url()
