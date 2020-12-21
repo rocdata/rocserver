@@ -5,7 +5,7 @@ from mptt.admin import DraggableMPTTAdmin
 from standards.models import Jurisdiction, UserProfile
 from standards.models import ControlledVocabulary, Term, TermRelation
 from standards.models import StandardsDocument, StandardNode
-
+from standards.models import StandardsCrosswalk, StandardNodeRelation
 
 
 
@@ -75,3 +75,23 @@ class StandardNodeAdmin(DraggableMPTTAdmin):
     list_filter = ("document__jurisdiction", "document", "kind", "language", "concept_keywords")
     search_fields = ["id", "notation", "title", "description", "concept_keywords", "notes", "extra_fields"]
     readonly_fields = ["id"]
+
+
+
+# STANDARDS CROSSWALKS
+################################################################################
+
+@admin.register(StandardsCrosswalk)
+class StandardsCrosswalkAdmin(admin.ModelAdmin):
+    list_display = ["id", "title", "digitization_method", "jurisdiction"]
+    list_filter = ("jurisdiction", "digitization_method", "subjects", "education_levels")
+    readonly_fields = ["id"]
+
+
+@admin.register(StandardNodeRelation)
+class StandardNodeRelationAdmin(admin.ModelAdmin):
+    list_display = ["id", "source", "kind", "target"]
+    raw_id_fields = ("source", "target",)
+    list_filter = ("crosswalk__jurisdiction", "crosswalk", "kind", "crosswalk__subjects", "crosswalk__education_levels")
+    readonly_fields = ["id"]
+

@@ -46,7 +46,9 @@ PUBLICATION_STATUSES = Choices(
 
 class StandardsDocument(Model):
     """
-    General Stores the metadata for a curriculum standard, usually one document.
+    A standard document identified by a unique ``name`` and ``id`` that stores
+    the info extracted from a source document at ``source_doc`` and contains a
+    hierarchy of ``StandardNode``s.
     """
     # IDs
     id = ShortUUIDField(primary_key=True, editable=False, prefix='D')
@@ -59,7 +61,7 @@ class StandardsDocument(Model):
     description = TextField(blank=True, null=True, help_text="Detailed info about this document")
     language = CharField(max_length=20, blank=True, null=True, help_text="BCP47/RFC5646 codes like en, es, fr-CA.")
     publisher = CharField(max_length=200, blank=True, null=True, help_text="The name of the organizaiton publishing the document")
-    version = CharField(max_length=50, blank=True, null=True, help_text="Document version or edition")
+    version = CharField(max_length=200, blank=True, null=True, help_text="Document version or edition")
     #
     # Licensing
     license	= ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'license_kinds'})
@@ -70,7 +72,7 @@ class StandardsDocument(Model):
     subjects = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'subjects'})
     education_levels = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'education_levels'})
     date_valid = DateField(blank=True, null=True, help_text="Date when document started being valid")
-    date_retired = DateField(blank=True, null=True, help_text="Date when document stopped being valid")
+    date_retired = DateField(blank=True, null=True, help_text="Date when document stops being valid")
     #
     # Digitization domain
     digitization_method = CharField(max_length=200, choices=DIGITIZATION_METHODS, help_text="Digitization method")
@@ -102,11 +104,14 @@ class StandardsDocument(Model):
     def root(self):
         return StandardNode.get_root_nodes().get(document=self)
 
+    def get_children(self):
+        self.root.get_children()
+
 
 
 class StandardNode(MPTTModel):
     """
-    An individual standard noe within the a curriculum standards document.
+    An individual standard entry within the a standards document.
     """
     # IDs
     id = ShortUUIDField(primary_key=True, editable=False, prefix='S')
@@ -180,14 +185,95 @@ class StandardNode(MPTTModel):
 
 
 
-# # CROSSWALKS
-# ################################################################################
+# CROSSWALKS
+################################################################################
 
-# class StandardsCrosswalk(Model):
-#     id = ShortUUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+CROSSWALK_DIGITIZATION_METHODS = Choices(
+    ("manual_entry",        "Manual data entry"),
+    ("spreadsheet_import",  "Imported from a stadards crosswalks spreasheeet"),
+    ("api_created",         "Created through the API"),
+    ("bulk_import",         "Created using a crosswalks integration script"),
+    ("human_judgments",     "Alignment judgment provided by human curricuum experts"),
+    ("hackathon_import",    "Alignment judgment collecte during October 2019 hackathon"),
+    ("asn_import",          "Standards alignment data imported from Achievement Standards Network (ASN)"),
+    ("case_import",         "Standards alignment data imported from CASE registry"),
+    ("data_import",         "Standards alignment data imported from data"),
+)
 
 
-# class StandardNodeRelation(Model):
-#     id = ShortUUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-#     crosswalk = ForeignKey(StandardsCrosswalk, related_name="edges", on_delete=CASCADE)
+class StandardsCrosswalk(Model):
+    """
+    A standards crosswalks is a set of ``StandardNodeRelation``s that describe
+    a mapping between source curriculum nodes and a target curriculum nodes.
+    """
+    # IDs
+    id = ShortUUIDField(primary_key=True, editable=False, prefix='SC')
+    # uri = computed field = localhost + get_absolute_url()
+    #
+    # Crosswalk info
+    jurisdiction = ForeignKey(Jurisdiction, related_name="crosswalks", on_delete=CASCADE, help_text='Jurisdiction of the crosswalk')
+    title = CharField(max_length=200, help_text="The publicly visible title for this crosswalk")
+    description = TextField(blank=True, null=True, help_text="Detailed info about this crosswalk")
+    creator = CharField(max_length=200, blank=True, null=True, help_text="Person or organization that created this crowsswalk")
+    publisher = CharField(max_length=200, blank=True, null=True, help_text="The name of the organizaiton publishing the crosswalks")
+    version = CharField(max_length=200, blank=True, null=True, help_text="Crosswalks versioning info")
+    #
+    # Licensing
+    license	= ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'license_kinds'})
+    license_description	= TextField(blank=True, null=True, help_text="Description of the licencing of this crosswalks")
+    copyright_holder = CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to this crosswalk")
+    #
+    # Educational domain
+    subjects = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'subjects'})
+    education_levels = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'education_levels'})
+    date_valid = DateField(blank=True, null=True, help_text="Date when document started being valid")
+    date_retired = DateField(blank=True, null=True, help_text="Date when document stopped being valid")
+    #
+    # Educational domain
+    subjects = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'subjects'})
+    education_levels = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'education_levels'})
+    date_valid = DateField(blank=True, null=True, help_text="Date when crosswalk becomes approved in publising jurisdiction")
+    date_retired = DateField(blank=True, null=True, help_text="Date when crosswalk stops being valid in publising jurisdiction")
+    #
+    # Digitization domain
+    digitization_method = CharField(max_length=200, choices=CROSSWALK_DIGITIZATION_METHODS, help_text="Digitization method")
+    publication_status	= CharField(max_length=30, choices=PUBLICATION_STATUSES, default=PUBLICATION_STATUSES.draft)
+
+
+    def __str__(self):
+        return "{} ({})".format(self.title, self.id)
+
+    def get_absolute_url(self):
+        return "/standardscrosswalks/" + self.id
+
+    @property
+    def uri(self):
+        return self.get_absolute_url()
+
+
+
+class StandardNodeRelation(Model):
+    """
+    A relations between two ``StandardNode``s.
+    """
+    id = ShortUUIDField(primary_key=True, editable=False, prefix='SR')
+    #
+    # Edge domain
+    crosswalk = ForeignKey(StandardsCrosswalk, related_name="edges", on_delete=CASCADE)
+    source = ForeignKey(StandardNode, related_name="+", on_delete=CASCADE)
+    target = ForeignKey(StandardNode, related_name="+", on_delete=CASCADE)
+    kind = ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'standard_node_relation_kinds'})
+    #
+    # Publishing domain
+    canonical_uri = URLField(max_length=512, null=True, blank=True, help_text="URI for this alignment edge used when publishing")
+    source_uri = URLField(max_length=512, null=True, blank=True, help_text="External URI for imported alignment edge")
+    #
+    # Metadata
+    notes = TextField(blank=True, null=True, help_text="Additional notes and supporting text")
+    date_created = DateTimeField(auto_now_add=True, help_text="When the node was added to repository")
+    date_modified = DateTimeField(auto_now=True, help_text="Date of last modification to node")
+    extra_fields = JSONField(default=dict, blank=True)  # for data extensibility
+
+    def __str__(self):
+        return str(self.source) + '--' + str(self.kind) + '-->' + str(self.target)
 
