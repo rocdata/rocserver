@@ -1,0 +1,48 @@
+type: ControlledVocabulary
+kind: content_standard_relation_kinds
+jurisdiction: Global
+name: ContentStandardRelationKinds
+uri: https://rocdata.global/terms/Global/ContentStandardRelationKinds
+country: null
+label: Content-to-standard relation kinds
+description: The types of alignement that can exist between content nodes and standards nodes in ROC data.
+source: null
+language: en
+terms:
+  - term: exactCorrelation
+    label: Exact Correlation
+    definition: The content node covers the exact knowledge, skills, or competencies described by the standard node.
+    source_uri: http://purl.org/ASN/schema/core/exactCorrelation
+  - term: majorCorrelation
+    label: Major Correlation
+    definition: Major overlap of knolwedge, skills, or competencies between the content node and the standard node.
+    source_uri: http://purl.org/ASN/schema/core/majorCorrelation
+  - term: minorCorrelation
+    label: Minor Correlation
+    definition: Major overlap of knolwedge, skills, or competencies between the content node and the standard node.
+    source_uri: http://purl.org/ASN/schema/core/minorCorrelation
+  - term: broadCorrelation
+    label: Broad Correlation
+    definition: >
+      The content node covers a subset of the knowledge, skills, or competencies
+      described by the standard node.
+    source_uri: http://purl.org/ASN/schema/core/broadCorrelation
+  - term: narrowCorrelation 
+    label: Narrow Correlation
+    definition: >
+      The content node covers the set of knowledge, skills, or competencies described by the standard node
+      as well as other concepts not found in the standard.
+    source_uri: http://purl.org/ASN/schema/core/broadCorrelation
+  - term: hasPrerequisite
+    label: Has Prerequisite
+    definition:  The standard node is a prerequisite to content node.
+    source_uri: http://purl.org/ASN/schema/core/prerequisiteCompetency
+  - term: teaches
+    label: Teaches
+    definition: The content node is intended to teach the knolwedge, skills, or competencies defined by the standard node.
+    source_uri: http://purl.org/dcx/lrmi-terms/teaches
+    notes: The teaches relation kind is equivalent to teachesCompetency relation in the ASN schema.
+  - term: assesses
+    label: Assesses
+    definition: The content node  intended to assess the knolwedge, skills, or competencies defined by the standard node.
+    source_uri: http://purl.org/dcx/lrmi-terms/assesses

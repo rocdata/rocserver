@@ -98,8 +98,10 @@ def load_terms():
         "data/terms/DigitizationMethods.yml",
         "data/terms/LicenseKinds.yml",
         "data/terms/PublicationStatuses.yml",
-        "data/terms/StandardNodeRelationKinds.yml",
         "data/terms/TermRelationKinds.yml",
+        "data/terms/StandardNodeRelationKinds.yml",
+        "data/terms/ContentNodeRelationKinds.yml",
+        "data/terms/ContentStandardRelationKinds.yml",
         # "data/terms/CognitiveProcessDimensions.yml",
         # "data/terms/KnowledgeDimensions.yml",
         # Ghana

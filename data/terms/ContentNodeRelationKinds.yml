@@ -1,0 +1,49 @@
+type: ControlledVocabulary
+kind: content_node_relation_kinds
+jurisdiction: Global
+name: ContentNodeRelationKinds
+uri: https://rocdata.global/terms/Global/ContentNodeRelationKinds
+country: null
+label: Content node relation kinds
+description: The types of relations that can exist between two content nodes in ROC data.
+source: null
+language: en
+terms:
+  - term: exactMatch
+    label: Exact Match
+    definition: The source and the target nodes have the same content and same location inside their containing collection.
+    notes: >
+      For example this can be used to identify a khanacademy.org video node and
+      the corresponding video node in a Kolibri channel. The video content is the
+      same and poistion of the nodes within the collection structure is the same.
+    source_uri: http://www.w3.org/2004/02/skos/core#exactMatch
+  - term: contentMatch
+    label: Content Match
+    definition: The source and the target nodes correspond to the same content.
+    notes: >
+      This relation can be used to describe ideantical content nodes that appear in multiple
+      places within a collection, or the same content appearing in a different collection.
+  - term: importedFrom
+    label: Imported From
+    definition: Describes a link in 
+    notes: >
+      This relation applies between content nodes that have remixed or curated 
+      from one collection into another.
+  - term: closeMatch
+    label: Close Match
+    definition: The source and target content nodes refer the similar content (80% match).
+    source_uri: http://www.w3.org/2004/02/skos/core#closeMatch
+  - term: isVersionOf
+    label: Is Version Of
+    source_uri: http://purl.org/dc/terms/isVersionOf
+    definition: The source content node is a version, edition, translation, or adaptation of the target content node.
+    notes: This property is an inverse property of Has Version.
+  - term: hasVersion
+    label: Has Version
+    definition: The target content node is a version, edition, translation, or adaptation of the source content node. 
+    notes: This property is an inverse property of Is Version Of.
+    source_uri: http://purl.org/dc/terms/hasVersion
+  - term: hasPrerequisite
+    label: Has Prerequisite
+    definition: The target content node is a prerequisite to the source content node.
+
