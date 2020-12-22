@@ -5,31 +5,45 @@ name: StandardNodeRelationKinds
 uri: https://rocdata.global/terms/Global/StandardNodeRelationKinds
 country: null
 label: StandardNode Relation Kinds
-description: The types of relations between StandardNode objects in the ROC data.
+description: The types of relations between curriculum standard nodes in ROC data.
 source: null
 language: en
 terms:
   - term: exactMatch
     label: Exact Match
-    definition: TThe source node and the target standdard node are the same (identical nodes imported in different documents).
+    definition: The source node and the target standard node are the same (identical standard nodes in different versions of a document).
+    source_uri: http://www.w3.org/2004/02/skos/core#exactMatch
   - term: exactAlignment
     label: Exact Alignment
     definition: The source and target standard nodes describe the same competency.
+    source_uri: http://purl.org/ASN/schema/core/exactAlignment
   - term: majorAlignment
     label: Major Alignment
     definition: Major overlap of relevant concepts between the source and target standard nodes.
+    source_uri: http://purl.org/ASN/schema/core/majorAlignment
   - term: minorAlignment
     label: Minor Alignment
     definition: Minor overlap of relevant concepts between the source and target standard nodes.
+    source_uri: http://purl.org/ASN/schema/core/minorAlignment
   - term: broadAlignment
     label: Broad Alignment
     definition: The source standard node is aligned to a subset of the target standard node.
+    source_uri: http://purl.org/ASN/schema/core/broadAlignment
+    notes: >
+      The target standard node covers all of the relevant concepts in the source
+      standard node as well as concepts not found in the source standard node.
   - term: narrowAlignment
     label: Narrow Alignment
     definition: The target standard node is aligned to a subset of the source standard node.
+    source_uri: http://purl.org/ASN/schema/core/narrowAlignment
+    notes: >
+      The source standard node covers all of the relevant concepts in the target
+      standard node as well as concepts not found in the target standard node.
+  - term: prerequisiteAlignment
+    label: Prerequisite Alignment
+    definition: The source standard node is a prerequisite to the target standard node.
+    source_uri: http://purl.org/ASN/schema/core/prerequisiteAlignment
   - term: related
     label: Related
-    definition: The source and target node are related and of similar size.
-  - term: hasPrerequisite
-    label: Has Prerequisite
-    definition: The target standard node is a prerequisite to the source standard node.
+    definition: The source and target standard node are related.
+    source_uri: http://www.w3.org/2004/02/skos/core#related
