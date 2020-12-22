@@ -100,7 +100,7 @@ class Command(BaseCommand):
                 sort_order=float(idxi+1),
                 language=term_language,
             )
-            OPTIONAL_ATTRS = ['definition', 'notes', 'alt_label', 'hidden_label']
+            OPTIONAL_ATTRS = ['definition', 'notes', 'alt_label', 'hidden_label', 'source_uri']
             for attr in OPTIONAL_ATTRS:
                 val = term_dict.get(attr)
                 if val:
