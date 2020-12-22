@@ -3,6 +3,8 @@
 # DATA WIP
 data/terms/ISCEDFields.yml
 data/terms/ISCEDLevels.yml
+data/terms/ConceptTerms.yml
+data/terms/ContentModalities.yml
 
 # WIP
 standards/hackathon_api.py
