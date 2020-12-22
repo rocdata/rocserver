@@ -265,7 +265,7 @@ class StandardNodeRelation(Model):
     crosswalk = ForeignKey(StandardsCrosswalk, related_name="relations", on_delete=CASCADE)
     #
     # Edge domain
-    source = ForeignKey(StandardNode, related_name="souuce_rels", on_delete=CASCADE)
+    source = ForeignKey(StandardNode, related_name="source_rels", on_delete=CASCADE)
     target = ForeignKey(StandardNode, related_name="target_rels", on_delete=CASCADE)
     kind = ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'standard_node_relation_kinds'})
     #
