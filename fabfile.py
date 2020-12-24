@@ -55,7 +55,7 @@ def graph_models(subsets="terms;standards;content"):
             'Term',
             'TermRelation',
         ])
-    if 'frameworks' in subsets_to_include:
+    if 'standards' in subsets_to_include:
         models_to_include.extend([
             'StandardsDocument',
             'StandardNode',
@@ -64,18 +64,18 @@ def graph_models(subsets="terms;standards;content"):
         ])
     if 'content' in subsets_to_include:
         models_to_include.extend([
-            'ContentSource',
             'ContentCollection',
             'ContentNode',
             'ContentNodeRelation',
             'ContentCorrelation',
-            'ContentCorrelationEdge',
+            'ContentStandardRelation',
         ])
     cmd += ' -I ' + ','.join(models_to_include)
     outfilename = 'standards_models__' + '_'.join(subsets_to_include) + '.png'
     cmd += ' -o ' + outfilename
     local(cmd)
     print(green('Models graph generated. See file ' + outfilename))
+
 
 
 @task
