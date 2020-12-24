@@ -1,0 +1,27 @@
+type: ControlledVocabulary
+kind: contentnode_kinds
+jurisdiction: KA
+name: KhanAcademyContentNodeKinds
+uri: https://rocdata.global/terms/Global/KhanAcademyContentNodeKinds
+country: US
+label: Khan Academy Content Node Kinds
+description: The different content types within a Khan Academy website.
+source: null
+language: en
+terms:
+  - term: Domain
+  - term: Course
+  - term: Unit
+  - term: Lesson
+  - term: Video
+  - term: Exercise
+  - term: Article
+    definition: An HTML page including various perseus widgets.
+  - term: Interactive
+# other exercise-like
+  - term: TopicQuiz
+  - term: TopicUnitTest
+# other scratchpad-like
+  - term: Challenge
+  - term: Project
+  - term: Talkthrough

@@ -1,0 +1,27 @@
+type: ControlledVocabulary
+kind: contentnode_kinds
+jurisdiction: LE
+name: KolibriContentNodeKinds
+uri: https://rocdata.global/terms/Global/KolibriContentNodeKinds
+country: null
+label: Kolibri Content Node Kinds
+description: The different content types within a Kolibri content channels.
+source: https://github.com/learningequality/le-utils/blob/master/le_utils/constants/content_kinds.py
+language: en
+terms:
+  - term: topic
+    label: Topic Node
+  - term: video
+    label: Video Node
+  - term: audio
+    label: Video Node
+  - term: exercise
+    label: Video Node
+  - term: document
+    label: Document Node
+  - term: html5
+    label: HTML5 App Node
+  - term: slideshow
+    label: Slideshow Node
+  - term: h5p
+    label: H5P Node

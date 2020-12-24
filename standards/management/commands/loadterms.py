@@ -52,6 +52,7 @@ class Command(BaseCommand):
             vocab_country = pycountry.countries.lookup(country_raw).alpha_2
         else:
             vocab_country = None
+
         assert juri.country.code == vocab_country, 'vocab country code differs from Jurisdiction country code'
         # get or create vocab
         vocab_name = termsdata['name'].strip()

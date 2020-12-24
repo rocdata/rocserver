@@ -46,21 +46,24 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
+        # try to load jurisdiction if it exists
         try:
-            # try to load jurisdiction
             juri = Jurisdiction.objects.get(name=options['name'])
-            if juri and not options['overwrite']:
-                print('Jurisdiction', options['name'], 'already exist.')
-                print('Use ./manage.py createjurisdiction --overwrite ... to recreate.')
-                sys.exit(-8)
         except Jurisdiction.DoesNotExist:
+            juri = None
+
+        if juri and not options['overwrite']:
+            print('Jurisdiction', options['name'], 'already exist.')
+            print('Use ./manage.py createjurisdiction --overwrite ... to recreate.')
+            sys.exit(-8)
+
+        if juri is None:
             juri = Jurisdiction(name=options['name'])
 
-        optional_attrs = ["display_name", "alt_name", "notes"]
+        optional_attrs = ["display_name", "alt_name", "notes", "website_url"]
         for attr in optional_attrs:
             if attr in options and options[attr]:
                 setattr(juri, attr, options[attr])
-
 
         country_raw = options.get('country', None)
         if country_raw:

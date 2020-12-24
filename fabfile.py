@@ -80,13 +80,16 @@ def graph_models(subsets="terms;standards;content"):
 
 @task
 def create_jurisdictions():
-    local('./manage.py createjurisdiction --name Global --display_name "Global Terms" --language "en" ')
-    local('./manage.py createjurisdiction --name Honduras --display_name "Secretaría de Educación de Honduras" --language "es" --country "HN"')
-    local('./manage.py createjurisdiction --name Ghana --display_name "Ghana NaCCA" --language "en" --country "GH"')
-    local('./manage.py createjurisdiction --name Australia --display_name "Australia" --language "en" --country "AU"')
-    local('./manage.py createjurisdiction --name USA --display_name "United States" --language "en" --country "US"')
-    local('./manage.py createjurisdiction --name ASN --display_name "Achievement Standards Network" --language "en" --country "US"')
-    local('./manage.py createjurisdiction --name CCSS --display_name "Common Core State Standards Initiative" --language "en" --country "US"')
+    cmd_base = "./manage.py createjurisdiction --overwrite "
+    local(cmd_base + '--name Global --display_name "Global Terms" --language "en" ')
+    local(cmd_base + '--name Honduras --display_name "Secretaría de Educación de Honduras" --language "es" --country "HN"')
+    local(cmd_base + '--name Ghana --display_name "Ghana NaCCA" --language "en" --country "GH"')
+    local(cmd_base + '-name Australia --display_name "Australia" --language "en" --country "AU"')
+    local(cmd_base + '--name USA --display_name "United States" --language "en" --country "US"')
+    local(cmd_base + '--name ASN --display_name "Achievement Standards Network" --language "en" --country "US"')
+    local(cmd_base + '--name CCSS --display_name "Common Core State Standards Initiative" --language "en" --country "US"')
+    local(cmd_base + '--name KA --display_name "Khan Academy" --country "US"')
+    local(cmd_base + '--name LE --display_name "Learning Equality" ')
 
 @task
 def load_terms():
@@ -94,7 +97,7 @@ def load_terms():
         create_jurisdictions()
     ALL_TERMS_FILES = [
         # Global
-        # "data/terms/ContentRelationKinds.yml",
+        "data/terms/ContentNodeRelationKinds.yml",
         "data/terms/DigitizationMethods.yml",
         "data/terms/LicenseKinds.yml",
         "data/terms/PublicationStatuses.yml",
@@ -121,6 +124,11 @@ def load_terms():
         "https://raw.githubusercontent.com/rocdata/standards-usa/main/terms/Subjects.yml",
         "https://raw.githubusercontent.com/rocdata/standards-usa/main/terms/CCSSCurriculumElements.yml",
         "https://raw.githubusercontent.com/rocdata/standards-usa/main/terms/GradeLevels.yml",
+        #
+        #
+        # CONTENT VOCABS
+        "data/terms/KhanAcademyContentNodeKinds.yml",
+        "data/terms/KolibriContentNodeKinds.yml",
     ]
     for terms_url in ALL_TERMS_FILES:
         if "raw.githubusercontent" in terms_url:
