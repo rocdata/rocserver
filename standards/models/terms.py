@@ -23,9 +23,9 @@ SPECIAL_VOCABULARY_KINDS = Choices(
     ('topic_terms',          'Global topic taxonomy terms'),
     ('curriculum_elements',  'Curriculum standard elements'),
     ('license_kinds',        'License kinds'),
-    # NEED FEEDBACK BEFORE INCLUSION
-    # ('cognitive_process_dimensions', "Congitive Process Dimensions (Bloom's taxonomy level)"),
-    # ('knowledge_dimensions',         "Knoledge dimensions"),
+    # THESE NEED DISCUSSION BEFORE INCLUSION
+    # ('cognitive_process_dimensions', "Cognitive Process Dimensions (Bloom's taxonomy level)"),
+    # ('knowledge_dimensions',         "Knowledge dimensions"),
 )
 
 
@@ -37,7 +37,7 @@ class ControlledVocabulary(Model):
     id = ShortUUIDField(primary_key=True, editable=False, prefix='V')
     # uri, computed field, e.g., https://rocdata.global/terms/{jury}/{self.name}
     jurisdiction = ForeignKey(Jurisdiction, related_name="vocabularies", on_delete=CASCADE)
-    kind = CharField(max_length=50, blank=True, null=True, choices=SPECIAL_VOCABULARY_KINDS, help_text="Vocabulay kind (e.g. education_levels)")
+    kind = CharField(max_length=50, blank=True, null=True, choices=SPECIAL_VOCABULARY_KINDS, help_text="Vocabulary kind (e.g. education_levels)")
     name = CharField(max_length=200, help_text="The name used in URIs")
     label = CharField(max_length=200, help_text="Human-readable label")
     alt_label = CharField(max_length=200, blank=True, null=True, help_text="Alternative label" )

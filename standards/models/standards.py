@@ -57,22 +57,22 @@ class StandardsDocument(Model):
     #
     # Document info
     jurisdiction = ForeignKey(Jurisdiction, related_name="documents", on_delete=CASCADE, help_text='Jurisdiction of standards document')
-    title = CharField(max_length=200, help_text="The offficial title of the document")
+    title = CharField(max_length=200, help_text="The full title of the document")
     description = TextField(blank=True, null=True, help_text="Detailed info about this document")
     language = CharField(max_length=20, blank=True, null=True, help_text="BCP47/RFC5646 codes like en, es, fr-CA.")
     publisher = CharField(max_length=200, blank=True, null=True, help_text="The name of the organizaiton publishing the document")
     version = CharField(max_length=200, blank=True, null=True, help_text="Document version or edition")
-    #
-    # Licensing
-    license	= ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'license_kinds'})
-    license_description	= TextField(blank=True, null=True, help_text="Full text of the document's licencing information")
-    copyright_holder = CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to the document")
     #
     # Educational domain
     subjects = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'subjects'})
     education_levels = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'education_levels'})
     date_valid = DateField(blank=True, null=True, help_text="Date when document started being valid")
     date_retired = DateField(blank=True, null=True, help_text="Date when document stops being valid")
+    #
+    # Licensing
+    license	= ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'license_kinds'})
+    license_description	= TextField(blank=True, null=True, help_text="Full text of the document's licencing information")
+    copyright_holder = CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to the document")
     #
     # Digitization domain
     digitization_method = CharField(max_length=200, choices=DIGITIZATION_METHODS, help_text="Digitization method")
@@ -118,7 +118,7 @@ class StandardNode(MPTTModel):
     #
     # Structural
     parent = TreeForeignKey('self', on_delete=CASCADE, null=True, blank=True, related_name='children')
-    document = ForeignKey(StandardsDocument, related_name="nodes", on_delete=CASCADE)
+    document = ForeignKey(StandardsDocument, related_name="standardnodes", on_delete=CASCADE)
     kind = ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'curriculum_elements'})
     sort_order = FloatField(default=1.0)   # the position of node within parent
     #
@@ -133,7 +133,7 @@ class StandardNode(MPTTModel):
     # Educational domain
     subjects = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'subjects'})
     education_levels = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'education_levels'})
-    concept_terms = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'contept_terms'})
+    concept_terms = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'concept_terms'})
     concept_keywords = CharField(max_length=500, blank=True, null=True, help_text="Free form, comma-separated keywords")
     # MAYBE ADD
     # cognitive_process_dimensions	m2m --> Term.vocabulary[kind=cognitive_process_dimensions]
@@ -193,11 +193,11 @@ class StandardNode(MPTTModel):
 
 CROSSWALK_DIGITIZATION_METHODS = Choices(
     ("manual_entry",        "Manual data entry"),
-    ("spreadsheet_import",  "Imported from a stadards crosswalks spreasheeet"),
+    ("spreadsheet_import",  "Imported from a standards crosswalks spreadsheet"),
     ("api_created",         "Created through the API"),
     ("bulk_import",         "Created using a crosswalks integration script"),
-    ("human_judgments",     "Alignment judgment provided by human curricuum experts"),
-    ("hackathon_import",    "Alignment judgment collecte during October 2019 hackathon"),
+    ("human_judgments",     "Alignment judgment provided by human curriculum experts"),
+    ("hackathon_import",    "Alignment judgment collected during October 2019 hackathon"),
     ("asn_import",          "Standards alignment data imported from Achievement Standards Network (ASN)"),
     ("case_import",         "Standards alignment data imported from CASE registry"),
     ("data_import",         "Standards alignment data imported from data"),
@@ -217,13 +217,13 @@ class StandardsCrosswalk(Model):
     jurisdiction = ForeignKey(Jurisdiction, related_name="crosswalks", on_delete=CASCADE, help_text='Jurisdiction of the crosswalk')
     title = CharField(max_length=200, help_text="The publicly visible title for this crosswalk")
     description = TextField(blank=True, null=True, help_text="Detailed info about this crosswalk")
-    creator = CharField(max_length=200, blank=True, null=True, help_text="Person or organization that created this crowsswalk")
-    publisher = CharField(max_length=200, blank=True, null=True, help_text="The name of the organizaiton publishing the crosswalks")
+    creator = CharField(max_length=200, blank=True, null=True, help_text="Person or organization that created this crosswalk")
+    publisher = CharField(max_length=200, blank=True, null=True, help_text="The name of the organization publishing the crosswalk")
     version = CharField(max_length=200, blank=True, null=True, help_text="Crosswalks versioning info")
     #
     # Licensing
     license	= ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'license_kinds'})
-    license_description	= TextField(blank=True, null=True, help_text="Description of the licencing of this crosswalks")
+    license_description	= TextField(blank=True, null=True, help_text="Description of the licensing of this crosswalks")
     copyright_holder = CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to this crosswalk")
     #
     # Educational domain
@@ -235,8 +235,8 @@ class StandardsCrosswalk(Model):
     # Educational domain
     subjects = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'subjects'})
     education_levels = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'education_levels'})
-    date_valid = DateField(blank=True, null=True, help_text="Date when crosswalk becomes approved in publising jurisdiction")
-    date_retired = DateField(blank=True, null=True, help_text="Date when crosswalk stops being valid in publising jurisdiction")
+    date_valid = DateField(blank=True, null=True, help_text="Date when crosswalk becomes approved in publishing jurisdiction")
+    date_retired = DateField(blank=True, null=True, help_text="Date when crosswalk stops being valid in publishing jurisdiction")
     #
     # Digitization domain
     digitization_method = CharField(max_length=200, choices=CROSSWALK_DIGITIZATION_METHODS, help_text="Digitization method")

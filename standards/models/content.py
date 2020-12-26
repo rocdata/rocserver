@@ -42,27 +42,25 @@ from .standards import PUBLICATION_STATUSES
 ################################################################################
 
 CONTENTIMPORT_METHODS = Choices(
-    ("manual_entry",      "Manual data entry"),
-    ("kolibri_channel",   "Imported from Kolibri database"),
-    ("studio_channel",    "Imported from Studio data"),
-
-    ("automated_scan",      "Semi-automated stucture extraction through OCR"),
-    ("website_scrape",  "Curriculum data scraped from website"),
-    ("hackathon_import", "Curriculum data imported from Hackathon DB"),
-    ("asn_import",      "Curriculum data imported from Achievement Standards Network (ASN)"),
-    ("case_import",     "Curriculum data imported from CASE registry"),
+    ("manual_entry",        "Manual data entry"),
+    ("spreadsheet_import",  "Imported from a spreadsheet of links"),
+    ("api_created",         "Created through the API"),
+    ("bulk_import",         "Created by a content metadata integration script"),
+    ("kolibri_channel",     "Imported from Kolibri database"),
+    ("studio_channel",      "Imported from Studio data"),
+    ("khan_export",         "Imported from Khan Academy TSV data exports"),
 )
 
 
 class ContentCollection(Model):
     """
     A content collection in the form of an external website, content archive, or
-    repository of open educaitonal resources (OERs). Each collection is identified
+    repository of open educational resources (OERs). Each collection is identified
     by a unique ``collection_id`` (str) and contains a tree of ``ContentNode``s.
     For example, a website with learning resources, a YouTube channel or a Kolibri
     content channel.
     """
-    id = ShortUUIDField(primary_key=True, editable=False, prefix='CH')  # TODO: revisit prefix
+    id = ShortUUIDField(primary_key=True, editable=False, prefix='CC', length=10)  # TODO: revisit prefix
     # uri = computed field = localhost + get_absolute_url()
     #
     # Collection info
@@ -79,18 +77,18 @@ class ContentCollection(Model):
     # Content import method
     import_method = CharField(max_length=200, choices=CONTENTIMPORT_METHODS, help_text="Content import method")
     source_domain = CharField(max_length=200, blank=True, null=True, help_text="The domain name of the content collection (e.g. khanacademy.org)")
-    source_url = URLField(max_length=512, blank=True, help_text="The web localtion for this content collection")
-    collection_id = CharField(max_length=100, blank=True, help_text="The identifier for this colleciton in the exernal content repository")    
+    source_url = URLField(max_length=512, blank=True, help_text="The web location for this content collection")
+    collection_id = CharField(max_length=100, blank=True, help_text="The identifier for this collection in the external content repository")    
     version = CharField(max_length=200, blank=True, null=True, help_text="Collection version or edition")
     #
     # Licensing
     license	= ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'license_kinds'})
-    license_description	= TextField(blank=True, null=True, help_text="Full text of the collection licencing information")
+    license_description	= TextField(blank=True, null=True, help_text="Full text of the collection licensing information")
     copyright_holder = CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to this content")
     #
     # Metadata
     notes = TextField(blank=True, null=True, help_text="Additional notes about the collection")
-    date_created = DateTimeField(auto_now_add=True, help_text="When the colletion added to the repository")
+    date_created = DateTimeField(auto_now_add=True, help_text="When the collection added to the repository")
     date_modified = DateTimeField(auto_now=True, help_text="Date of last modification to collection metadata")
     extra_fields = JSONField(default=dict, blank=True)  # for data extensibility
 
@@ -119,12 +117,11 @@ class ContentCollection(Model):
 class ContentNode(MPTTModel):
     """
     A class that represents individual content items (learning resources) within
-    a content collection. Each content node is identified by a ``source_id`` (the
-    )
-    and `source_uri` 
-    a
-    source URI. Examples of content nodes include web pages, YouTube videos,
-    and individual nodes in Kolibri channels.
+    a content collection. Each content node is identified by a ``source_id``
+    (eg. database identifier within the ``source_domain``) and has ``source_url``
+    where the content node can be accessed or downloaded from.
+    Examples of content nodes include web pages, YouTube videos, and the content
+    nodes within Kolibri content channels.
     """
     id = ShortUUIDField(primary_key=True, editable=False, prefix='C', length=10)
     #
@@ -141,12 +138,12 @@ class ContentNode(MPTTModel):
     author = CharField(max_length=200, blank=True, help_text="Who created this content node?")
     aggregator = CharField(max_length=200, blank=True, help_text="Website or org hosting the content collection")
     provider = CharField(max_length=200, blank=True, help_text="Organization that made the creation or distribution the content possible")
-    size = IntegerField(blank=True, null=True, help_text="Required file storage requiremed (in bytes)")
+    size = IntegerField(blank=True, null=True, help_text="File storage size required (in bytes)")
     #
     # Educational domain
     subjects = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'subjects'})
     education_levels = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'education_levels'})
-    concept_terms = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'contept_terms'})
+    concept_terms = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'concept_terms'})
     concept_keywords = CharField(max_length=500, blank=True, null=True, help_text="Free form, comma-separated keywords for this content node")
     # TODO: tags = models.ManyToManyField(?, blank=True, related_name='tagged_contentnodes')
     # TODO? audience ~= educational_role ~= studio.role_visibility
@@ -160,12 +157,12 @@ class ContentNode(MPTTModel):
     #
     # Licensing
     license	= ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'license_kinds'})
-    license_description	= TextField(blank=True, null=True, help_text="Full text of the collection licencing information")
+    license_description	= TextField(blank=True, null=True, help_text="Full text of the node's licensing information")
     copyright_holder = CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to this content")
     #
     # Metadata
-    date_created = DateTimeField(auto_now_add=True, help_text="When the colletion added to the repository")
-    date_modified = DateTimeField(auto_now=True, help_text="Date of last modification to collection metadata")
+    date_created = DateTimeField(auto_now_add=True, help_text="When the node added to the repository")
+    date_modified = DateTimeField(auto_now=True, help_text="Date of last modification to node metadata")
     extra_fields = JSONField(default=dict, blank=True)  # for data extensibility
 
 
@@ -234,7 +231,7 @@ class ContentNodeRelation(Model):
         return str(self.source) + '--' + str(self.kind) + '-->' + str(self.target)
 
     def get_absolute_url(self):
-        return "/standardnoderels/" + self.id
+        return "/contentnoderels/" + self.id
 
     @property
     def uri(self):
@@ -254,15 +251,16 @@ class ContentNodeRelation(Model):
 
 CONTENT_CORRELATION_DIGITIZATION_METHODS = Choices(
     ("manual_entry",        "Manual data entry"),
-    ("spreadsheet_import",  "Imported from a content correlation spreasheeet"),
+    ("spreadsheet_import",  "Imported from a content correlation spreadsheet"),
     ("api_created",         "Created through the API"),
     ("bulk_import",         "Created using a content correlations integration script"),
-    ("human_judgments",     "Curriculum alignment judgment provided by human curricuum experts"),
+    ("human_judgments",     "Curriculum alignment judgment provided by human curriculum experts"),
     ("data_import",         "Curriculum alignment alignment data imported from data"),
     ("ka_import",           "Curriculum alignment alignment data imported from Achievement Standards Network (ASN)"),
     ("kolibri_import",      "Curriculum alignment data imported from Kolibri channel DB"),
     ("studio_import",       "Curriculum alignment data imported from Kolibri Studio DB"),
 )
+
 
 class ContentCorrelation(Model):
     """
@@ -271,7 +269,7 @@ class ContentCorrelation(Model):
     and the curriculum standards nodes.
     """
     # IDs
-    id = ShortUUIDField(primary_key=True, editable=False, prefix='CC')
+    id = ShortUUIDField(primary_key=True, editable=False, prefix='CS')
     # uri = computed field = localhost + get_absolute_url()
     #
     # Content correlation info
@@ -279,12 +277,12 @@ class ContentCorrelation(Model):
     title = CharField(max_length=200, help_text="The publicly visible title for this content correlation")
     description = TextField(blank=True, null=True, help_text="Detailed info about this content correlation")
     creator = CharField(max_length=200, blank=True, null=True, help_text="Person or organization that created this content correlation")
-    publisher = CharField(max_length=200, blank=True, null=True, help_text="The name of the organizaiton publishing the content correlation")
+    publisher = CharField(max_length=200, blank=True, null=True, help_text="The name of the organization publishing the content correlation")
     version = CharField(max_length=200, blank=True, null=True, help_text="Content correlation versioning info")
     #
     # Licensing
     license	= ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'license_kinds'})
-    license_description	= TextField(blank=True, null=True, help_text="Description of the licencing of this content correlation")
+    license_description	= TextField(blank=True, null=True, help_text="Description of the licensing of this content correlation")
     copyright_holder = CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to this content correlation")
     #
     # Educational domain
@@ -315,10 +313,10 @@ class ContentCorrelation(Model):
 
 class ContentStandardRelation(Model):
     """
-    Describes a associatrion between a content node and a standard node that
-    indicates curriculum alignment of type ``kind``.
+    Describes an association between a content node and a standard node that
+    indicates curriculum alignment of type ``kind`` (default ``majorAlignment``).
     """
-    id = ShortUUIDField(primary_key=True, editable=False, prefix='SCR', length=10)
+    id = ShortUUIDField(primary_key=True, editable=False, prefix='CSR', length=10)
     #
     # Structural
     correlation = ForeignKey(ContentCorrelation, related_name="relations", on_delete=CASCADE)
@@ -339,7 +337,7 @@ class ContentStandardRelation(Model):
     extra_fields = JSONField(default=dict, blank=True)  # for data extensibility
 
     def __str__(self):
-        return str(self.source) + '--' + str(self.kind) + '-->' + str(self.target)
+        return str(self.contentnode) + '--' + str(self.kind) + '-->' + str(self.standardnode)
 
     def get_absolute_url(self):
         return "/contentstandardrels/" + self.id
