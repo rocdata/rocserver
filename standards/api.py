@@ -45,7 +45,7 @@ class MultipleFieldLookupMixin:
 
 class CustomHTMLRendererRetrieve:
     """
-    Custom reteive method that skips the serialization when rendering HTML, via
+    Custom retrieve method that skips the serialization when rendering HTML, via
     django-rest-framework.org/api-guide/renderers/#varying-behaviour-by-media-type
     """
 
@@ -62,7 +62,7 @@ class CustomHTMLRendererRetrieve:
 
 
 
-# HEARARCHICAL API    /terms/{juri_name}/{vocab}/{term.path}
+# HIERARCHICAL API   /api/terms/{juri.name}/{vocab.name}/{term.path}
 ################################################################################
 
 class JurisdictionViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
@@ -81,6 +81,16 @@ class JurisdictionViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
         return super().list(request, *args, **kwargs)
 
 
+juri_list = JurisdictionViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+juri_detail = JurisdictionViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
 
 
 class JurisdictionVocabularyViewSet(MultipleFieldLookupMixin, CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
@@ -97,6 +107,18 @@ class JurisdictionVocabularyViewSet(MultipleFieldLookupMixin, CustomHTMLRenderer
             return super(JurisdictionVocabularyViewSet, self).list(request, *args, **kwargs)
 
 
+juri_vocab_create = JurisdictionVocabularyViewSet.as_view({
+    'get': 'redirect_to_juri',
+    'post': 'create'
+})
+juri_vocab_detail = JurisdictionVocabularyViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+
+
 
 class JurisdictionVocabularyTermViewSet(MultipleFieldLookupMixin, CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     queryset = Term.objects.select_related('vocabulary', 'vocabulary__jurisdiction').all()
@@ -107,3 +129,15 @@ class JurisdictionVocabularyTermViewSet(MultipleFieldLookupMixin, CustomHTMLRend
     def redirect_to_vocab(self, request, *args, **kwargs):       # /terms/{juri}/{vocab}/
         r = reverse('api-juri-vocab-detail', kwargs=kwargs, request=request)
         return HttpResponseRedirect(redirect_to=r)
+
+
+juri_vocab_term_create = JurisdictionVocabularyTermViewSet.as_view({
+    'get': 'redirect_to_vocab',
+    'post': 'create'
+})
+juri_vocab_term_detail = JurisdictionVocabularyTermViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})

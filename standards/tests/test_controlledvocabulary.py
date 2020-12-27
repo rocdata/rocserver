@@ -3,8 +3,8 @@ import pytest
 
 
 from standards.models import ControlledVocabulary
-from standards.models import Term
-from standards.models import TermRelation, TERM_REL_KINDS
+from standards.models.terms import Term
+from standards.models.terms import TermRelation, TERM_REL_KINDS
 
 
 # VOCABS

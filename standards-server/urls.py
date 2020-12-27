@@ -18,46 +18,18 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from standards.api import JurisdictionViewSet, JurisdictionVocabularyViewSet, JurisdictionVocabularyTermViewSet
 
 from website.views import index
 from website.views import PublicModelIndexView, PublicModelDetailView
 
-# HEARARCHICAL API   /api/terms/{juri_name}/{vocab_name}/{term_path}
+
+
+# HIERARCHICAL TERMS API   /api/terms/{juri.name}/{vocab.name}/{term.path}
 ################################################################################
 
-juri_list = JurisdictionViewSet.as_view({
-    'get': 'list',
-    'post': 'create'
-})
-juri_detail = JurisdictionViewSet.as_view({
-    'get': 'retrieve',
-    'put': 'update',
-    'patch': 'partial_update',
-    'delete': 'destroy'
-})
-
-juri_vocab_create = JurisdictionVocabularyViewSet.as_view({
-    'get': 'redirect_to_juri',
-    'post': 'create'
-})
-juri_vocab_detail = JurisdictionVocabularyViewSet.as_view({
-    'get': 'retrieve',
-    'put': 'update',
-    'patch': 'partial_update',
-    'delete': 'destroy'
-})
-
-juri_vocab_term_create = JurisdictionVocabularyTermViewSet.as_view({
-    'get': 'redirect_to_vocab',
-    'post': 'create'
-})
-juri_vocab_term_detail = JurisdictionVocabularyTermViewSet.as_view({
-    'get': 'retrieve',
-    'put': 'update',
-    'patch': 'partial_update',
-    'delete': 'destroy'
-})
+from standards.api import juri_list, juri_detail
+from standards.api import juri_vocab_create, juri_vocab_detail
+from standards.api import juri_vocab_term_create, juri_vocab_term_detail
 
 urlpatterns = format_suffix_patterns([
     path('', index, name='index'),
@@ -82,9 +54,15 @@ urlpatterns = format_suffix_patterns([
 ], allowed=['json', 'html'])
 
 
+
+
+# ADMIN, ADMIN DOC, and PUBLIC DOCS
+################################################################################
+
 urlpatterns += [
+    # Django admin site
     path('admin/',  admin.site.urls),
-    # staf-only admin docs
+    # staff-only admin docs
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     # public admin docs, a.k.a. rocdocs
     path(
@@ -100,6 +78,11 @@ urlpatterns += [
 ]
 
 
+
+
+
+# DEBUG TOOLBAR
+################################################################################
 
 if settings.DEBUG:
     import debug_toolbar

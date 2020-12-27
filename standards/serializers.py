@@ -10,7 +10,6 @@ from standards.models import TermRelation
 # CUTSOM HYPERLINK FIELDS
 ################################################################################
 
-
 class JurisdictionHyperlink(serializers.HyperlinkedRelatedField):
     # /terms/<jurisdiction__name>
     # We define these as class attributes so we don't need to pass them as args.
@@ -102,7 +101,7 @@ class TermHyperlink(serializers.HyperlinkedRelatedField):
 
 
 
-# HIERARCHICAL API
+# HIERARCHICAL TERMS API
 ################################################################################
 
 class JurisdictionSerializer(serializers.ModelSerializer):
@@ -120,7 +119,6 @@ class JurisdictionSerializer(serializers.ModelSerializer):
             "notes",
             "vocabularies",
         ]
-
 
 
 class ControlledVocabularySerializer(serializers.ModelSerializer):
@@ -146,7 +144,6 @@ class ControlledVocabularySerializer(serializers.ModelSerializer):
             "creator",
             "terms",
         ]
-
 
 
 class TermSerializer(serializers.ModelSerializer):
