@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django_extensions",
     "standards",
     "website",
+    "admin_reorder",
 ]
 
 MIDDLEWARE = [
@@ -54,6 +55,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "admin_reorder.middleware.ModelAdminReorder",
 ]
 
 ROOT_URLCONF = "standards-server.urls"
@@ -147,3 +149,37 @@ if DEBUG:
     TEMPLATES[0]["OPTIONS"]["context_processors"] = [
         "django.template.context_processors.debug"
     ] + TEMPLATES[0]["OPTIONS"]["context_processors"]
+
+
+ADMIN_REORDER = (
+
+    {'app': 'auth', 'models': (
+        'auth.User',
+        'standards.UserProfile',
+        'auth.Group',
+        'authtoken.TokenProxy',
+    )},
+
+    {'app': 'standards', 'label':'Jurisdictions', 'models': (
+        'standards.Jurisdiction',
+        'standards.ControlledVocabulary',
+        'standards.Term',
+        'standards.TermRelation',
+    )},
+
+    {'app': 'standards', 'label':'Standards', 'models': (
+        'standards.StandardsDocument',
+        'standards.StandardNode',
+        'standards.StandardsCrosswalk',
+        'standards.StandardNodeRelation',
+    )},
+
+    {'app': 'standards', 'label':'Content', 'models': (
+        'standards.ContentCollection',
+        'standards.ContentNode',
+        'standards.ContentNodeRelation',
+        'standards.ContentCorrelation',
+        'standards.ContentStandardRelation',
+    )},
+
+)
