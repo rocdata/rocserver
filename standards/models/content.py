@@ -1,19 +1,11 @@
-import os
-import uuid
-import zipfile
-
-from django.conf import settings
 from django.db.models import CASCADE
 from django.db.models import BooleanField
 from django.db.models import CharField
-from django.db.models import DateField
 from django.db.models import DateTimeField
 from django.db.models import FloatField
 from django.db.models import ForeignKey
 from django.db.models import IntegerField
 from django.db.models import JSONField
-from django.db.models import OneToOneField
-from django.db.models import Manager
 from django.db.models import ManyToManyField
 from django.db.models import Model
 from django.db.models import SET_NULL
@@ -21,13 +13,10 @@ from django.db.models import TextField
 from django.db.models import URLField
 from django.db.models import UUIDField
 from django.db.models import Q, UniqueConstraint
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django_countries.fields import CountryField
 from model_utils import Choices
 from mptt.models import MPTTModel
 from mptt.models import TreeForeignKey
-from rest_framework.authtoken.models import Token
 from standards.fields import ShortUUIDField
 
 from .jurisdictions import Jurisdiction
@@ -64,12 +53,13 @@ class ContentCollection(Model):
     # uri = computed field = localhost + get_absolute_url()
     #
     # Collection info
-    jurisdiction = ForeignKey(Jurisdiction, related_name="contentcollections", on_delete=CASCADE, help_text='Jurisdiction of this content collection')
+    jurisdiction = ForeignKey(Jurisdiction, related_name="contentcollections", on_delete=CASCADE, help_text='Jurisdiction of this collection')
     name = CharField(max_length=200, help_text="Collection name")
     description = TextField(blank=True, null=True, help_text="Detailed info about this collection")
     thumbnail_url = URLField(max_length=512, blank=True, help_text="External thumbnail URL this collection")
     language = CharField(max_length=20, blank=True, null=True, help_text="BCP47/RFC5646 codes like en, es, fr-CA")
-    public = BooleanField(default=False, db_index=True, help_text="Is this collection viewable by anonymous users")
+    country = CountryField(blank=True, null=True, help_text='Country where content collection was produced')
+    publication_status	= CharField(max_length=30, choices=PUBLICATION_STATUSES, default=PUBLICATION_STATUSES.publicdraft)
     #
     # Educational domain
     subjects = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'subjects'})
@@ -88,7 +78,7 @@ class ContentCollection(Model):
     #
     # Metadata
     notes = TextField(blank=True, null=True, help_text="Additional notes about the collection")
-    date_created = DateTimeField(auto_now_add=True, help_text="When the collection added to the repository")
+    date_created = DateTimeField(auto_now_add=True, help_text="When the collection was added to the repository")
     date_modified = DateTimeField(auto_now=True, help_text="Date of last modification to collection metadata")
     extra_fields = JSONField(default=dict, blank=True)  # for data extensibility
 
@@ -113,7 +103,6 @@ class ContentCollection(Model):
 
 
 
-
 class ContentNode(MPTTModel):
     """
     A class that represents individual content items (learning resources) within
@@ -132,27 +121,27 @@ class ContentNode(MPTTModel):
     sort_order = FloatField(default=1.0)   # the position of node within parent
     #
     # Content info
-    title = CharField(max_length=200, blank=True, help_text="An optional heading or abbreviated description")
-    description	= TextField(help_text="Primary text that describes this node")
+    title = CharField(max_length=200, help_text="Content node title")
+    description = TextField(blank=True, help_text="Detailed description of content node")
     language = CharField(max_length=20, blank=True, null=True, help_text="BCP47/RFC5646 codes like en, es, fr-CA.")
     author = CharField(max_length=200, blank=True, help_text="Who created this content node?")
-    aggregator = CharField(max_length=200, blank=True, help_text="Website or org hosting the content collection")
-    provider = CharField(max_length=200, blank=True, help_text="Organization that made the creation or distribution the content possible")
+    aggregator = CharField(max_length=200, blank=True, help_text="Website or org. hosting the content collection")
+    provider = CharField(max_length=200, blank=True, help_text="Organization that made the creation or distribution this content possible")
     size = IntegerField(blank=True, null=True, help_text="File storage size required (in bytes)")
     #
     # Educational domain
     subjects = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'subjects'})
     education_levels = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'education_levels'})
     concept_terms = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'concept_terms'})
-    concept_keywords = CharField(max_length=500, blank=True, null=True, help_text="Free form, comma-separated keywords for this content node")
+    concept_keywords = CharField(max_length=500, blank=True, null=True, help_text="Free-form, comma-separated keywords for this content node")
     # TODO: tags = models.ManyToManyField(?, blank=True, related_name='tagged_contentnodes')
     # TODO? audience ~= educational_role ~= studio.role_visibility
     #
     # Content source info
-    source_url = URLField(max_length=512, blank=True, help_text="The web localtion for this content node")
-    source_domain = CharField(max_length=200, help_text="The domain name of the content collection (e.g. khanacademy.org)")
-    source_id = CharField(max_length=100, help_text="An identifier for this content item within the source domain (e.g. the a database id)")
-    content_id = UUIDField(blank=True, null=True, db_index=True, help_text="An identifier derived from source_domain and source_id used")
+    source_url = URLField(max_length=512, blank=True, help_text="The primary web location for this content node")
+    source_domain = CharField(max_length=200, help_text="The domain name of the content source (e.g. khanacademy.org)")
+    source_id = CharField(max_length=100, help_text="An identifier for this content item within the source domain (e.g. a database id)")
+    content_id = UUIDField(blank=True, null=True, db_index=True, help_text="Content ID computed from source_domain and source_id")
     node_id = UUIDField(blank=True, null=True, editable=False, db_index=True, help_text="An identifier for the content node within the collection")
     #
     # Licensing
@@ -161,7 +150,7 @@ class ContentNode(MPTTModel):
     copyright_holder = CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to this content")
     #
     # Metadata
-    date_created = DateTimeField(auto_now_add=True, help_text="When the node added to the repository")
+    date_created = DateTimeField(auto_now_add=True, help_text="When the node was added to the repository")
     date_modified = DateTimeField(auto_now=True, help_text="Date of last modification to node metadata")
     extra_fields = JSONField(default=dict, blank=True)  # for data extensibility
 
@@ -219,7 +208,7 @@ class ContentNodeRelation(Model):
     #
     # Publishing domain
     canonical_uri = URLField(max_length=512, null=True, blank=True, help_text="URI for this relation used when publishing")
-    source_uri = URLField(max_length=512, null=True, blank=True, help_text="External URI for imported relation")
+    source_uri = URLField(max_length=512, null=True, blank=True, help_text="External URI of an imported relation")
     #
     # Metadata
     notes = TextField(blank=True, null=True, help_text="Additional notes and supporting text")
@@ -236,8 +225,6 @@ class ContentNodeRelation(Model):
     @property
     def uri(self):
         return self.get_absolute_url()
-
-
 
 
 
@@ -289,17 +276,12 @@ class ContentCorrelation(Model):
     subjects = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'subjects'})
     education_levels = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'education_levels'})
     #
-    # Educational domain
-    subjects = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'subjects'})
-    education_levels = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'education_levels'})
-    #
     # Digitization domain
     digitization_method = CharField(max_length=200, choices=CONTENT_CORRELATION_DIGITIZATION_METHODS, help_text="Digitization method")
-    publication_status	= CharField(max_length=30, choices=PUBLICATION_STATUSES, default=PUBLICATION_STATUSES.draft)
-    # TODO? date_approved
+    publication_status	= CharField(max_length=30, choices=PUBLICATION_STATUSES, default=PUBLICATION_STATUSES.publicdraft)
 
     def __str__(self):
-        return "{} ({})".format(title, self.id)
+        return "{} ({})".format(self.title, self.id)
 
     def get_absolute_url(self):
         return "/contentcorrelations/" + self.id
@@ -328,11 +310,11 @@ class ContentStandardRelation(Model):
     #
     # Publishing domain
     canonical_uri = URLField(max_length=512, null=True, blank=True, help_text="URI for this relation used when publishing")
-    source_uri = URLField(max_length=512, null=True, blank=True, help_text="External URI for imported relation")
+    source_uri = URLField(max_length=512, null=True, blank=True, help_text="External URI for imported relations")
     #
     # Metadata
     notes = TextField(blank=True, null=True, help_text="Additional notes and supporting text")
-    date_created = DateTimeField(auto_now_add=True, help_text="When the relation was added to repository")
+    date_created = DateTimeField(auto_now_add=True, help_text="When the relation was added to the repository")
     date_modified = DateTimeField(auto_now=True, help_text="Date of last modification to relation data")
     extra_fields = JSONField(default=dict, blank=True)  # for data extensibility
 

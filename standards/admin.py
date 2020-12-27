@@ -6,7 +6,8 @@ from standards.models import Jurisdiction, UserProfile
 from standards.models import ControlledVocabulary, Term, TermRelation
 from standards.models import StandardsDocument, StandardNode
 from standards.models import StandardsCrosswalk, StandardNodeRelation
-
+from standards.models import ContentCollection, ContentNode, ContentNodeRelation
+from standards.models import ContentCorrelation, ContentStandardRelation
 
 
 
@@ -36,6 +37,7 @@ class ControlledVocabularyAdmin(admin.ModelAdmin):
     list_filter = ("jurisdiction", "language")
     search_fields = ["id", "name", "label", "alt_label", "hidden_label", "description", "notes"]
     model = ControlledVocabulary
+
 
 @admin.register(Term)
 class TermAdmin(admin.ModelAdmin):
@@ -94,4 +96,61 @@ class StandardNodeRelationAdmin(admin.ModelAdmin):
     raw_id_fields = ("source", "target",)
     list_filter = ("crosswalk__jurisdiction", "crosswalk", "kind", "crosswalk__subjects", "crosswalk__education_levels")
     readonly_fields = ["id"]
+
+
+
+
+
+# CONTENT
+################################################################################
+
+@admin.register(ContentCollection)
+class ContentCollectionAdmin(admin.ModelAdmin):
+    list_display = ["name", "id", "jurisdiction", "collection_id", "version", "publication_status"]
+    list_filter = ("jurisdiction", "publication_status", "subjects")
+    search_fields = ["id", "name", "description", "notes"]
+    readonly_fields = ["id"]
+    model = ContentCollection
+
+
+@admin.register(ContentNode)
+class ContentNodeAdmin(DraggableMPTTAdmin):
+    list_display = ["tree_actions", "indented_title", "title", "source_id"]
+    list_display_links=["indented_title",]
+    list_filter = ("collection", "kind", "language", "concept_keywords")
+    search_fields = ["id", "notation", "title", "description", "concept_keywords", "notes", "extra_fields"]
+    readonly_fields = ["id"]
+
+
+@admin.register(ContentNodeRelation)
+class ContentNodeRelationAdmin(admin.ModelAdmin):
+    list_display = ["id", "source", "kind", "target", "date_modified"]
+    raw_id_fields = ("source", "target",)
+    list_filter = ("kind", "source", "target")
+    readonly_fields = ["id"]
+    model = ContentNodeRelation
+
+
+
+# CONTENT CORRELATIONS
+################################################################################
+
+@admin.register(ContentCorrelation)
+class ContentCorrelationAdmin(admin.ModelAdmin):
+    list_display = ["title", "id", "jurisdiction", "version", "publication_status"]
+    list_filter = ("jurisdiction", "publication_status", "subjects", "education_levels")
+    readonly_fields = ["id"]
+    model = ContentCorrelation
+
+
+@admin.register(ContentStandardRelation)
+class ContentStandardRelationAdmin(admin.ModelAdmin):
+    list_display = ["id", "correlation", "contentnode", "kind", "standardnode", "date_modified"]
+    raw_id_fields = ("contentnode", "standardnode",)
+    list_filter = ("correlation", "kind")
+    readonly_fields = ["id"]
+    model = ContentStandardRelation
+
+
+
 

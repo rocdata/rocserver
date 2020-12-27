@@ -29,19 +29,20 @@ from .terms import Term
 ################################################################################
 
 DIGITIZATION_METHODS = Choices(
-    ("manual_entry",    "Manual data entry"),
-    ("manual_scan",     "Manual data entry based on OCR"),
-    ("automated_scan",  "Semi-automated stucture extraction through OCR"),
-    ("website_scrape",  "Curriculum data scraped from website"),
-    ("hackathon_import", "Curriculum data imported from Hackathon DB"),
-    ("asn_import",      "Curriculum data imported from Achievement Standards Network (ASN)"),
-    ("case_import",     "Curriculum data imported from CASE registry"),
+    ("manual_entry",        "Manual data entry"),
+    ("manual_scan",         "Manual data entry based on OCR"),
+    ("automated_scan",      "Semi-automated structure extraction through OCR"),
+    ("website_scrape",      "Curriculum data scraped from website"),
+    ("hackathon_import",    "Curriculum data imported from Hackathon DB"),
+    ("asn_import",          "Curriculum data imported from Achievement Standards Network (ASN)"),
+    ("case_import",         "Curriculum data imported from CASE registry"),
 )
 
 PUBLICATION_STATUSES = Choices(
     ("draft",       "Draft"),
+    ("publicdraft", "Public Draft"),
     ("published",   "Published (active)"),
-    ("retired",     "Retired, deprecated, or superceded"),
+    ("retired",     "Retired, deprecated, or superseded"),
 )
 
 class StandardsDocument(Model):
@@ -60,7 +61,7 @@ class StandardsDocument(Model):
     title = CharField(max_length=200, help_text="The full title of the document")
     description = TextField(blank=True, null=True, help_text="Detailed info about this document")
     language = CharField(max_length=20, blank=True, null=True, help_text="BCP47/RFC5646 codes like en, es, fr-CA.")
-    publisher = CharField(max_length=200, blank=True, null=True, help_text="The name of the organizaiton publishing the document")
+    publisher = CharField(max_length=200, blank=True, null=True, help_text="The name of the organization publishing the document")
     version = CharField(max_length=200, blank=True, null=True, help_text="Document version or edition")
     #
     # Educational domain
@@ -71,13 +72,13 @@ class StandardsDocument(Model):
     #
     # Licensing
     license	= ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'license_kinds'})
-    license_description	= TextField(blank=True, null=True, help_text="Full text of the document's licencing information")
+    license_description	= TextField(blank=True, null=True, help_text="Full text of the document's licensing information")
     copyright_holder = CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to the document")
     #
     # Digitization domain
     digitization_method = CharField(max_length=200, choices=DIGITIZATION_METHODS, help_text="Digitization method")
     source_doc = URLField(max_length=512, blank=True, help_text="Where the data of this document was imported from")
-    publication_status	= CharField(max_length=30, choices=PUBLICATION_STATUSES, default=PUBLICATION_STATUSES.draft)
+    publication_status	= CharField(max_length=30, choices=PUBLICATION_STATUSES, default=PUBLICATION_STATUSES.publicdraft)
     #
     # Publishing domain
     canonical_uri = URLField(max_length=512, null=True, blank=True, help_text="URI for the document used when publishing")
@@ -240,7 +241,7 @@ class StandardsCrosswalk(Model):
     #
     # Digitization domain
     digitization_method = CharField(max_length=200, choices=CROSSWALK_DIGITIZATION_METHODS, help_text="Digitization method")
-    publication_status	= CharField(max_length=30, choices=PUBLICATION_STATUSES, default=PUBLICATION_STATUSES.draft)
+    publication_status	= CharField(max_length=30, choices=PUBLICATION_STATUSES, default=PUBLICATION_STATUSES.publicdraft)
 
 
     def __str__(self):
