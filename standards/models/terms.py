@@ -187,4 +187,9 @@ class TermRelation(Model):
         target_str = self.target_uri if self.target_uri else str(self.target)
         return str(self.source) + '--' + self.kind + '-->' + target_str
 
+    def get_absolute_url(self):
+        return "/termrels/" + self.jurisdiction.name + '/' + self.id
 
+    @property
+    def uri(self):
+        return self.get_absolute_url()

@@ -1,5 +1,6 @@
 {% extends "standards/base.html" %}
 
+
 {% block extrahead %}
 <title>{{ object.jurisdiction.name }}/{{ object.name }} (Controlled vocabulary)</title>
 {% endblock %}
@@ -8,45 +9,14 @@
 {% block maincontent %}
 <div class="container">
 
-    <div class="float-right">
-        Data also available as:
-        <a href="{{ request.path }}?format=json" title="JSON">JSON</a>,
-        <a href="{{ request.path }}?format=api" title="REST API">REST API</a>.
-    </div>
-    <div class="clearfix"></div>
-    
+    {% include "standards/fragments/alt_formats_links.html" %}
+
     <h2 class="object-title">{{ object.jurisdiction.name }}/{{ object.name }}</h2>
     <span class="objectkindbadge badge badge-primary">ControlledVocabulary</span>
-
     <hr/>
 
-    <ul class="object-properties-list list-group">
-        {% for name, value in object.get_fields %}
-            {% if value %}
-                <li class="list-group-item">
-                    <h5 class="list-group-item-heading">{{ name }}</h5>
-                    <p class="list-group-item-text" data-name="{{name}}">
-                        {{ value }}
-                    </p>
-                </li>
-            {% endif %}
-        {% endfor %}
-
-        <li class="list-group-item">
-            <h5 class="list-group-item-heading">terms</h5>
-            <ul>
-            {% for term in object.terms.all %}
-                <li>
-                <a href="/terms/{{ object.jurisdiction.name }}/{{ object.name }}/{{ term.path }}">
-                    {{ term.path }}
-                </a>
-                </li>
-            {% endfor %}
-            </ul>
-
-        </li>
-
-    </ul>
+    {% include "standards/fragments/data_properties.html" %}
 
 </div><!-- /container -->
 {% endblock %}
+

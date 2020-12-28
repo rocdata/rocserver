@@ -183,3 +183,36 @@ ADMIN_REORDER = (
     )},
 
 )
+
+
+# ROCDATA-specific settings
+
+ROCDATA_PUBLISHING_CONTEXT = os.getenv("ROCDATA_PUBLISHING_CONTEXT") or "default"
+
+ROCDATA_PUBLISHING_CONTEXTS = {
+    'default': {
+        "scheme": None,     # set dynamically from per-request
+        "netloc": None,     # set dynamically from per-request
+        "path_prefix": "",
+    },
+    'rocserver': {
+        "scheme": "https",
+        "netloc": "https://rocdata.global",
+        "path_prefix": "",
+    },
+    'w3id.org': {
+        "scheme": "https",
+        "netloc": "w3id.org",
+        "path_prefix": "/rocdata",
+    },
+    'githubpages_rocserver': {
+        "scheme": "https",
+        "netloc": "rocdata.github.io",
+        "path_prefix": "/rocserver/rocdata",
+    },
+    'githubpages_standards-ghana': {
+        "scheme": "https",
+        "netloc": "rocdata.github.io",
+        "path_prefix": "/standards-ghana/rocdata",
+    },
+}

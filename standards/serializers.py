@@ -117,7 +117,8 @@ class JurisdictionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Jurisdiction
         fields = [
-            "id",
+            # "id",  # internal identifiers; need not be exposed to users
+            "uri",
             "name",
             "display_name",
             "country",
@@ -128,6 +129,8 @@ class JurisdictionSerializer(serializers.ModelSerializer):
         ]
 
 
+
+
 class ControlledVocabularySerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlink(required=True)
     terms = TermHyperlink(many=True, required=False)
@@ -135,7 +138,9 @@ class ControlledVocabularySerializer(serializers.ModelSerializer):
     class Meta:
         model = ControlledVocabulary
         fields = [
-            "id",
+            # "id",  # internal identifiers; need not be exposed to users
+            "jurisdiction",
+            "uri",
             "name",
             "label",
             "alt_label",
@@ -147,7 +152,6 @@ class ControlledVocabularySerializer(serializers.ModelSerializer):
             "date_created",
             "date_modified",
             "extra_fields",
-            "jurisdiction",
             "creator",
             "terms",
         ]
@@ -162,7 +166,7 @@ class TermSerializer(serializers.ModelSerializer):
         fields = [
             "jurisdiction",
             "vocabulary",
-            "id",
+            # "id",  # internal identifiers; need not be exposed to users
             "path",
             "label",
             "alt_label",
@@ -187,6 +191,7 @@ class TermRelationSerializer(serializers.ModelSerializer):
         model = TermRelation
         fields = [
             "id",
+            "uri",
             "jurisdiction",
             "source",
             "target_uri",

@@ -1,0 +1,40 @@
+{% load property_types %}
+
+
+<ul class="object-properties-list list-group">
+
+    {% for name, value in data.items %}
+        {% if value %}
+
+            {% if value|get_type == 'str' or value|get_type == 'float' %}
+
+                <li class="list-group-item">
+                    <h5 class="list-group-item-heading">{{ name }}</h5>
+                    <p class="list-group-item-text" data-name="{{name}}">
+                        {{ value|safe }}
+                    </p>
+                </li>
+
+            {% elif value|get_type == 'list' %}
+
+                <li class="list-group-item">
+                    <h5 class="list-group-item-heading">{{ name }}</h5>
+                    <ul>
+                    {% for item in value %}
+                        <li>{{ item|safe }}</li>
+                    {% endfor %}
+                    </ul>
+                </li>
+
+            {% else %}
+
+                <li>
+                    Unrecognized type {{ value|get_type }} for value {{ value }}
+                </li>
+
+            {% endif %}
+
+        {% endif %}
+    {% endfor %}
+
+</ul>

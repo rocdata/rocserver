@@ -2,7 +2,7 @@
 
 
 {% block extrahead %}
-<title>{{ object.name }} (Jurisdiction)</title>
+<title>{{ object.id }} (TermRelation)</title>
 {% endblock %}
 
 
@@ -11,8 +11,8 @@
 
     {% include "standards/fragments/alt_formats_links.html" %}
 
-    <h2 class="object-title">{{ object.name }}</h2>
-    <span class="objectkindbadge badge badge-primary">Jurisdiction</span>
+    <h2 class="object-title">{{ object.id }}</h2>
+    <span class="objectkindbadge badge badge-primary">TermRelation</span>
     <hr/>
 
     {% include "standards/fragments/data_properties.html" %}

@@ -1,8 +1,4 @@
-import json
-import os
-import re
-import shutil
-import urllib.request
+from collections import OrderedDict
 
 from django.shortcuts import get_object_or_404
 from django.http.response import HttpResponseRedirect
@@ -15,12 +11,13 @@ from standards.models import Jurisdiction
 from standards.models import ControlledVocabulary, Term, TermRelation
 from standards.models import StandardsDocument, StandardNode
 from standards.models import StandardsCrosswalk, StandardNodeRelation
-
+from standards.publishing import get_publishing_context
 from standards.serializers import JurisdictionSerializer
 from standards.serializers import ControlledVocabularySerializer
 from standards.serializers import TermSerializer, TermRelationSerializer
-
 from standards.serializers import StandardsDocumentSerializer
+
+
 
 # HELPERS
 ################################################################################
@@ -43,6 +40,8 @@ class MultipleFieldLookupMixin:
         return obj
 
 
+
+
 class CustomHTMLRendererRetrieve:
     """
     Custom retrieve method that skips the serialization when rendering HTML, via
@@ -51,14 +50,68 @@ class CustomHTMLRendererRetrieve:
 
     def retrieve(self, request, *args, **kwargs):
         """
-        This is used for HTML format of details endpoints.
+        This is used for ROC-data specific manipulation of object data URIs and
+        also takes care of special handling for HTML format of details endpoints.
         """
         instance = self.get_object()
-        if request.accepted_renderer.format == 'html':
-            data = {'object': instance}
-            return Response(data, template_name=self.template_name)
         serializer = self.get_serializer(instance)
-        return Response(serializer.data)
+        publishing_context = get_publishing_context(request=request)
+        processed_data = self.process_uris(serializer.data, publishing_context=publishing_context)
+        if request.accepted_renderer.format == 'html':
+            # HTML browsing
+            htmlized_data = self.htmlize_data_values(processed_data)
+            context = {'data': htmlized_data, 'object': instance}
+            return Response(context, template_name=self.template_name)
+        else:
+            # JSON + API
+            return Response(processed_data)
+
+    def process_uris(self, data, publishing_context=None):
+        """
+        Transform absolute path like `/terms/Ghana` to absolute URI for a given
+        `publishing_context` context, e.g. `http://localhost:8000/terms/Ghana`.
+        """
+        processed_data = OrderedDict()
+        for key, value in data.items():
+            if isinstance(value, str) and key.endswith('uri') and value.startswith('/'):
+                pc = publishing_context
+                base_url = pc['scheme'] + '://' + pc['netloc'] + pc['path_prefix']
+                processed_data[key] = base_url + value
+            else:
+                processed_data[key] = value
+        return processed_data
+
+    def htmlize_data_values(self, data):
+        """
+        Make hyperlink data values clickable (used only in HTML browsing views).
+        """
+        htmlized_data = OrderedDict()
+
+        def htmlize_hyperlink(href):
+            return "<a href=\"{href}\">{href}</a>".format(href=href)
+
+        def htmlize_list(values):
+            newvalues = []
+            for el in value:
+                if isinstance(el, str) and el.startswith('http'):
+                    newel = htmlize_hyperlink(el)
+                else:
+                    newel = el
+                newvalues.append(newel)
+            return newvalues
+
+        for key, value in data.items():
+            if isinstance(value, str) and value.startswith('http'):
+                newvalue = htmlize_hyperlink(value)
+            elif isinstance(value, list):
+                newvalue = htmlize_list(value)
+            else:
+                newvalue = value
+            htmlized_data[key] = newvalue
+
+        return htmlized_data
+
+
 
 
 
@@ -74,12 +127,20 @@ class JurisdictionViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):                    # /terms/
         """Used for HTML format of the jurisdiction create-list endpoint."""
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = JurisdictionSerializer(queryset, many=True, context={'request': request})
+        publishing_context = get_publishing_context(request=request)
+        processed_datas = []
+        for data in serializer.data:
+            processed_data = self.process_uris(data, publishing_context=publishing_context)
+            processed_datas.append(processed_data)
+        #
         if request.accepted_renderer.format == 'html':
-            queryset = self.filter_queryset(self.get_queryset())
-            data = {'jurisdictions': queryset}
-            return Response(data, template_name='standards/jurisdictions.html')
-        return super().list(request, *args, **kwargs)
-
+            htmlized_datas = [self.htmlize_data_values(pd) for pd in processed_datas]
+            context = {'datas': htmlized_datas}
+            return Response(context, template_name='standards/jurisdictions.html')
+        else:
+            return Response(processed_datas)
 
 juri_list = JurisdictionViewSet.as_view({
     'get': 'list',
@@ -152,12 +213,24 @@ class JurisdictionTermRelationViewSet(MultipleFieldLookupMixin, CustomHTMLRender
     template_name = 'standards/termrelation_detail.html'        # /termrels/{juri}/{tr.id}
 
     def list(self, request, *args, **kwargs):                   # /termrels/{juri}/
-        """Used for HTML format of the jurisdiction create-list endpoint."""
+        queryset = self.filter_queryset(self.get_queryset())
+        print(queryset)
+        serializer = TermRelationSerializer(queryset, many=True, context={'request': request})
+        publishing_context = get_publishing_context(request=request)
+        processed_datas = []
+        for data in serializer.data:
+            processed_data = self.process_uris(data, publishing_context=publishing_context)
+            processed_datas.append(processed_data)
+        #
         if request.accepted_renderer.format == 'html':
-            queryset = self.filter_queryset(self.get_queryset())
-            data = {'jurisdictions': queryset}
-            return Response(data, template_name='standards/termrelations.html')
-        return super().list(request, *args, **kwargs)
+            htmlized_datas = [self.htmlize_data_values(pd) for pd in processed_datas]
+            context = {'datas': htmlized_datas}
+            import pprint
+            pprint.pprint(context)
+            return Response(context, template_name='standards/termrelations.html')
+        else:
+            return Response(processed_datas)
+
 
 
 juri_termrel_create = JurisdictionTermRelationViewSet.as_view({
