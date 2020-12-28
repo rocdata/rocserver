@@ -15,37 +15,12 @@ There are several different types of URIs that exist in the system:
 Browsing context
 ----------------
 When accessing a live server instance, navigation links are computed using the
-resources' `get_absolute_url()` methods in order to allow local browsing.
-
+resources' `get_absolute_url()` methods and not using `canonical_uri`s.
 
 
 Publishing context
 ------------------
-When exporting data, external resources are identified by their `canonical_uri`.
-
-The `canonical_uri` for internal URIs is computed depending on the "publishing context"
-for the jurisdiction, which determines the appropriate hostname for the URIs as
-described below.
-
-## Standards server
-The publishing context `standardsserver` corresponds to the hostname: ...
-
-### Github pages
-The publishing context `githubpages` with can be used when the official data
-source for a given jurisdiction is published to a github pages website.
-
-### w3id.org  
-The publishing context `w3id.org` is used to assign URIs that start with hostname
-`https://w3id.org` which in turn redirect to another server or github page.
-For maximum flexibility, `https://w3id.org` URIs will be used as canonical URIs.
-See https://github.com/perma-id/w3id.org for more info about the redirect service.
-
-
-
-When creating the export (static site generator mode), the hostname for URIs is
-determined by [HOST headers](https://github.com/django/django/blob/master/django/http/request.py#L109-L126)
-by the HTTP client and may need to be manually modified.
-
+See page on [publishing](./publishing.md) for details about publishing contexts.
 
 
 Resolving URIs
@@ -53,3 +28,23 @@ Resolving URIs
 When encountering a URI reference to a resource, we follow the same process as
 during publishing in order to find the referenced object, including internal URIs,
 mirrored external URIs, and external URIs.
+
+
+
+
+
+
+Content URLs
+------------
+Content collections and content nodes are identified by a `source_url`, which is
+usually represents a an online location where the resource can be accessed and
+downloaded from.
+
+
+Content IDs
+-----------
+Content collections and content nodes are identified by a `source_domain` which
+represents the hostname where one or more content collections are hosted.
+Furthermore, `colletion_id`, `source_id`, `node_id` are also used to identify
+content nodes.
+
