@@ -7,14 +7,14 @@ import urllib.request
 from django.shortcuts import get_object_or_404
 from django.http.response import HttpResponseRedirect
 from rest_framework import serializers, viewsets, views, status, response
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
-
 from standards.models import Jurisdiction
-from standards.models import ControlledVocabulary, Term
-from standards.models import TermRelation
-
+from standards.models import ControlledVocabulary, Term, TermRelation
+from standards.models import StandardsDocument, StandardNode
+from standards.models import StandardsCrosswalk, StandardNodeRelation
 
 from standards.serializers import JurisdictionSerializer
 from standards.serializers import ControlledVocabularySerializer
@@ -141,3 +141,40 @@ juri_vocab_term_detail = JurisdictionVocabularyTermViewSet.as_view({
     'patch': 'partial_update',
     'delete': 'destroy'
 })
+
+
+
+# STANDARDS DOCUMENTS
+################################################################################
+
+class StandardsDocumentSerializer(serializers.ModelSerializer):
+    root_node_id = serializers.SerializerMethodField()
+
+    class Meta:
+        model = StandardsDocument
+        fields = '__all__'
+
+    def get_root_node_id(self, obj):
+        try:
+            return StandardNode.objects.get(level=0, document_id=obj.id).id
+        except StandardNode.DoesNotExist:
+            return None
+
+def LargeResultsSetPagination(size=100):
+    class CustomPagination(PageNumberPagination):
+        page_size = size
+        page_size_query_param = "page_size"
+        max_page_size = page_size * 10
+    return CustomPagination
+
+
+class StandardsDocumentViewSet(viewsets.ModelViewSet):
+    queryset = StandardsDocument.objects.all()
+    serializer_class = StandardsDocumentSerializer
+    pagination_class = LargeResultsSetPagination(100)
+
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return self.queryset
+        else:
+            return self.queryset.filter(is_draft=False)

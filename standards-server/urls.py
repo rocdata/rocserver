@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include, re_path
+from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
 
 
@@ -52,6 +53,20 @@ urlpatterns = format_suffix_patterns([
     re_path(r'^terms/(?P<vocabulary__jurisdiction__name>[\w_\-]*)/(?P<vocabulary__name>[\w_\-]*)/(?P<path>[\w/_\-]*)$',
             juri_vocab_term_detail, name='api-juri-vocab-term-detail'),
 ], allowed=['json', 'html'])
+
+
+
+# FLAT STANDARDS AND CONTENT API
+################################################################################
+
+from standards.api import StandardsDocumentViewSet
+
+router = routers.DefaultRouter(trailing_slash=False)
+router.register(r"documents", StandardsDocumentViewSet, basename='document')
+
+urlpatterns += router.urls
+
+
 
 
 

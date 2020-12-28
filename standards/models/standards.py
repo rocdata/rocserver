@@ -49,7 +49,7 @@ class StandardsDocument(Model):
     """
     A standard document identified by a unique ``name`` and ``id`` that stores
     the info extracted from a source document at ``source_doc`` and contains a
-    hierarchy of ``StandardNode``s.
+    hierarchy of ``StandardNode`` s.
     """
     # IDs
     id = ShortUUIDField(primary_key=True, editable=False, prefix='D')
@@ -207,7 +207,7 @@ CROSSWALK_DIGITIZATION_METHODS = Choices(
 
 class StandardsCrosswalk(Model):
     """
-    A standards crosswalks is a set of ``StandardNodeRelation``s that describe
+    A standards crosswalks is a set of ``StandardNodeRelation`` s that describe
     a mapping between source curriculum nodes and a target curriculum nodes.
     """
     # IDs
@@ -258,7 +258,7 @@ class StandardsCrosswalk(Model):
 
 class StandardNodeRelation(Model):
     """
-    A relations between two ``StandardNode``s.
+    A relations between two ``StandardNode`` s.
     """
     id = ShortUUIDField(primary_key=True, editable=False, prefix='SR')
     #

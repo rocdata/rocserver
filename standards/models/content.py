@@ -45,7 +45,7 @@ class ContentCollection(Model):
     """
     A content collection in the form of an external website, content archive, or
     repository of open educational resources (OERs). Each collection is identified
-    by a unique ``collection_id`` (str) and contains a tree of ``ContentNode``s.
+    by a unique ``collection_id`` (str) and contains a tree of ``ContentNode`` s.
     For example, a website with learning resources, a YouTube channel or a Kolibri
     content channel.
     """
@@ -194,7 +194,7 @@ class ContentNode(MPTTModel):
 
 class ContentNodeRelation(Model):
     """
-    A relation between two ``ContentNode``s.
+    A relation between two ``ContentNode`` s.
     """
     id = ShortUUIDField(primary_key=True, editable=False, prefix='CR', length=10)
     #
