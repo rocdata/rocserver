@@ -18,9 +18,9 @@ from standards.models import StandardsCrosswalk, StandardNodeRelation
 
 from standards.serializers import JurisdictionSerializer
 from standards.serializers import ControlledVocabularySerializer
-from standards.serializers import TermSerializer
+from standards.serializers import TermSerializer, TermRelationSerializer
 
-
+from standards.serializers import StandardsDocumentSerializer
 
 # HELPERS
 ################################################################################
@@ -108,7 +108,7 @@ class JurisdictionVocabularyViewSet(MultipleFieldLookupMixin, CustomHTMLRenderer
 
 
 juri_vocab_create = JurisdictionVocabularyViewSet.as_view({
-    'get': 'redirect_to_juri',
+    # 'get': 'redirect_to_juri',
     'post': 'create'
 })
 juri_vocab_detail = JurisdictionVocabularyViewSet.as_view({
@@ -141,6 +141,38 @@ juri_vocab_term_detail = JurisdictionVocabularyTermViewSet.as_view({
     'patch': 'partial_update',
     'delete': 'destroy'
 })
+
+
+
+
+class JurisdictionTermRelationViewSet(MultipleFieldLookupMixin, CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
+    queryset = TermRelation.objects.select_related('jurisdiction').all()
+    lookup_fields = ["jurisdiction__name", "id"]
+    serializer_class = TermRelationSerializer
+    template_name = 'standards/termrelation_detail.html'        # /termrels/{juri}/{tr.id}
+
+    def list(self, request, *args, **kwargs):                   # /termrels/{juri}/
+        """Used for HTML format of the jurisdiction create-list endpoint."""
+        if request.accepted_renderer.format == 'html':
+            queryset = self.filter_queryset(self.get_queryset())
+            data = {'jurisdictions': queryset}
+            return Response(data, template_name='standards/termrelations.html')
+        return super().list(request, *args, **kwargs)
+
+
+juri_termrel_create = JurisdictionTermRelationViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+juri_termrel_detail = JurisdictionTermRelationViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+
+
+
 
 
 

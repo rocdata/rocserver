@@ -5,6 +5,10 @@ from standards.models import Jurisdiction, UserProfile
 from standards.models import ControlledVocabulary, Term
 from standards.models import TermRelation
 
+from standards.models import StandardsDocument, StandardNode, StandardNodeRelation
+from standards.models import ContentCollection, ContentNode, ContentNodeRelation
+from standards.models import ContentCorrelation, ContentStandardRelation
+
 
 
 # CUTSOM HYPERLINK FIELDS
@@ -99,7 +103,10 @@ class TermHyperlink(serializers.HyperlinkedRelatedField):
         }
         return self.get_queryset().get(**lookup_kwargs)
 
-
+    def use_pk_only_optimization(self):
+        # via
+        # https://github.com/django-json-api/django-rest-framework-json-api/issues/489#issuecomment-428002360
+        return False
 
 # HIERARCHICAL TERMS API
 ################################################################################
@@ -170,3 +177,43 @@ class TermSerializer(serializers.ModelSerializer):
             "extra_fields",
         ]
 
+
+class TermRelationSerializer(serializers.ModelSerializer):
+    jurisdiction = JurisdictionHyperlink(required=True)
+    source = TermHyperlink(required=True)
+    target = TermHyperlink(required=False)
+
+    class Meta:
+        model = TermRelation
+        fields = [
+            "id",
+            "jurisdiction",
+            "source",
+            "target_uri",
+            "target",
+            "kind",
+            "notes",
+            "date_created",
+            "date_modified",
+            "extra_fields",
+        ]
+
+
+
+
+
+# STANDARDS
+################################################################################
+
+class StandardsDocumentSerializer(serializers.ModelSerializer):
+    root_node_id = serializers.SerializerMethodField()
+
+    class Meta:
+        model = StandardsDocument
+        fields = '__all__'
+
+    def get_root_node_id(self, obj):
+        try:
+            return StandardNode.objects.get(level=0, document_id=obj.id).id
+        except StandardNode.DoesNotExist:
+            return None

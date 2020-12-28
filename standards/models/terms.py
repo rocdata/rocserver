@@ -165,16 +165,23 @@ class TermRelation(Model):
     an external target URI (`target_uri`).
     """
     id = ShortUUIDField(primary_key=True, editable=False, prefix='TR', length=10)
-    source = ForeignKey(Term, related_name='relations_source', on_delete=CASCADE)
+    #
+    # Structural
+    jurisdiction = ForeignKey(Jurisdiction, related_name="termrelations", on_delete=CASCADE)
+    #
+    # Edge domain
+    source = ForeignKey(Term, related_name='source_rels', on_delete=CASCADE)
     target_uri = CharField(max_length=500, null=True, blank=True)
     # for internal references target_uri is NULL and and target is a FK
-    target = ForeignKey(Term, related_name='relations_target', blank=True, null=True, on_delete=CASCADE)
+    target = ForeignKey(Term, related_name='target_rels', blank=True, null=True, on_delete=CASCADE)
     kind = CharField(max_length=32, choices=TERM_REL_KINDS)
-
-    # metadata
-    notes = TextField(help_text="Additional notes about the relation")
+    #
+    # Metadata
+    notes = TextField(blank=True, help_text="Additional notes about the relation")
     date_created = DateTimeField(auto_now_add=True)
     date_modified = DateTimeField(auto_now=True)
+    extra_fields = JSONField(default=dict, blank=True)  # for data extensibility
+
 
     def __str__(self):
         target_str = self.target_uri if self.target_uri else str(self.target)

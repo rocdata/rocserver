@@ -14,14 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
 
 
+
+
+
+# WEBSITE
+################################################################################
+
 from website.views import index
-from website.views import PublicModelIndexView, PublicModelDetailView
+
+urlpatterns = [
+    path('', index, name='index'),
+]
 
 
 
@@ -31,14 +39,16 @@ from website.views import PublicModelIndexView, PublicModelDetailView
 from standards.api import juri_list, juri_detail
 from standards.api import juri_vocab_create, juri_vocab_detail
 from standards.api import juri_vocab_term_create, juri_vocab_term_detail
+from standards.api import juri_termrel_create, juri_termrel_detail
 
-urlpatterns = format_suffix_patterns([
-    path('', index, name='index'),
+urlpatterns += format_suffix_patterns([
+    #
     # Jurisdiction
     # LC
     path('terms/', juri_list, name='api-juri-list'),
     # RUD
     re_path(r'^terms/(?P<name>[\w_\-]*)$', juri_detail, name='api-juri-detail'),
+    #
     #
     # Vocabularies (in jurisdiction)
     # C
@@ -46,12 +56,20 @@ urlpatterns = format_suffix_patterns([
     # RUD
     re_path(r'^terms/(?P<jurisdiction__name>[\w_\-]*)/(?P<name>[\w_\-]*)$', juri_vocab_detail, name='api-juri-vocab-detail'),
     #
+    #
     # Terms (in vocab, in jurisdiction)
     # C
     path('terms/<jurisdiction__name>/<name>/', juri_vocab_term_create, name='api-juri-vocab-term-list'),
     # RUD
     re_path(r'^terms/(?P<vocabulary__jurisdiction__name>[\w_\-]*)/(?P<vocabulary__name>[\w_\-]*)/(?P<path>[\w/_\-]*)$',
             juri_vocab_term_detail, name='api-juri-vocab-term-detail'),
+    #
+    #
+    # Term relations (in jurisdiction)
+    # C
+    path('termrels/<name>/', juri_termrel_create, name='api-juri-termrel-list'),
+    # RUD
+    re_path(r'^termrels/(?P<jurisdiction__name>[\w_\-]*)/(?P<id>[\w_\-]*)$', juri_termrel_detail, name='api-juri-termrel-detail'),
 ], allowed=['json', 'html'])
 
 
@@ -73,6 +91,9 @@ urlpatterns += router.urls
 
 # ADMIN, ADMIN DOC, and PUBLIC DOCS
 ################################################################################
+
+from django.contrib import admin
+from website.views import PublicModelIndexView, PublicModelDetailView
 
 urlpatterns += [
     # Django admin site
