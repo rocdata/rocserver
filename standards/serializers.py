@@ -167,6 +167,7 @@ class TermSerializer(serializers.ModelSerializer):
             "jurisdiction",
             "vocabulary",
             # "id",  # internal identifiers; need not be exposed to users
+            "uri",
             "path",
             "label",
             "alt_label",

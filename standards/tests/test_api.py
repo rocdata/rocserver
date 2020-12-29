@@ -28,7 +28,7 @@ def test_get_html_endpoints(juri, vocab, vocabterms, client):
     response = client.get('/terms/Ghana')
     data = parse_object_properties(response.content)
     assert data['name'] == juri.name
-    assert data['id'] == juri.id
+    assert juri.uri in data['uri']
     assert data['display_name'] == juri.display_name
     #
     # Vocabulary
@@ -36,7 +36,7 @@ def test_get_html_endpoints(juri, vocab, vocabterms, client):
     data = parse_object_properties(response.content)
     # assert data['jurisdiction'] == TEST_SERVER_HOST + juri.uri        # TODO
     assert data['name'] == vocab.name
-    assert data['id'] == vocab.id
+    assert vocab.uri in data['uri'] 
     assert data['label'] == vocab.label
     #
     # Term
@@ -46,7 +46,7 @@ def test_get_html_endpoints(juri, vocab, vocabterms, client):
     # assert data['jurisdiction'] == TEST_SERVER_HOST + juri.uri        # TODO
     # assert data['vocabulary'] == TEST_SERVER_HOST + vocab.uri         # TODO
     assert data['path'] == term.path
-    assert data['id'] == term.id
+    assert term.uri in data['uri']
     assert data['label'] == term.label
 
 
@@ -56,7 +56,7 @@ def test_get_json_endpoints(juri, vocab, vocabterms, client):
     response = client.get('/terms/Ghana.json')
     data = response.json()
     assert data['name'] == juri.name
-    assert data['id'] == juri.id
+    assert juri.uri in data['uri']
     assert data['display_name'] == juri.display_name
     #
     # Vocabulary
@@ -64,7 +64,7 @@ def test_get_json_endpoints(juri, vocab, vocabterms, client):
     data = response.json()
     assert data['jurisdiction'] == TEST_SERVER_HOST + juri.uri
     assert data['name'] == vocab.name
-    assert data['id'] == vocab.id
+    assert vocab.uri in data['uri']
     assert data['label'] == vocab.label
     assert len(data['terms']) == 3
     #
@@ -75,5 +75,5 @@ def test_get_json_endpoints(juri, vocab, vocabterms, client):
     assert data['jurisdiction'] == TEST_SERVER_HOST + juri.uri
     assert data['vocabulary'] == TEST_SERVER_HOST + vocab.uri
     assert data['path'] == term.path
-    assert data['id'] == term.id
+    assert term.uri in data['uri']
     assert data['label'] == term.label

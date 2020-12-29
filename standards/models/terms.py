@@ -66,12 +66,6 @@ class ControlledVocabulary(Model):
     def uri(self):
         return self.get_absolute_url()
 
-    def get_fields(self):
-        fields = [('uri', self.get_absolute_url())]      # for display in HTML
-        for field in ControlledVocabulary._meta.fields:
-            if getattr(self, field.name):
-                fields.append((field.name, field.value_to_string(self)))
-        return fields
 
 
 class TermModelManager(Manager):
@@ -136,13 +130,6 @@ class Term(Model):
 
     def get_descendants(self):
         return Term.objects.filter(path__startswith=self.path)
-
-    def get_fields(self):
-        fields = [('uri', self.get_absolute_url())]      # for display in HTML
-        for field in Term._meta.fields:
-            if getattr(self, field.name):
-                fields.append((field.name, field.value_to_string(self)))
-        return fields
 
 
 

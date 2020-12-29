@@ -42,13 +42,6 @@ class Jurisdiction(Model):
     def uri(self):
         return self.get_absolute_url()
 
-    def get_fields(self):
-        fields = [('uri', self.get_absolute_url())]      # for display in HTML
-        for field in Jurisdiction._meta.fields:
-            if getattr(self, field.name):
-                fields.append((field.name, field.value_to_string(self)))
-        return fields
-
 
 class UserProfile(Model):
     user = OneToOneField(settings.AUTH_USER_MODEL, on_delete=CASCADE, related_name="profile")
