@@ -26,7 +26,7 @@ fab reset_and_migrate
 The superuser account is needed to access the Admin panel http://localhost:8000/admin/
 
 
-## Create jurisdictions and load vocabularies
+### Create jurisdictions and load vocabularies
 ```bash
 fab load_terms
 ```
@@ -34,14 +34,37 @@ This will create the Ghana and Honduras jurisdictions, and load all the controll
 vocabularies defined form them from the respective github repos.
 
 
-## Load sample fixtures
+### Load sample fixtures
+```bash
+fab load_devfixtures
+```
+This will load some sample data from `data/fixtures/` that allows to "exercise"
+the API endpoints.
 
 
 
-
-## Production run
-Check the `env.DOCKER_HOST` variable is set correctly, then simply run:
+## Local production-like setup (docker-compose on localhost)
 ```
 fab dcbuild
 fab dcup
 ```
+This will spin up a docker container you can access at http://localhost:8000/
+
+Use `fab dclogs:'-f'` to see what's going on.
+
+
+
+## Production setup (docker-compose on remote host)
+
+Check that the `PROUCTION_DOCKER_HOST` variable is set correctly in `fabfile.py`
+then simply run:
+```
+fab prod dcbuild
+fab prod dcup
+```
+This will run all docker commands agains the production docker host. After the 
+migrations, data-loading, and fixtures loading steps complete (up to 5 mins),
+the production server and all data will be available at https://rocdata.global/
+
+Use `fab prod dclogs:'-f'` to see what's going on.
+

@@ -1,0 +1,17 @@
+- model: standards.contentnoderelation
+  pk: CRLeBedUEGdT
+  fields:
+    jurisdiction:
+    - KA
+    source: CNBPazCLtju
+    target: CNBPazCLtju
+    kind:
+    - Global
+    - ContentNodeRelationKinds
+    - exactMatch
+    canonical_uri: null
+    source_uri: null
+    notes: ''
+    date_created: 2020-12-30 16:36:04.866131+00:00
+    date_modified: 2020-12-30 16:36:04.866174+00:00
+    extra_fields: {}

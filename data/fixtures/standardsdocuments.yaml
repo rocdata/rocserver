@@ -1,0 +1,58 @@
+- model: standards.standardsdocument
+  pk: DZ6tJkyV
+  fields:
+    name: Mathes
+    jurisdiction:
+    - ASN
+    title: asas
+    description: ''
+    language: null
+    publisher: null
+    version: null
+    date_valid: null
+    date_retired: null
+    license: null
+    license_description: ''
+    copyright_holder: null
+    digitization_method: hackathon_import
+    source_doc: ''
+    publication_status: draft
+    canonical_uri: null
+    source_uri: null
+    source_id: ''
+    notes: ''
+    date_created: 2020-12-17 16:42:41.795353+00:00
+    date_modified: 2020-12-17 16:42:41.795398+00:00
+    extra_fields: {}
+    subjects: []
+    education_levels: []
+- model: standards.standardsdocument
+  pk: DayhBeyn
+  fields:
+    name: CCSS.Math
+    jurisdiction:
+    - CCSS
+    title: Common Core State Standards for Mathematics
+    description: null
+    language: en
+    publisher: NGA Center for Best Practices and the Council of Chief State School
+      Officers
+    version: null
+    date_valid: null
+    date_retired: null
+    license: null
+    license_description: © Copyright 2010. National Governors Association Center for
+      Best Practices and Council of Chief State School Officers. All rights reserved.
+    copyright_holder: null
+    digitization_method: hackathon_import
+    source_doc: http://www.corestandards.org/Math/
+    publication_status: draft
+    canonical_uri: null
+    source_uri: null
+    source_id: '1'
+    notes: null
+    date_created: 2020-12-17 17:26:52.959049+00:00
+    date_modified: 2020-12-17 17:26:52.960883+00:00
+    extra_fields: {}
+    subjects: []
+    education_levels: []

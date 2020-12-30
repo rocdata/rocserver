@@ -1,0 +1,41 @@
+- model: standards.standardscrosswalk
+  pk: SCS6RJNzt
+  fields:
+    jurisdiction:
+    - CCSS
+    title: Grade level prerqs
+    description: ''
+    creator: null
+    publisher: null
+    version: null
+    license: null
+    license_description: ''
+    copyright_holder: null
+    date_valid: null
+    date_retired: null
+    digitization_method: manual_entry
+    publication_status: draft
+    subjects: []
+    education_levels: []
+- model: standards.standardscrosswalk
+  pk: SCd9fwjmt
+  fields:
+    jurisdiction:
+    - Global
+    title: A new crosswalk
+    description: Test create from REST API
+    creator: ''
+    publisher: ''
+    version: ''
+    license: null
+    license_description: ''
+    copyright_holder: ''
+    date_valid: null
+    date_retired: null
+    digitization_method: manual_entry
+    publication_status: draft
+    subjects:
+    - - Ghana
+      - Subjects
+      - WP
+    education_levels: []

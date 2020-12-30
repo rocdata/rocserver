@@ -1,0 +1,20 @@
+- model: standards.contentcorrelation
+  pk: CS5usCvLx
+  fields:
+    jurisdiction:
+    - KA
+    title: First CC ever
+    description: ''
+    creator: null
+    publisher: null
+    version: null
+    license: null
+    license_description: ''
+    copyright_holder: null
+    digitization_method: manual_entry
+    publication_status: publicdraft
+    subjects:
+    - - USA
+      - Subjects
+      - math
+    education_levels: []

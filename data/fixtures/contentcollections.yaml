@@ -1,0 +1,24 @@
+- model: standards.contentcollection
+  pk: CCBwpakEViFm
+  fields:
+    jurisdiction:
+    - KA
+    name: Khan Academy English
+    description: ''
+    thumbnail_url: ''
+    language: null
+    country: US
+    publication_status: publicdraft
+    import_method: manual_entry
+    source_domain: null
+    source_url: ''
+    collection_id: ''
+    version: null
+    license: null
+    license_description: ''
+    copyright_holder: null
+    notes: ''
+    date_created: 2020-12-27 03:41:20.397331+00:00
+    date_modified: 2020-12-27 03:41:20.397372+00:00
+    extra_fields: {}
+    subjects: []

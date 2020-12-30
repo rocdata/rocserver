@@ -1,0 +1,36 @@
+- model: standards.contentnode
+  pk: CNBPazCLtju
+  fields:
+    collection: CCBwpakEViFm
+    parent: null
+    kind:
+    - KA
+    - KhanAcademyContentNodeKinds
+    - Domain
+    sort_order: 1.0
+    title: Hello
+    description: This is where description would go
+    language: null
+    author: ''
+    aggregator: ''
+    provider: ''
+    size: null
+    concept_keywords: null
+    source_url: ''
+    source_domain: khanacademy.org
+    source_id: hello
+    content_id: null
+    node_id: null
+    license: null
+    license_description: ''
+    copyright_holder: null
+    date_created: 2020-12-27 03:42:31.160249+00:00
+    date_modified: 2020-12-27 03:42:31.160288+00:00
+    extra_fields: {}
+    lft: 1
+    rght: 2
+    tree_id: 1
+    level: 0
+    subjects: []
+    education_levels: []
+    concept_terms: []

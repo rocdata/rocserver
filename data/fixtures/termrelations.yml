@@ -1,0 +1,19 @@
+- model: standards.termrelation
+  pk: TR9WTmdr4BNy
+  fields:
+    jurisdiction:
+    - Ghana
+    source:
+    - Ghana
+    - GradeLevels
+    - B4
+    target_uri: null
+    target:
+    - Ghana
+    - KeyPhases
+    - UP
+    kind: broader
+    notes: ''
+    date_created: 2020-12-28 13:54:51.844573+00:00
+    date_modified: 2020-12-30 17:51:49.820626+00:00
+    extra_fields: {}

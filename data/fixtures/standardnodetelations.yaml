@@ -1,0 +1,13 @@
+- model: standards.standardnoderelation
+  pk: SRjspSd43
+  fields:
+    crosswalk: SCS6RJNzt
+    source: STbhQpoV
+    target: S3z5Eemh
+    kind: null
+    canonical_uri: null
+    source_uri: null
+    notes: ''
+    date_created: 2020-12-21 05:25:51.048539+00:00
+    date_modified: 2020-12-21 05:25:51.048579+00:00
+    extra_fields: {}

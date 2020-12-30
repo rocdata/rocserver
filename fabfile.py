@@ -16,11 +16,25 @@ from fabric.context_managers import cd, prefix, settings, hide
 
 
 
-# ROCHOST (GCP instance)
+# ROCHOST INFO (rocdata.global; GCP instance)
 ################################################################################
-env.hosts = ['35.203.84.59']
-env.user = 'ivan'
-env.DOCKER_HOST = "ssh://ivan@35.203.84.59"
+PROUCTION_HOST = '35.203.84.59'  # IP address of rocdata.global
+PROUCTION_USER = os.environ.get('USER')  # username (must be in docker group)
+PROUCTION_DOCKER_HOST = "ssh://{user}@35.203.84.59".format(user=PROUCTION_USER)
+
+
+
+# PROD = rocdata.global = linux server running docker with open ports 80 and 443
+################################################################################
+
+@task
+def prod():
+    """
+    Set fabric env values so docker and docker-compose commands run in prod.
+    """
+    env.hosts = PROUCTION_HOST
+    env.user = PROUCTION_USER
+    env.DOCKER_HOST = PROUCTION_DOCKER_HOST
 
 
 
@@ -93,10 +107,13 @@ def create_jurisdictions():
 
 @task
 def load_terms():
+    """
+    Load the controlled vocabularies defined for all ROC jurisdiction.
+    """
     with settings(warn_only=True), hide('stdout', 'stderr', 'warnings'):
         create_jurisdictions()
     ALL_TERMS_FILES = [
-        # Global
+        # ROC Global
         "data/terms/ContentNodeRelationKinds.yml",
         "data/terms/DigitizationMethods.yml",
         "data/terms/LicenseKinds.yml",
@@ -134,6 +151,61 @@ def load_terms():
         if "raw.githubusercontent" in terms_url:
             terms_url += '?flush_cache=True'  # bypass 5 minute cache
         local('./manage.py loadterms "{}" --overwrite'.format(terms_url))
+
+
+
+# DEV FIXTURES
+################################################################################
+
+DEV_FIXTURES_MODELS = [
+    # since no term relations loaded currently by load_terms
+    {"class": "TermRelation", "filename": "termrelations.yaml"},
+    # 
+    # standards
+    {"class": "StandardsDocument", "filename": "standardsdocuments.yaml"},
+    {"class": "StandardNode", "filename": "standardnodes.yaml"},
+    {"class": "StandardsCrosswalk", "filename": "standardscrosswalks.yaml"},
+    {"class": "StandardNodeRelation", "filename": "standardnodetelations.yaml"},
+    # content
+    {"class": "ContentCollection", "filename": "contentcollections.yaml"},
+    {"class": "ContentNode", "filename": "contentnodes.yaml"},
+    {"class": "ContentNodeRelation", "filename": "contentnoderelations.yaml"},
+    {"class": "ContentCorrelation", "filename": "contentcorrelations.yaml"},
+    {"class": "ContentStandardRelation", "filename": "contantstandardrelations.yaml"},
+]
+
+@task
+def load_devfixtures():
+    """
+    Load sample documents, crosswalks, content collections, and content correlations.
+    """
+    for model in DEV_FIXTURES_MODELS:
+        destpath = "data/fixtures/" + model['filename']
+        if os.path.exists(destpath):
+            print("Loading fixtures for model", model['class'], "from", destpath)
+            loaddata_cmd = "./manage.py loaddata " + destpath
+            local(loaddata_cmd)
+        else:
+            print("Fixtures path", destpath, "doesn't exist. Skipping...")
+
+
+@task
+def dump_devfixtures(update=False):
+    """
+    Exports all documents, crosswalks, content collections, and content correlations
+    currently in the DB as fixtures (used only in development).
+    """
+    update = (update and update.lower() == 'true')  # defaults to False
+    for model in DEV_FIXTURES_MODELS:
+        destpath = "data/fixtures/" + model['filename']
+        if os.path.exists(destpath) and not update:
+            print('File', destpath, 'already exists. Delete file or re-run with :update=true')
+            sys.exit(-1)
+        print("Exporting fixtures for", model['class'], "to", destpath)
+        dumpdata_cmd = "./manage.py dumpdata --natural-foreign --format=yaml "  # --natural-primary ?
+        dumpdata_cmd += "standards." + model['class']
+        dumpdata_cmd += " > " + destpath
+        local(dumpdata_cmd)
 
 
 # PROVISION DOCKER ON REMOTE HOST

@@ -3,6 +3,7 @@ from django.db.models import CASCADE
 from django.db.models import CharField
 from django.db.models import ForeignKey
 from django.db.models import OneToOneField
+from django.db.models import Manager
 from django.db.models import Model
 from django.db.models import TextField
 from django.db.models import URLField
@@ -15,6 +16,13 @@ from standards.fields import ShortUUIDField
 
 # JURISDICTIONS and USERS
 ################################################################################
+
+
+class JurisdictionManager(Manager):
+
+    def get_by_natural_key(self, name):
+        return self.get(name=name)
+
 
 class Jurisdiction(Model):
     """
@@ -31,6 +39,11 @@ class Jurisdiction(Model):
     language = CharField(max_length=20, blank=True, null=True, help_text="BCP47 lang codes like en, es, fr-CA")
     notes = TextField(blank=True, null=True, help_text="Public comments and notes about this jurisdiction.")
     website_url = URLField(max_length=512, null=True, blank=True)
+
+    objects = JurisdictionManager()
+
+    def natural_key(self):
+        return (self.name,)
 
     def __str__(self):
         return self.name

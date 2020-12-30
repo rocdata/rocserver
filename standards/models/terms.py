@@ -29,6 +29,15 @@ SPECIAL_VOCABULARY_KINDS = Choices(
 )
 
 
+
+class ControlledVocabularyManager(Manager):
+    def get_queryset(self):
+        return super(ControlledVocabularyManager, self).get_queryset().select_related("jurisdiction")
+
+    def get_by_natural_key(self, jurisdiction_name, name):
+        return self.get(jurisdiction__name=jurisdiction_name, name=name)
+
+
 class ControlledVocabulary(Model):
     """
     A set of controlled terms served under /terms/{juri}/{self.name}/.
@@ -52,9 +61,14 @@ class ControlledVocabulary(Model):
     date_modified = DateTimeField(auto_now=True)
     extra_fields = JSONField(default=dict, blank=True)  # for data extensibility
 
+    objects = ControlledVocabularyManager()
+
     class Meta:
         verbose_name_plural = 'Controlled vocabularies'
         unique_together = [['jurisdiction', 'name']]
+
+    def natural_key(self):
+        return (self.jurisdiction.name, self.name)
 
     def __str__(self):
         return self.jurisdiction.name + '/' + self.name
@@ -68,9 +82,21 @@ class ControlledVocabulary(Model):
 
 
 
+
+# TERMS
+################################################################################
+
+
 class TermModelManager(Manager):
     def get_queryset(self):
         return super(TermModelManager, self).get_queryset().select_related("vocabulary", "vocabulary__jurisdiction")
+
+    def get_by_natural_key(self, jurisdiction_name, vocabulary_name, path):
+        return self.get(
+            vocabulary__jurisdiction__name=jurisdiction_name,
+            vocabulary__name=vocabulary_name,
+            path=path
+        )
 
 class Term(Model):
     """
@@ -108,6 +134,9 @@ class Term(Model):
     class Meta:
         unique_together = [['vocabulary', 'path']]
 
+    def natural_key(self):
+        return (self.vocabulary.jurisdiction.name, self.vocabulary.name, self.path)
+
     def __str__(self):
         v = self.vocabulary
         return v.jurisdiction.name + '/' + v.name + '/' + self.path
@@ -132,6 +161,10 @@ class Term(Model):
         return Term.objects.filter(path__startswith=self.path)
 
 
+
+
+# TERM RELATIONS
+################################################################################
 
 TERM_REL_KINDS = Choices(
     # skos:semanticRelation (within-vocabulary links)

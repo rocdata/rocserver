@@ -1,0 +1,16 @@
+- model: standards.contentstandardrelation
+  pk: CSRCEjJkLifCV
+  fields:
+    correlation: CS5usCvLx
+    contentnode: CNBPazCLtju
+    standardnode: SeLoyeaC
+    kind:
+    - Global
+    - ContentStandardRelationKinds
+    - minorCorrelation
+    canonical_uri: null
+    source_uri: null
+    notes: ''
+    date_created: 2020-12-27 03:49:34.657148+00:00
+    date_modified: 2020-12-27 03:49:34.657189+00:00
+    extra_fields: {}
