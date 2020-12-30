@@ -7,20 +7,38 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
+
 from standards.models import Jurisdiction
-from standards.models import ControlledVocabulary, Term, TermRelation
-from standards.models import StandardsDocument, StandardNode
-from standards.models import StandardsCrosswalk, StandardNodeRelation
-from standards.publishing import get_publishing_context
 from standards.serializers import JurisdictionSerializer
+from standards.publishing import get_publishing_context
+
+from standards.models import ControlledVocabulary, Term, TermRelation
 from standards.serializers import ControlledVocabularySerializer
 from standards.serializers import TermSerializer, TermRelationSerializer
-from standards.serializers import StandardsDocumentSerializer
+
+from standards.models import StandardsDocument, StandardNode
+from standards.models import StandardsCrosswalk, StandardNodeRelation
+from standards.serializers import StandardsDocumentSerializer, StandardNodeSerializer
+from standards.serializers import StandardsCrosswalkSerializer, StandardNodeRelationSerializer
+
+from standards.models import ContentCollection, ContentNode, ContentNodeRelation
+from standards.models import ContentCorrelation, ContentStandardRelation
+from standards.serializers import ContentCollectionSerializer, ContentNodeSerializer, ContentNodeRelationSerializer
+from standards.serializers import ContentCorrelationSerializer, ContentStandardRelationSerializer
+
 
 
 
 # HELPERS
 ################################################################################
+
+def LargeResultsSetPagination(size=100):
+    class CustomPagination(PageNumberPagination):
+        page_size = size
+        page_size_query_param = "page_size"
+        max_page_size = page_size * 10
+    return CustomPagination
+
 
 class MultipleFieldLookupMixin:
     """
@@ -118,12 +136,11 @@ class CustomHTMLRendererRetrieve:
 # HIERARCHICAL API   /api/terms/{juri.name}/{vocab.name}/{term.path}
 ################################################################################
 
-class JurisdictionViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
+class OLDJurisdictionViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     queryset = Jurisdiction.objects.all()
     serializer_class = JurisdictionSerializer
     lookup_field = "name"
-    template_name = 'standards/jurisdiction_detail.html'         # /terms/{juri}
-
+    template_name = 'standards/jurisdiction_detail.html'         # /terms/{juri} AND /{juri}
 
     def list(self, request, *args, **kwargs):                    # /terms/
         """Used for HTML format of the jurisdiction create-list endpoint."""
@@ -142,11 +159,11 @@ class JurisdictionViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
         else:
             return Response(processed_datas)
 
-juri_list = JurisdictionViewSet.as_view({
+juri_list = OLDJurisdictionViewSet.as_view({
     'get': 'list',
     'post': 'create'
 })
-juri_detail = JurisdictionViewSet.as_view({
+juri_detail = OLDJurisdictionViewSet.as_view({
     'get': 'retrieve',
     'put': 'update',
     'patch': 'partial_update',
@@ -205,7 +222,6 @@ juri_vocab_term_detail = JurisdictionVocabularyTermViewSet.as_view({
 
 
 
-
 class JurisdictionTermRelationViewSet(MultipleFieldLookupMixin, CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     queryset = TermRelation.objects.select_related('jurisdiction').all()
     lookup_fields = ["jurisdiction__name", "id"]
@@ -246,40 +262,126 @@ juri_termrel_detail = JurisdictionTermRelationViewSet.as_view({
 
 
 
-
-
-
-# STANDARDS DOCUMENTS
+# JURISDICTION
 ################################################################################
 
-class StandardsDocumentSerializer(serializers.ModelSerializer):
-    root_node_id = serializers.SerializerMethodField()
+class JurisdictionViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
+    # /{juri}
+    queryset = Jurisdiction.objects.all()
+    serializer_class = JurisdictionSerializer
+    lookup_field = "name"
+    template_name = 'standards/jurisdiction_detail.html'
 
-    class Meta:
-        model = StandardsDocument
-        fields = '__all__'
 
-    def get_root_node_id(self, obj):
-        try:
-            return StandardNode.objects.get(level=0, document_id=obj.id).id
-        except StandardNode.DoesNotExist:
-            return None
 
-def LargeResultsSetPagination(size=100):
-    class CustomPagination(PageNumberPagination):
-        page_size = size
-        page_size_query_param = "page_size"
-        max_page_size = page_size * 10
-    return CustomPagination
-
+# STANDARDS
+################################################################################
 
 class StandardsDocumentViewSet(viewsets.ModelViewSet):
+    # /{juri}/documents/{d.id}
     queryset = StandardsDocument.objects.all()
     serializer_class = StandardsDocumentSerializer
     pagination_class = LargeResultsSetPagination(100)
+    template_name = 'standards/document_detail.html'
 
     def get_queryset(self):
-        if self.request.user.is_superuser:
-            return self.queryset
-        else:
-            return self.queryset.filter(is_draft=False)
+        return self.queryset.filter(jurisdiction__name=self.kwargs['jurisdiction_name'])
+
+
+class StandardNodeViewSet(viewsets.ModelViewSet):
+    # /{juri}/standardnodes/{sn.id}
+    queryset = StandardNode.objects.all()
+    serializer_class = StandardNodeSerializer
+    pagination_class = LargeResultsSetPagination(100)
+    template_name = 'standards/standardnode_detail.html'
+
+    def get_queryset(self):
+        return self.queryset.filter(document__jurisdiction__name=self.kwargs['jurisdiction_name'])
+
+
+# STANDARDS CROSSWALKS
+################################################################################
+
+class StandardsCrosswalkViewSet(viewsets.ModelViewSet):
+    # /{juri}/standardnodes/{sc.id}
+    queryset = StandardsCrosswalk.objects.all()
+    serializer_class = StandardsCrosswalkSerializer
+    pagination_class = LargeResultsSetPagination(100)
+    template_name = 'standards/standardscrosswalk_detail.html'
+
+    def get_queryset(self):
+        return self.queryset.filter(jurisdiction__name=self.kwargs['jurisdiction_name'])
+
+
+class StandardNodeRelationViewSet(viewsets.ModelViewSet):
+    # /{juri}/standardnoderels/{snr.id}
+    queryset = StandardNodeRelation.objects.all()
+    serializer_class = StandardNodeRelationSerializer
+    pagination_class = LargeResultsSetPagination(100)
+    template_name = 'standards/standardnoderelation_detail.html'
+
+    def get_queryset(self):
+        return self.queryset.filter(jurisdiction__name=self.kwargs['jurisdiction_name'])
+
+
+
+
+# CONTENT
+################################################################################
+
+class ContentCollectionViewSet(viewsets.ModelViewSet):
+    # /{juri}/contentcollections/{cc.id}
+    queryset = ContentCollection.objects.all()
+    serializer_class = ContentCollectionSerializer
+    pagination_class = LargeResultsSetPagination(100)
+    template_name = 'standards/contentcollection_detail.html'
+
+    def get_queryset(self):
+        return self.queryset.filter(jurisdiction__name=self.kwargs['jurisdiction_name'])
+
+
+class ContentNodeViewSet(viewsets.ModelViewSet):
+    # /{juri}/contentnodes/{c.id}
+    queryset = ContentNode.objects.all()
+    serializer_class = ContentNodeSerializer
+    pagination_class = LargeResultsSetPagination(100)
+    template_name = 'standards/contentnode_detail.html'
+
+    def get_queryset(self):
+        return self.queryset.filter(collection__jurisdiction__name=self.kwargs['jurisdiction_name'])
+
+
+class ContentNodeRelationViewSet(viewsets.ModelViewSet):
+    # /{juri}/contentnoderels/{cnr.id}
+    queryset = ContentNodeRelation.objects.all()
+    serializer_class = ContentNodeRelationSerializer
+    pagination_class = LargeResultsSetPagination(100)
+    template_name = 'standards/contentnoderelation_detail.html'
+
+    def get_queryset(self):
+        return self.queryset.filter(jurisdiction__name=self.kwargs['jurisdiction_name'])
+
+
+# CONTENT CORRELATIONS
+################################################################################
+
+class ContentCorrelationViewSet(viewsets.ModelViewSet):
+    # /{juri}/contentcorrelations/{cs.id}
+    queryset = ContentCorrelation.objects.all()
+    serializer_class = ContentCorrelationSerializer
+    pagination_class = LargeResultsSetPagination(100)
+    template_name = 'standards/contentcorrelation_detail.html'
+
+    def get_queryset(self):
+        return self.queryset.filter(jurisdiction__name=self.kwargs['jurisdiction_name'])
+
+
+class ContentStandardRelationViewSet(viewsets.ModelViewSet):
+    # /{juri}/contentstandardrels/{csr.id}
+    queryset = ContentStandardRelation.objects.all()
+    serializer_class = ContentStandardRelationSerializer
+    pagination_class = LargeResultsSetPagination(100)
+    template_name = 'standards/contentstandardrelation_detail.html'
+
+    def get_queryset(self):
+        return self.queryset.filter(correlation__jurisdiction__name=self.kwargs['jurisdiction_name'])

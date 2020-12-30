@@ -13,11 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.conf import settings
 from django.urls import path, include, re_path
 from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
-
+from rest_framework_nested import routers
 
 
 
@@ -33,7 +34,7 @@ urlpatterns = [
 
 
 
-# HIERARCHICAL TERMS API   /api/terms/{juri.name}/{vocab.name}/{term.path}
+# OLD HIERARCHICAL TERMS API   /api/terms/{juri.name}/{vocab.name}/{term.path}
 ################################################################################
 
 from standards.api import juri_list, juri_detail
@@ -73,20 +74,48 @@ urlpatterns += format_suffix_patterns([
 ], allowed=['json', 'html'])
 
 
+# JURISDICTIONS
+################################################################################
+from standards.api import JurisdictionViewSet
 
-# FLAT STANDARDS AND CONTENT API
+router = routers.SimpleRouter(trailing_slash=False)
+router.register(r'', JurisdictionViewSet)
+
+urlpatterns += format_suffix_patterns(router.urls, allowed=['json', 'html'])
+
+jurisdiction_router = routers.NestedSimpleRouter(router, r'', lookup='jurisdiction')
+
+
+
+# STANDARDS
 ################################################################################
 
-from standards.api import StandardsDocumentViewSet
+from standards.api import StandardsDocumentViewSet, StandardNodeViewSet
+from standards.api import StandardsCrosswalkViewSet, StandardNodeRelationViewSet
 
-router = routers.DefaultRouter(trailing_slash=False)
-router.register(r"documents", StandardsDocumentViewSet, basename='document')
-
-urlpatterns += router.urls
-
-
+jurisdiction_router.register(r'documents', StandardsDocumentViewSet, basename='jurisdiction-document')
+jurisdiction_router.register(r'standardnodes', StandardNodeViewSet, basename='jurisdiction-standardnode')
+jurisdiction_router.register(r'standardscrosswalks', StandardsCrosswalkViewSet, basename='jurisdiction-standardscrosswalk')
+jurisdiction_router.register(r'standardnoderels', StandardNodeRelationViewSet, basename='jurisdiction-standardnoderel')
 
 
+
+# CONTENT
+################################################################################
+
+from standards.api import ContentCollectionViewSet, ContentNodeViewSet, ContentNodeRelationViewSet
+from standards.api import ContentCorrelationViewSet, ContentStandardRelationViewSet
+
+
+jurisdiction_router.register(r'contentcollections', ContentCollectionViewSet, basename='jurisdiction-contentcollection')
+jurisdiction_router.register(r'contentnodes', ContentNodeViewSet, basename='jurisdiction-contentnode')
+jurisdiction_router.register(r'contentnoderels', ContentNodeRelationViewSet, basename='jurisdiction-contentnoderel')
+jurisdiction_router.register(r'contentcorrelations', ContentCorrelationViewSet, basename='jurisdiction-contentcorrelation')
+jurisdiction_router.register(r'contentstandardrels', ContentStandardRelationViewSet, basename='jurisdiction-contentstandardrel')
+
+
+# add jurisdiction_router and all nested endpoints
+urlpatterns += format_suffix_patterns(jurisdiction_router.urls, allowed=['json', 'html'])
 
 
 # ADMIN, ADMIN DOC, and PUBLIC DOCS

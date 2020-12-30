@@ -7,6 +7,7 @@ from django.db.models import DateTimeField
 from django.db.models import FloatField
 from django.db.models import ForeignKey
 from django.db.models import JSONField
+from django.db.models import Manager
 from django.db.models import ManyToManyField
 from django.db.models import Model
 from django.db.models import SET_NULL
@@ -110,6 +111,16 @@ class StandardsDocument(Model):
 
 
 
+class StandardNodeManager(Manager):
+    def get_queryset(self):
+        return super(StandardNodeManager, self).get_queryset().prefetch_related(
+            "document__jurisdiction",
+            "document",
+            "subjects",
+            "education_levels",
+            "concept_terms",
+        )
+
 class StandardNode(MPTTModel):
     """
     An individual standard entry within the a standards document.
@@ -152,6 +163,7 @@ class StandardNode(MPTTModel):
     date_modified = DateTimeField(auto_now=True, help_text="Date of last modification to node")
     extra_fields = JSONField(default=dict, blank=True)  # for data extensibility
 
+    objects = StandardNodeManager()
 
     class Meta:
         # Make sure every document has at most one tree
@@ -186,6 +198,7 @@ class StandardNode(MPTTModel):
     @property
     def relations(self):
         return StandardNodeRelation.objects.filter(Q(source=self) | Q(target=self))
+
 
 
 
