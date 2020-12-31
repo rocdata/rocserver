@@ -94,7 +94,7 @@ class ContentCollection(Model):
 
     @property
     def root(self):
-        return ContentNode.get_root_nodes().get(collection=self)
+        return ContentNode.objects.get(level=0, collection=self)
 
     def get_children(self):
         self.root.get_children()

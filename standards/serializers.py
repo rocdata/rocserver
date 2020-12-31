@@ -84,10 +84,18 @@ class StandardsDocumentHyperlinkHyperlinkField(JurisdictionScopedHyperlinkField)
     view_name = 'jurisdiction-document-detail'
     queryset = StandardsDocument.objects.all()
 
-class StandardNodeHyperlinkField(JurisdictionScopedHyperlinkField):
+class StandardNodeHyperlinkField(MultiKeyHyperlinkField):
     # /<jurisdiction_name>/standardnodes/<pk>
     view_name = 'jurisdiction-standardnode-detail'
     queryset = StandardNode.objects.all()
+    url_kwargs_mapping = {
+        "jurisdiction_name": "document.jurisdiction.name",
+        "pk": "id",
+    }
+    lookup_kwargs_mapping = {
+        "document__jurisdiction__name": "jurisdiction_name",
+        "id": "pk",
+    }
 
 class StandardsCrowsswalkHyperlinkField(JurisdictionScopedHyperlinkField):
     # /<jurisdiction_name>/standardscrosswalks/<pk>
@@ -106,10 +114,18 @@ class ContentCollectionHyperlinkField(JurisdictionScopedHyperlinkField):
     view_name = 'jurisdiction-contentcollection-detail'
     queryset = ContentCollection.objects.all()
 
-class ContentNodeHyperlinkField(JurisdictionScopedHyperlinkField):
+class ContentNodeHyperlinkField(MultiKeyHyperlinkField):
     # /<jurisdiction_name>/contentnodes/<pk>
     view_name = 'jurisdiction-contentnode-detail'
     queryset = ContentNode.objects.all()
+    url_kwargs_mapping = {
+        "jurisdiction_name": "collection.jurisdiction.name",
+        "pk": "id",
+    }
+    lookup_kwargs_mapping = {
+        "collection__jurisdiction__name": "jurisdiction_name",
+        "id": "pk",
+    }
 
 class ContentNodeRelationHyperlinkField(JurisdictionScopedHyperlinkField):
     # /<jurisdiction_name>/contentnoderels/<pk>
@@ -359,6 +375,7 @@ class JurisdictionSerializer(serializers.ModelSerializer):
 class StandardsDocumentSerializer(serializers.ModelSerializer):
     root_node_id = serializers.SerializerMethodField()
     jurisdiction = JurisdictionHyperlinkField(required=True)
+    children = StandardNodeHyperlinkField(source='root.children', many=True)
 
     class Meta:
         model = StandardsDocument
@@ -374,6 +391,8 @@ class StandardsDocumentSerializer(serializers.ModelSerializer):
 class StandardNodeSerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(source='document.jurisdiction', required=False) # check this...
     document = StandardsDocumentHyperlinkHyperlinkField(required=True)
+    parent = StandardNodeHyperlinkField()
+    children = StandardNodeHyperlinkField(many=True)
 
     class Meta:
         model = StandardNode
@@ -408,6 +427,7 @@ class StandardNodeRelationSerializer(serializers.ModelSerializer):
 
 class ContentCollectionSerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(required=True)
+    children = ContentNodeHyperlinkField(source='root.children', many=True)
 
     class Meta:
         model = ContentCollection
@@ -416,6 +436,8 @@ class ContentCollectionSerializer(serializers.ModelSerializer):
 class ContentNodeSerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(required=False)
     collection = ContentCollectionHyperlinkField(required=True)
+    parent = ContentNodeHyperlinkField()
+    children = ContentNodeHyperlinkField(many=True)
 
     class Meta:
         model = ContentNode
@@ -443,6 +465,8 @@ class ContentCorrelationSerializer(serializers.ModelSerializer):
 class ContentStandardRelationSerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(required=False)
     correlation = ContentCorrelationHyperlinkField(required=True)
+    contentnode = ContentNodeHyperlinkField()
+
 
     class Meta:
         model = ContentStandardRelation

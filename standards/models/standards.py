@@ -104,7 +104,8 @@ class StandardsDocument(Model):
 
     @property
     def root(self):
-        return StandardNode.get_root_nodes().get(document=self)
+        return StandardNode.objects.get(level=0, document=self)
+
 
     def get_children(self):
         self.root.get_children()

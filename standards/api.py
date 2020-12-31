@@ -58,7 +58,7 @@ class MultipleFieldLookupMixin:
         return obj
 
 
-
+TREE_DATA_SKIP_KEYS = ["lft", "rght", "tree_id"]   # MPTT internal impl. details
 
 class CustomHTMLRendererRetrieve:
     """
@@ -91,6 +91,8 @@ class CustomHTMLRendererRetrieve:
         """
         processed_data = OrderedDict()
         for key, value in data.items():
+            if key in TREE_DATA_SKIP_KEYS:
+                continue
             if isinstance(value, str) and key.endswith('uri') and value.startswith('/'):
                 pc = publishing_context
                 base_url = pc['scheme'] + '://' + pc['netloc'] + pc['path_prefix']
@@ -277,7 +279,7 @@ class JurisdictionViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
 # STANDARDS
 ################################################################################
 
-class StandardsDocumentViewSet(viewsets.ModelViewSet):
+class StandardsDocumentViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     # /{juri}/documents/{d.id}
     queryset = StandardsDocument.objects.all()
     serializer_class = StandardsDocumentSerializer
@@ -288,7 +290,7 @@ class StandardsDocumentViewSet(viewsets.ModelViewSet):
         return self.queryset.filter(jurisdiction__name=self.kwargs['jurisdiction_name'])
 
 
-class StandardNodeViewSet(viewsets.ModelViewSet):
+class StandardNodeViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     # /{juri}/standardnodes/{sn.id}
     queryset = StandardNode.objects.all()
     serializer_class = StandardNodeSerializer
@@ -302,7 +304,7 @@ class StandardNodeViewSet(viewsets.ModelViewSet):
 # STANDARDS CROSSWALKS
 ################################################################################
 
-class StandardsCrosswalkViewSet(viewsets.ModelViewSet):
+class StandardsCrosswalkViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     # /{juri}/standardnodes/{sc.id}
     queryset = StandardsCrosswalk.objects.all()
     serializer_class = StandardsCrosswalkSerializer
@@ -313,7 +315,7 @@ class StandardsCrosswalkViewSet(viewsets.ModelViewSet):
         return self.queryset.filter(jurisdiction__name=self.kwargs['jurisdiction_name'])
 
 
-class StandardNodeRelationViewSet(viewsets.ModelViewSet):
+class StandardNodeRelationViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     # /{juri}/standardnoderels/{snr.id}
     queryset = StandardNodeRelation.objects.all()
     serializer_class = StandardNodeRelationSerializer
@@ -329,7 +331,7 @@ class StandardNodeRelationViewSet(viewsets.ModelViewSet):
 # CONTENT
 ################################################################################
 
-class ContentCollectionViewSet(viewsets.ModelViewSet):
+class ContentCollectionViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     # /{juri}/contentcollections/{cc.id}
     queryset = ContentCollection.objects.all()
     serializer_class = ContentCollectionSerializer
@@ -340,10 +342,11 @@ class ContentCollectionViewSet(viewsets.ModelViewSet):
         return self.queryset.filter(jurisdiction__name=self.kwargs['jurisdiction_name'])
 
 
-class ContentNodeViewSet(viewsets.ModelViewSet):
+class ContentNodeViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     # /{juri}/contentnodes/{c.id}
     queryset = ContentNode.objects.all()
     serializer_class = ContentNodeSerializer
+    partial=True
     pagination_class = LargeResultsSetPagination(100)
     template_name = 'standards/contentnode_detail.html'
 
@@ -351,7 +354,7 @@ class ContentNodeViewSet(viewsets.ModelViewSet):
         return self.queryset.filter(collection__jurisdiction__name=self.kwargs['jurisdiction_name'])
 
 
-class ContentNodeRelationViewSet(viewsets.ModelViewSet):
+class ContentNodeRelationViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     # /{juri}/contentnoderels/{cnr.id}
     queryset = ContentNodeRelation.objects.all()
     serializer_class = ContentNodeRelationSerializer
@@ -365,7 +368,7 @@ class ContentNodeRelationViewSet(viewsets.ModelViewSet):
 # CONTENT CORRELATIONS
 ################################################################################
 
-class ContentCorrelationViewSet(viewsets.ModelViewSet):
+class ContentCorrelationViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     # /{juri}/contentcorrelations/{cs.id}
     queryset = ContentCorrelation.objects.all()
     serializer_class = ContentCorrelationSerializer
@@ -376,7 +379,7 @@ class ContentCorrelationViewSet(viewsets.ModelViewSet):
         return self.queryset.filter(jurisdiction__name=self.kwargs['jurisdiction_name'])
 
 
-class ContentStandardRelationViewSet(viewsets.ModelViewSet):
+class ContentStandardRelationViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     # /{juri}/contentstandardrels/{csr.id}
     queryset = ContentStandardRelation.objects.all()
     serializer_class = ContentStandardRelationSerializer
