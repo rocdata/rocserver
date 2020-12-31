@@ -2,7 +2,7 @@
 
 
 {% block extrahead %}
-<title>{{ object.jurisdiction.name }}/{{ object.name }} (Controlled vocabulary)</title>
+<title>{{ object.name }} (StandardsCrosswalk)</title>
 {% endblock %}
 
 
@@ -11,12 +11,11 @@
 
     {% include "standards/fragments/alt_formats_links.html" %}
 
-    <h2 class="object-title">{{ object.jurisdiction.name }}:{{ object.name }}</h2>
-    <span class="objectkindbadge badge badge-primary">ControlledVocabulary</span>
+    <h2 class="object-title">{{ object.name }}</h2>
+    <span class="objectkindbadge badge badge-primary">StandardsCrosswalk</span>
     <hr/>
 
     {% include "standards/fragments/data_properties.html" %}
 
 </div><!-- /container -->
 {% endblock %}
-

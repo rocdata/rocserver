@@ -6,7 +6,7 @@
     {% for name, value in data.items %}
         {% if value %}
 
-            {% if value|get_type == 'str' or value|get_type == 'float' %}
+            {% if value|get_type == 'str' or value|get_type == 'int' or value|get_type == 'float' %}
 
                 <li class="list-group-item">
                     <h5 class="list-group-item-heading">{{ name }}</h5>

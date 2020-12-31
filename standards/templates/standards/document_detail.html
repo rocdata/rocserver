@@ -1,0 +1,37 @@
+{% extends "standards/base.html" %}
+
+
+{% block extrahead %}
+<title>{{ object.name }} (StandardsDocument)</title>
+{% endblock %}
+
+
+{% block maincontent %}
+<div class="container">
+
+    {% include "standards/fragments/alt_formats_links.html" %}
+
+    <h2 class="object-title">{{ object.name }}</h2>
+    <span class="objectkindbadge badge badge-primary">StandardsDocument</span>
+    <hr/>
+
+    {% include "standards/fragments/data_properties.html" %}
+
+</div><!-- /container -->
+{% endblock %}
+
+
+
+<!-- {% load mptt_tags %}
+<ul>
+    {% recursetree genres %}
+        <li>
+            {{ node.name }}
+            {% if not node.is_leaf_node %}
+                <ul class="children">
+                    {{ children }}
+                </ul>
+            {% endif %}
+        </li>
+    {% endrecursetree %}
+</ul> -->

@@ -1,0 +1,31 @@
+{% extends "standards/base.html" %}
+
+
+{% block extrahead %}
+<title>{{ object.title }} (StandardNode)</title>
+{% endblock %}
+
+
+{% block maincontent %}
+<div class="container">
+
+    {% include "standards/fragments/alt_formats_links.html" %}
+
+    <h2 class="object-title">
+        {% if object.notation %}
+            {{ object.notation }}
+        {% else  %}
+            {% if object.description|length > 50 %}
+                {{ object.description|slice:50 }}...
+            {% else  %}
+                {{ object.description }}
+            {% endif %}
+        {% endif %}
+    </h2>
+    <span class="objectkindbadge badge badge-primary">StandardNode</span>
+    <hr/>
+
+    {% include "standards/fragments/data_properties.html" %}
+
+</div><!-- /container -->
+{% endblock %}
