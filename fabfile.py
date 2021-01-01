@@ -180,13 +180,13 @@ def load_devfixtures():
     Load sample documents, crosswalks, content collections, and content correlations.
     """
     for model in DEV_FIXTURES_MODELS:
-        destpath = "data/fixtures/" + model['filename']
-        if os.path.exists(destpath):
-            print("Loading fixtures for model", model['class'], "from", destpath)
-            loaddata_cmd = "./manage.py loaddata " + destpath
+        srcpath = "data/fixtures/" + model['filename']
+        if os.path.exists(srcpath):
+            print("Loading fixtures for model", model['class'], "from", srcpath)
+            loaddata_cmd = "./manage.py loaddata " + srcpath
             local(loaddata_cmd)
         else:
-            print("Fixtures path", destpath, "doesn't exist. Skipping...")
+            print("Fixtures path", srcpath, "doesn't exist. Skipping...")
 
 
 @task
