@@ -1,5 +1,6 @@
 
 
+
 # DATA WIP
 data/terms/ISCEDFields.yml
 data/terms/ISCEDLevels.yml
@@ -14,6 +15,7 @@ standards/migrations/*
 
 # project-specific draft stuff
 cut_material.py
+docs/cut_material.md
 
 
 # Byte-compiled / optimized / DLL files

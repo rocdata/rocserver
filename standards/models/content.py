@@ -63,6 +63,7 @@ class ContentCollection(Model):
     #
     # Educational domain
     subjects = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'subjects'})
+    education_levels = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'education_levels'})
     #
     # Content import method
     import_method = CharField(max_length=200, choices=CONTENTIMPORT_METHODS, help_text="Content import method")
@@ -203,8 +204,8 @@ class ContentNodeRelation(Model):
     #
     # Edge domain
     source = ForeignKey(ContentNode, related_name="source_rels", on_delete=CASCADE)
-    target = ForeignKey(ContentNode, related_name="target_rels", on_delete=CASCADE)
     kind = ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'content_node_relation_kinds'})
+    target = ForeignKey(ContentNode, related_name="target_rels", on_delete=CASCADE)
     #
     # Publishing domain
     canonical_uri = URLField(max_length=512, null=True, blank=True, help_text="URI for this relation used when publishing")
@@ -305,8 +306,8 @@ class ContentStandardRelation(Model):
     #
     # Edge domain
     contentnode = ForeignKey(ContentNode, related_name="standards_rels", on_delete=CASCADE, help_text='The content node (source)')
-    standardnode = ForeignKey(StandardNode, related_name="content_rels", on_delete=CASCADE, help_text='The standard node (target)')
     kind = ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'content_standard_relation_kinds'})
+    standardnode = ForeignKey(StandardNode, related_name="content_rels", on_delete=CASCADE, help_text='The standard node (target)')
     #
     # Publishing domain
     canonical_uri = URLField(max_length=512, null=True, blank=True, help_text="URI for this relation used when publishing")

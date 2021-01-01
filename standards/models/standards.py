@@ -117,6 +117,9 @@ class StandardNodeManager(Manager):
         return super(StandardNodeManager, self).get_queryset().prefetch_related(
             "document__jurisdiction",
             "document",
+            "parent",
+            "kind",
+            "children",
             "subjects",
             "education_levels",
             "concept_terms",
@@ -130,8 +133,8 @@ class StandardNode(MPTTModel):
     id = ShortUUIDField(primary_key=True, editable=False, prefix='S')
     #
     # Structural
-    parent = TreeForeignKey('self', on_delete=CASCADE, null=True, blank=True, related_name='children')
     document = ForeignKey(StandardsDocument, related_name="standardnodes", on_delete=CASCADE)
+    parent = TreeForeignKey('self', on_delete=CASCADE, null=True, blank=True, related_name='children')
     kind = ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'curriculum_elements'})
     sort_order = FloatField(default=1.0)   # the position of node within parent
     #

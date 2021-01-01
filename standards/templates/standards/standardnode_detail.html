@@ -2,7 +2,18 @@
 
 
 {% block extrahead %}
-<title>{{ object.title }} (StandardNode)</title>
+<title>
+    {% if object.notation %}
+        {{ object.notation }}
+    {% else  %}
+        {% if object.description|length > 50 %}
+            {{ object.description|slice:50 }}...
+        {% else  %}
+            {{ object.description }}
+        {% endif %}
+    {% endif %}
+    (StandardNode)
+</title>
 {% endblock %}
 
 

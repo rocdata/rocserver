@@ -323,8 +323,7 @@ class StandardNodeRelationViewSet(CustomHTMLRendererRetrieve, viewsets.ModelView
     template_name = 'standards/standardnoderelation_detail.html'
 
     def get_queryset(self):
-        return self.queryset.filter(jurisdiction__name=self.kwargs['jurisdiction_name'])
-
+        return self.queryset.filter(crosswalk__jurisdiction__name=self.kwargs['jurisdiction_name'])
 
 
 
