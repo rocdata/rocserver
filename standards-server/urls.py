@@ -1,17 +1,6 @@
-"""standards-server URL Configuration
+"""
+The ``standards-server`` URL configuration file.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.1/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
 from django.conf import settings
@@ -20,6 +9,11 @@ from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework_nested import routers
 
+
+# Each API endpoint returns either HTML or JSON depending on the request accept
+# headers. Alternatively an extension can be added to force a particular format.
+ALLOWED_FORMATS = ["html", "json"]
+ALLOWED_FORMATS_SUFFIX = "\.(?P<format>(%s))" % "|".join(ALLOWED_FORMATS)
 
 
 
@@ -34,56 +28,68 @@ urlpatterns = [
 
 
 
-# OLD HIERARCHICAL TERMS API   /api/terms/{juri.name}/{vocab.name}/{term.path}
-################################################################################
-
-from standards.api import juri_list, juri_detail
-from standards.api import juri_vocab_create, juri_vocab_detail
-from standards.api import juri_vocab_term_create, juri_vocab_term_detail
-from standards.api import juri_termrel_create, juri_termrel_detail
-
-urlpatterns += format_suffix_patterns([
-    #
-    # Jurisdiction
-    # LC
-    path('terms/', juri_list, name='api-juri-list'),
-    # RUD
-    re_path(r'^terms/(?P<name>[\w_\-]*)$', juri_detail, name='api-juri-detail'),
-    #
-    #
-    # Vocabularies (in jurisdiction)
-    # C
-    path('terms/<name>/', juri_vocab_create, name='api-juri-vocab-list'),
-    # RUD
-    re_path(r'^terms/(?P<jurisdiction__name>[\w_\-]*)/(?P<name>[\w_\-]*)$', juri_vocab_detail, name='api-juri-vocab-detail'),
-    #
-    #
-    # Terms (in vocab, in jurisdiction)
-    # C
-    path('terms/<jurisdiction__name>/<name>/', juri_vocab_term_create, name='api-juri-vocab-term-list'),
-    # RUD
-    re_path(r'^terms/(?P<vocabulary__jurisdiction__name>[\w_\-]*)/(?P<vocabulary__name>[\w_\-]*)/(?P<path>[\w/_\-]*)$',
-            juri_vocab_term_detail, name='api-juri-vocab-term-detail'),
-    #
-    #
-    # Term relations (in jurisdiction)
-    # C
-    path('termrels/<name>/', juri_termrel_create, name='api-juri-termrel-list'),
-    # RUD
-    re_path(r'^termrels/(?P<jurisdiction__name>[\w_\-]*)/(?P<id>[\w_\-]*)$', juri_termrel_detail, name='api-juri-termrel-detail'),
-], allowed=['json', 'html'])
-
-
 # JURISDICTIONS
 ################################################################################
 from standards.api import JurisdictionViewSet
 
 router = routers.SimpleRouter(trailing_slash=False)
 router.register(r'', JurisdictionViewSet)
+jurisdiction_router = routers.NestedSimpleRouter(router, r'', lookup='jurisdiction', trailing_slash=False)
 
-urlpatterns += format_suffix_patterns(router.urls, allowed=['json', 'html'])
 
-jurisdiction_router = routers.NestedSimpleRouter(router, r'', lookup='jurisdiction')
+
+# VOCABULARIES and TERM RELATIONS
+################################################################################
+
+from standards.api import ControlledVocabularyViewSet, TermRelationViewSet
+
+jurisdiction_router.register(r'terms', ControlledVocabularyViewSet, basename='jurisdiction-vocabulary')
+jurisdiction_router.register(r'termrels', TermRelationViewSet, basename='jurisdiction-termrelation')
+
+
+# TERMS
+################################################################################
+
+from standards.api import TermViewSet
+
+juri_vocab_term_list = TermViewSet.as_view({
+    'get': 'list',
+    'post': 'create',
+}, detail=False, suffix="List")
+
+juri_vocab_term_detail = TermViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy',
+}, detail=True, suffix="Instance")
+
+# Term LIST+CREATE
+# We wire up /{juri}/terms/{vocab.name}/ manually to get the list behavior that
+# doesn't interfere with the vocab. detail endpoint /{juri}/terms/{vocab.name}
+urlpatterns += [
+    re_path(
+        r'^(?P<jurisdiction_name>[\w_\-]*)/terms/(?P<vocabulary_name>[\w_\-]*)/$',
+        juri_vocab_term_list,
+        name='jurisdiction-vocabulary-term-list'
+    ),
+    re_path(
+        r'^(?P<jurisdiction_name>[\w_\-]*)/terms/(?P<vocabulary_name>[\w_\-]*)/%s$' % ALLOWED_FORMATS_SUFFIX,
+        juri_vocab_term_list,
+        name='jurisdiction-vocabulary-term-list-with-format-suffix'
+    ),
+]
+
+# Term DETAIL
+# We wire up /{juri}/terms/{vocab.name}/{term.path} manually because the default
+# behavior of drf-nested-routers introduces an extra slash ..//{term.path}.
+urlpatterns += format_suffix_patterns([
+    re_path(
+        r'^(?P<jurisdiction_name>[\w_\-]*)/terms/(?P<vocabulary_name>[\w_\-]*)/(?P<path>[\w/_\-]*)$',
+        juri_vocab_term_detail,
+        name='jurisdiction-vocabulary-term-detail'
+    ),
+], allowed=ALLOWED_FORMATS)
 
 
 
@@ -106,7 +112,6 @@ jurisdiction_router.register(r'standardnoderels', StandardNodeRelationViewSet, b
 from standards.api import ContentCollectionViewSet, ContentNodeViewSet, ContentNodeRelationViewSet
 from standards.api import ContentCorrelationViewSet, ContentStandardRelationViewSet
 
-
 jurisdiction_router.register(r'contentcollections', ContentCollectionViewSet, basename='jurisdiction-contentcollection')
 jurisdiction_router.register(r'contentnodes', ContentNodeViewSet, basename='jurisdiction-contentnode')
 jurisdiction_router.register(r'contentnoderels', ContentNodeRelationViewSet, basename='jurisdiction-contentnoderel')
@@ -114,8 +119,14 @@ jurisdiction_router.register(r'contentcorrelations', ContentCorrelationViewSet, 
 jurisdiction_router.register(r'contentstandardrels', ContentStandardRelationViewSet, basename='jurisdiction-contentstandardrel')
 
 
-# add jurisdiction_router and all nested endpoints
-urlpatterns += format_suffix_patterns(jurisdiction_router.urls, allowed=['json', 'html'])
+
+# ALL API URL PATTERNS
+################################################################################
+urlpatterns += format_suffix_patterns(router.urls, allowed=ALLOWED_FORMATS)
+urlpatterns += format_suffix_patterns(jurisdiction_router.urls, allowed=ALLOWED_FORMATS)
+
+
+
 
 
 # ADMIN, ADMIN DOC, and PUBLIC DOCS
@@ -141,8 +152,6 @@ urlpatterns += [
         name='django-admindocs-models-detail-public',
     ),
 ]
-
-
 
 
 

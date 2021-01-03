@@ -40,11 +40,11 @@ class ControlledVocabularyManager(Manager):
 
 class ControlledVocabulary(Model):
     """
-    A set of controlled terms served under /terms/{juri}/{self.name}/.
-    This is a Django model (DB table) that closely resembles skos:ConceptScheme.
+    A set of controlled terms served under ``/{juri}/terms/{self.name}``. This
+    is a Django model (DB table) that closely resembles ``skos:ConceptScheme``.
     """
     id = ShortUUIDField(primary_key=True, editable=False, prefix='V')
-    # uri, computed field, e.g., https://rocdata.global/terms/{jury}/{self.name}
+    # uri, computed field, e.g., https://rocdata.global/{jury}/terms/{self.name}
     jurisdiction = ForeignKey(Jurisdiction, related_name="vocabularies", on_delete=CASCADE)
     kind = CharField(max_length=50, blank=True, null=True, choices=SPECIAL_VOCABULARY_KINDS, help_text="Vocabulary kind (e.g. education_levels)")
     name = CharField(max_length=200, help_text="The name used in URIs")
@@ -71,10 +71,10 @@ class ControlledVocabulary(Model):
         return (self.jurisdiction.name, self.name)
 
     def __str__(self):
-        return self.jurisdiction.name + '/' + self.name
+        return self.jurisdiction.name + ':' + self.name
 
     def get_absolute_url(self):
-        return "/terms/" + self.__str__()
+        return '/' + self.jurisdiction.name + "/terms/" + self.name
 
     @property
     def uri(self):
@@ -101,9 +101,9 @@ class TermModelManager(Manager):
 class Term(Model):
     """
     A term within a controlled vocabulary that corresponds to an URL like
-    `/terms/{juri.name}/{vocab.name}/{self.path}`. Paths can a be either simple
-    terms or a /-separated taxon path of terms.
-    This is a Django model (DB table) that closely resembles skos:Concept.
+    ``/{juri.name}/terms/{vocab.name}/{self.path}``. Paths can a be either
+    simple terms or a ``/``-separated taxon path of terms.
+    This is a Django model (DB table) that closely resembles ``skos:Concept``.
     """
     id = ShortUUIDField(primary_key=True, editable=False, prefix='T')
     # Data
@@ -139,10 +139,11 @@ class Term(Model):
 
     def __str__(self):
         v = self.vocabulary
-        return v.jurisdiction.name + '/' + v.name + '/' + self.path
+        return v.jurisdiction.name + ':' + v.name + '/' + self.path
 
     def get_absolute_url(self):
-        return "/terms/" + self.__str__()
+        v = self.vocabulary
+        return "/" + v.jurisdiction.name + "/terms/" + v.name + '/' + self.path
 
     @property
     def uri(self):
@@ -181,8 +182,8 @@ TERM_REL_KINDS = Choices(
 
 class TermRelation(Model):
     """
-    A relation between two Terms (`source` and `target`) or a source Term and
-    an external target URI (`target_uri`).
+    A relation between two Terms (``source`` and ``target``) or a source Term
+    and an external target URI (``target_uri``).
     """
     id = ShortUUIDField(primary_key=True, editable=False, prefix='TR', length=10)
     #
@@ -208,7 +209,7 @@ class TermRelation(Model):
         return str(self.source) + '--' + self.kind + '-->' + target_str
 
     def get_absolute_url(self):
-        return "/termrels/" + self.jurisdiction.name + '/' + self.id
+        return "/" + self.jurisdiction.name + "/termrels/" + self.id
 
     @property
     def uri(self):

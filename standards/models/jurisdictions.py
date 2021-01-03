@@ -49,7 +49,7 @@ class Jurisdiction(Model):
         return self.name
 
     def get_absolute_url(self):
-        return "/terms/" + self.name
+        return "/" + self.name
 
     @property
     def uri(self):

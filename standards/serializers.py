@@ -49,8 +49,8 @@ class MultiKeyHyperlinkField(serializers.HyperlinkedRelatedField):
 
     def get_object(self, view_name, view_args, view_kwargs):
         lookup_kwargs = dict(
-            (kwarg, view_kwargs[urlparam])
-            for kwarg, urlparam in self.lookup_kwargs_mapping.items()
+            (kwarg, view_kwargs[url_kwarg])
+            for kwarg, url_kwarg in self.lookup_kwargs_mapping.items()
         )
         return self.get_queryset().get(**lookup_kwargs)
 
@@ -58,14 +58,6 @@ class MultiKeyHyperlinkField(serializers.HyperlinkedRelatedField):
         # via
         # https://github.com/django-json-api/django-rest-framework-json-api/issues/489#issuecomment-428002360
         return False
-
-
-class JurisdictionHyperlinkField(MultiKeyHyperlinkField):
-    # /<name> ==  Jurisdiction namespace root
-    view_name = 'jurisdiction-detail'
-    queryset = Jurisdiction.objects.all()
-    url_kwargs_mapping = {"name": "name"}
-    lookup_kwargs_mapping = {"name": "name"}
 
 
 class JurisdictionScopedHyperlinkField(MultiKeyHyperlinkField):
@@ -78,6 +70,55 @@ class JurisdictionScopedHyperlinkField(MultiKeyHyperlinkField):
         "jurisdiction__name": "jurisdiction_name",
         "id": "pk",
     }
+
+
+# JURISDICTION
+
+class JurisdictionHyperlinkField(MultiKeyHyperlinkField):
+    # /<name> ==  Jurisdiction namespace root
+    view_name = 'jurisdiction-detail'
+    queryset = Jurisdiction.objects.all()
+    url_kwargs_mapping = {"name": "name"}
+    lookup_kwargs_mapping = {"name": "name"}
+
+
+
+# VOCABULARIES AND TERMS
+
+class ControlledVocabularyHyperlinkField(MultiKeyHyperlinkField):
+    # /<jurisdiction__name>/terms/<name>
+    view_name = 'jurisdiction-vocabulary-detail'
+    queryset = ControlledVocabulary.objects.all()
+    url_kwargs_mapping = {
+        "jurisdiction_name": "jurisdiction.name",
+        "name": "name",
+    }
+    lookup_kwargs_mapping = {
+        "jurisdiction__name": "jurisdiction_name",
+        "name": "name",
+    }
+
+class TermHyperlinkField(MultiKeyHyperlinkField):
+    # /<jurisdiction_name>/terms/<vocabulary_name>/<path>
+    view_name = 'jurisdiction-vocabulary-term-detail'
+    queryset = Term.objects.all()
+    url_kwargs_mapping = {
+        "jurisdiction_name": "vocabulary.jurisdiction.name",
+        "vocabulary_name": "vocabulary.name",
+        "path": "path",
+    }
+    lookup_kwargs_mapping = {
+        "vocabulary__jurisdiction__name": "jurisdiction_name",
+        "vocabulary__name": "vocabulary_name",
+        "path": "path",
+    }
+
+class TermRelationHyperlinkField(JurisdictionScopedHyperlinkField):
+    # /<jurisdiction_name>/termrels/<pk>
+    view_name = 'jurisdiction-termrelation-detail'
+    queryset = TermRelation.objects.all()
+
+
 
 # CURRICULUM STANDARDS
 
@@ -171,195 +212,12 @@ class ContentStandardRelationHyperlinkField(MultiKeyHyperlinkField):
 
 
 
-# OLD CUSTOM HYPERLINK FIELDS
-################################################################################
-
-class OLDJurisdictionHyperlink(serializers.HyperlinkedRelatedField):
-    # /terms/<jurisdiction__name>
-    # We define these as class attributes so we don't need to pass them as args.
-    view_name = 'api-juri-detail'
-    queryset = Jurisdiction.objects.all()
-
-    def get_url(self, obj, view_name, request, format):
-        url_kwargs = {
-            'name': obj.name
-        }
-        if 'format' in request.GET:
-            # This is a hack to avoid ?format=api appended to URIs by preserve_builtin_query_params
-            # github.com/encode/django-rest-framework/blob/master/rest_framework/reverse.py#L12-L29
-            request.GET._mutable = True
-            del request.GET['format']
-            request.GET._mutable = False
-        return reverse(view_name, kwargs=url_kwargs, request=request)
-
-    def get_object(self, view_name, view_args, view_kwargs):
-        lookup_kwargs = {
-            'name': view_kwargs['name'],
-        }
-        return self.get_queryset().get(**lookup_kwargs)
-
-    def use_pk_only_optimization(self):
-        # via
-        # https://github.com/django-json-api/django-rest-framework-json-api/issues/489#issuecomment-428002360
-        return False
-
-
-class ControlledVocabularyHyperlink(serializers.HyperlinkedRelatedField):
-    # /terms/<jurisdiction__name>/<name>
-    # We define these as class attributes so we don't need to pass them as args.
-    view_name = 'api-juri-vocab-detail'
-    queryset = ControlledVocabulary.objects.select_related('jurisdiction').all()
-
-    def get_url(self, obj, view_name, request, format):
-        url_kwargs = {
-            'jurisdiction__name': obj.jurisdiction.name,
-            'name': obj.name
-        }
-        if 'format' in request.GET:
-            # This is a hack to avoid ?format=api appended to URIs by preserve_builtin_query_params
-            # github.com/encode/django-rest-framework/blob/master/rest_framework/reverse.py#L12-L29
-            request.GET._mutable = True
-            del request.GET['format']
-            request.GET._mutable = False
-        return reverse(view_name, kwargs=url_kwargs, request=request)
-
-    def get_object(self, view_name, view_args, view_kwargs):
-        lookup_kwargs = {
-            'jurisdiction__name': view_kwargs['jurisdiction__name'],
-            'name': view_kwargs['name'],
-        }
-        return self.get_queryset().get(**lookup_kwargs)
-
-    def use_pk_only_optimization(self):
-        # via
-        # https://github.com/django-json-api/django-rest-framework-json-api/issues/489#issuecomment-428002360
-        return False
-
-class TermHyperlink(serializers.HyperlinkedRelatedField):
-    # /terms/<jurisdiction__name>/<name>
-    # We define these as class attributes so we don't need to pass them as args.
-    view_name = 'api-juri-vocab-term-detail'
-    queryset = Term.objects.select_related('vocabulary', 'vocabulary__jurisdiction').all()
-
-    def get_url(self, obj, view_name, request, format):
-        url_kwargs = {
-            'vocabulary__jurisdiction__name': obj.vocabulary.jurisdiction.name,
-            'vocabulary__name': obj.vocabulary.name,
-            'path': obj.path,
-        }
-        if 'format' in request.GET:
-            # This is a hack to avoid ?format=api appended to URIs by preserve_builtin_query_params
-            # github.com/encode/django-rest-framework/blob/master/rest_framework/reverse.py#L12-L29
-            request.GET._mutable = True
-            del request.GET['format']
-            request.GET._mutable = False
-        return reverse(view_name, kwargs=url_kwargs, request=request)
-
-    def get_object(self, view_name, view_args, view_kwargs):
-        lookup_kwargs = {
-            'vocabulary__jurisdiction__name': view_kwargs['vocabulary__jurisdiction__name'],
-            'vocabulary__name': view_kwargs['vocabulary__name'],
-            'path': view_kwargs['path'],
-        }
-        return self.get_queryset().get(**lookup_kwargs)
-
-    def use_pk_only_optimization(self):
-        # via
-        # https://github.com/django-json-api/django-rest-framework-json-api/issues/489#issuecomment-428002360
-        return False
-
-
-
-
-
-
-
-
-
-# OLD HIERARCHICAL TERMS API
-################################################################################
-
-
-class ControlledVocabularySerializer(serializers.ModelSerializer):
-    jurisdiction = OLDJurisdictionHyperlink(required=True)
-    terms = TermHyperlink(many=True, required=False)
-
-    class Meta:
-        model = ControlledVocabulary
-        fields = [
-            # "id",  # internal identifiers; need not be exposed to users
-            "jurisdiction",
-            "uri",
-            "name",
-            "label",
-            "alt_label",
-            "hidden_label",
-            "description",
-            "language",
-            "source",
-            "notes",
-            "date_created",
-            "date_modified",
-            "extra_fields",
-            "creator",
-            "terms",
-        ]
-
-
-class TermSerializer(serializers.ModelSerializer):
-    jurisdiction = OLDJurisdictionHyperlink(source='vocabulary.jurisdiction', required=True)
-    vocabulary = ControlledVocabularyHyperlink(required=True)
-
-    class Meta:
-        model = Term
-        fields = [
-            # "id",  # internal identifiers; need not be exposed to users
-            "jurisdiction",
-            "vocabulary",
-            "uri",
-            "path",
-            "label",
-            "alt_label",
-            "hidden_label",
-            "notation",
-            "definition",
-            "notes",
-            "language",
-            "sort_order",
-            "date_created",
-            "date_modified",
-            "extra_fields",
-        ]
-
-
-class TermRelationSerializer(serializers.ModelSerializer):
-    jurisdiction = OLDJurisdictionHyperlink(required=True)
-    source = TermHyperlink(required=True)
-    target = TermHyperlink(required=False)
-
-    class Meta:
-        model = TermRelation
-        fields = [
-            "id",
-            "uri",
-            "jurisdiction",
-            "source",
-            "target_uri",
-            "target",
-            "kind",
-            "notes",
-            "date_created",
-            "date_modified",
-            "extra_fields",
-        ]
-
-
 
 # JURISDICTION
 ################################################################################
 
 class JurisdictionSerializer(serializers.ModelSerializer):
-    vocabularies = ControlledVocabularyHyperlink(many=True, required=False)
+    vocabularies = ControlledVocabularyHyperlinkField(many=True, required=False)
     documents = serializers.SerializerMethodField()
     crosswalks = serializers.SerializerMethodField()
     contentcollections = serializers.SerializerMethodField()
@@ -425,6 +283,83 @@ class JurisdictionSerializer(serializers.ModelSerializer):
         ]
 
 
+# VOCABULARIES, TERMS, and TERM RELATIONS
+################################################################################
+
+class ControlledVocabularySerializer(serializers.ModelSerializer):
+    jurisdiction = JurisdictionHyperlinkField(required=True)
+    terms = TermHyperlinkField(many=True, required=False)
+
+    class Meta:
+        model = ControlledVocabulary
+        fields = [
+            # "id",  # internal identifiers; need not be exposed to users
+            "jurisdiction",
+            "uri",
+            "name",
+            "label",
+            "alt_label",
+            "hidden_label",
+            "description",
+            "language",
+            "source",
+            "notes",
+            "date_created",
+            "date_modified",
+            "extra_fields",
+            "creator",
+            "terms",
+        ]
+
+
+class TermSerializer(serializers.ModelSerializer):
+    jurisdiction = JurisdictionHyperlinkField(source='vocabulary.jurisdiction', required=True)
+    vocabulary = ControlledVocabularyHyperlinkField(required=True)
+
+    class Meta:
+        model = Term
+        fields = [
+            # "id",  # internal identifiers; need not be exposed to users
+            "jurisdiction",
+            "vocabulary",
+            "uri",
+            "path",
+            "label",
+            "alt_label",
+            "hidden_label",
+            "notation",
+            "definition",
+            "notes",
+            "language",
+            "sort_order",
+            "date_created",
+            "date_modified",
+            "extra_fields",
+        ]
+
+
+class TermRelationSerializer(serializers.ModelSerializer):
+    jurisdiction = JurisdictionHyperlinkField(required=True)
+    source = TermHyperlinkField(required=True)
+    target = TermHyperlinkField(required=False)
+
+    class Meta:
+        model = TermRelation
+        fields = [
+            "id",
+            "uri",
+            "jurisdiction",
+            "source",
+            "target_uri",
+            "target",
+            "kind",
+            "notes",
+            "date_created",
+            "date_modified",
+            "extra_fields",
+        ]
+
+
 # STANDARDS
 ################################################################################
 
@@ -432,9 +367,9 @@ class StandardsDocumentSerializer(serializers.ModelSerializer):
     root_node_id = serializers.SerializerMethodField()
     jurisdiction = JurisdictionHyperlinkField(required=True)
     children = StandardNodeHyperlinkField(source='root.children', many=True)
-    subjects = TermHyperlink(many=True)
-    education_levels = TermHyperlink(many=True)
-    license = TermHyperlink()
+    subjects = TermHyperlinkField(many=True)
+    education_levels = TermHyperlinkField(many=True)
+    license = TermHyperlinkField()
 
     class Meta:
         model = StandardsDocument
@@ -451,10 +386,10 @@ class StandardNodeSerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(source='document.jurisdiction', required=False) # check this...
     document = StandardsDocumentHyperlinkHyperlinkField(required=True)
     parent = StandardNodeHyperlinkField()
-    kind = TermHyperlink()
-    subjects = TermHyperlink(many=True)
-    education_levels = TermHyperlink(many=True)
-    concept_terms = TermHyperlink(many=True)
+    kind = TermHyperlinkField()
+    subjects = TermHyperlinkField(many=True)
+    education_levels = TermHyperlinkField(many=True)
+    concept_terms = TermHyperlinkField(many=True)
     children = StandardNodeHyperlinkField(many=True)
 
     class Meta:
@@ -467,9 +402,9 @@ class StandardNodeSerializer(serializers.ModelSerializer):
 
 class StandardsCrosswalkSerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(required=True)
-    license = TermHyperlink()
-    subjects = TermHyperlink(many=True)
-    education_levels = TermHyperlink(many=True)
+    license = TermHyperlinkField()
+    subjects = TermHyperlinkField(many=True)
+    education_levels = TermHyperlinkField(many=True)
     relations = StandardNodeRelationHyperlinkField(many=True)
 
     class Meta:
@@ -481,7 +416,7 @@ class StandardNodeRelationSerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(source='crosswalk.jurisdiction', required=False)
     crosswalk = StandardsCrowsswalkHyperlinkField(required=True)
     source = StandardNodeHyperlinkField()
-    kind = TermHyperlink()
+    kind = TermHyperlinkField()
     target = StandardNodeHyperlinkField()
 
     class Meta:
@@ -497,9 +432,9 @@ class StandardNodeRelationSerializer(serializers.ModelSerializer):
 
 class ContentCollectionSerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(required=True)
-    license = TermHyperlink()
-    subjects = TermHyperlink(many=True)
-    education_levels = TermHyperlink(many=True)
+    license = TermHyperlinkField()
+    subjects = TermHyperlinkField(many=True)
+    education_levels = TermHyperlinkField(many=True)
     children = ContentNodeHyperlinkField(source='root.children', many=True)
 
     class Meta:
@@ -512,11 +447,11 @@ class ContentNodeSerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(source='document.jurisdiction', required=False)
     collection = ContentCollectionHyperlinkField(required=True)
     parent = ContentNodeHyperlinkField()
-    kind = TermHyperlink()
-    subjects = TermHyperlink(many=True)
-    education_levels = TermHyperlink(many=True)
-    concept_terms = TermHyperlink(many=True)
-    license = TermHyperlink()
+    kind = TermHyperlinkField()
+    subjects = TermHyperlinkField(many=True)
+    education_levels = TermHyperlinkField(many=True)
+    concept_terms = TermHyperlinkField(many=True)
+    license = TermHyperlinkField()
     children = ContentNodeHyperlinkField(many=True)
 
     class Meta:
@@ -527,7 +462,7 @@ class ContentNodeSerializer(serializers.ModelSerializer):
 class ContentNodeRelationSerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(required=True)
     source = ContentNodeHyperlinkField()
-    kind = TermHyperlink()
+    kind = TermHyperlinkField()
     target = ContentNodeHyperlinkField()
 
     class Meta:
@@ -541,9 +476,9 @@ class ContentNodeRelationSerializer(serializers.ModelSerializer):
 
 class ContentCorrelationSerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(required=True)
-    license = TermHyperlink()
-    subjects = TermHyperlink(many=True)
-    education_levels = TermHyperlink(many=True)
+    license = TermHyperlinkField()
+    subjects = TermHyperlinkField(many=True)
+    education_levels = TermHyperlinkField(many=True)
     relations = ContentStandardRelationHyperlinkField(many=True)
 
     class Meta:
@@ -554,7 +489,7 @@ class ContentStandardRelationSerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(source='correlation.jurisdiction', required=False)
     correlation = ContentCorrelationHyperlinkField(required=True)
     contentnode = ContentNodeHyperlinkField()
-    kind = TermHyperlink()
+    kind = TermHyperlinkField()
     standardnode = StandardNodeHyperlinkField()
 
 

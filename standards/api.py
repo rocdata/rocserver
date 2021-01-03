@@ -2,19 +2,16 @@ from collections import OrderedDict
 
 from django.shortcuts import get_object_or_404
 from django.http.response import HttpResponseRedirect
-from rest_framework import serializers, viewsets, views, status, response
+from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
-from rest_framework.reverse import reverse
-
 
 from standards.models import Jurisdiction
 from standards.serializers import JurisdictionSerializer
 from standards.publishing import get_publishing_context
 
 from standards.models import ControlledVocabulary, Term, TermRelation
-from standards.serializers import ControlledVocabularySerializer
-from standards.serializers import TermSerializer, TermRelationSerializer
+from standards.serializers import ControlledVocabularySerializer, TermSerializer, TermRelationSerializer
 
 from standards.models import StandardsDocument, StandardNode
 from standards.models import StandardsCrosswalk, StandardNodeRelation
@@ -40,31 +37,37 @@ def LargeResultsSetPagination(size=100):
     return CustomPagination
 
 
-class MultipleFieldLookupMixin:
-    """
-    Apply this mixin to any view or viewset to get multiple field filtering based
-    on a `lookup_fields` attribute, instead of the default single field filtering.
-    via django-rest-framework.org/api-guide/generic-views/#creating-custom-mixins
-    """
-    def get_object(self):
-        queryset = self.get_queryset()             # Get the base queryset
-        queryset = self.filter_queryset(queryset)  # Apply any filter backends
-        filter = {}
-        for field in self.lookup_fields:
-            if self.kwargs[field]:                  # Ignore empty fields.
-                filter[field] = self.kwargs[field]
-        obj = get_object_or_404(queryset, **filter)  # Lookup the object
-        self.check_object_permissions(self.request, obj)
-        return obj
-
 
 TREE_DATA_SKIP_KEYS = ["lft", "rght", "tree_id"]   # MPTT internal impl. details
 
 class CustomHTMLRendererRetrieve:
     """
-    Custom retrieve method that skips the serialization when rendering HTML, via
+    Custom list and retrieve methods that process all ROC data URIs depending on
+    the publishing context, and render hyperlinks in HTML output, based on
     django-rest-framework.org/api-guide/renderers/#varying-behaviour-by-media-type
     """
+    template_name_list = 'standards/generic_list.html'
+
+    def list(self, request, *args, **kwargs):
+        """
+        Used for HTML format of list-create endpoints.
+        """
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True, context={'request': request})
+        publishing_context = get_publishing_context(request=request)
+        processed_datas = []
+        for data in serializer.data:
+            processed_data = self.process_uris(data, publishing_context=publishing_context)
+            processed_datas.append(processed_data)
+        if request.accepted_renderer.format == 'html':
+            # HTML browsing
+            htmlized_datas = [self.htmlize_data_values(pd) for pd in processed_datas]
+            class_name = queryset.model.__name__
+            context = {'class_name': class_name, 'datas': htmlized_datas}
+            return Response(context, template_name=self.template_name_list)
+        else:
+            # JSON + API
+            return Response(processed_datas)
 
     def retrieve(self, request, *args, **kwargs):
         """
@@ -135,135 +138,6 @@ class CustomHTMLRendererRetrieve:
 
 
 
-# HIERARCHICAL API   /api/terms/{juri.name}/{vocab.name}/{term.path}
-################################################################################
-
-class OLDJurisdictionViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
-    queryset = Jurisdiction.objects.all()
-    serializer_class = JurisdictionSerializer
-    lookup_field = "name"
-    template_name = 'standards/jurisdiction_detail.html'         # /terms/{juri} AND /{juri}
-
-    def list(self, request, *args, **kwargs):                    # /terms/
-        """Used for HTML format of the jurisdiction create-list endpoint."""
-        queryset = self.filter_queryset(self.get_queryset())
-        serializer = JurisdictionSerializer(queryset, many=True, context={'request': request})
-        publishing_context = get_publishing_context(request=request)
-        processed_datas = []
-        for data in serializer.data:
-            processed_data = self.process_uris(data, publishing_context=publishing_context)
-            processed_datas.append(processed_data)
-        #
-        if request.accepted_renderer.format == 'html':
-            htmlized_datas = [self.htmlize_data_values(pd) for pd in processed_datas]
-            context = {'datas': htmlized_datas}
-            return Response(context, template_name='standards/jurisdictions.html')
-        else:
-            return Response(processed_datas)
-
-juri_list = OLDJurisdictionViewSet.as_view({
-    'get': 'list',
-    'post': 'create'
-})
-juri_detail = OLDJurisdictionViewSet.as_view({
-    'get': 'retrieve',
-    'put': 'update',
-    'patch': 'partial_update',
-    'delete': 'destroy'
-})
-
-
-class JurisdictionVocabularyViewSet(MultipleFieldLookupMixin, CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
-    queryset = ControlledVocabulary.objects.select_related('jurisdiction').all()
-    lookup_fields = ["jurisdiction__name", "name"]
-    serializer_class = ControlledVocabularySerializer
-    template_name = 'standards/vocabulary_detail.html'          # /terms/{juri}/{vocab}
-
-    def redirect_to_juri(self, request, *args, **kwargs):       # /terms/{juri}/
-        if request.accepted_renderer.format == 'html':
-            r = reverse('api-juri-detail', kwargs=kwargs, request=request)
-            return HttpResponseRedirect(redirect_to=r)
-        else:
-            return super(JurisdictionVocabularyViewSet, self).list(request, *args, **kwargs)
-
-
-juri_vocab_create = JurisdictionVocabularyViewSet.as_view({
-    # 'get': 'redirect_to_juri',
-    'post': 'create'
-})
-juri_vocab_detail = JurisdictionVocabularyViewSet.as_view({
-    'get': 'retrieve',
-    'put': 'update',
-    'patch': 'partial_update',
-    'delete': 'destroy'
-})
-
-
-
-class JurisdictionVocabularyTermViewSet(MultipleFieldLookupMixin, CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
-    queryset = Term.objects.select_related('vocabulary', 'vocabulary__jurisdiction').all()
-    lookup_fields = ["vocabulary__jurisdiction__name", "vocabulary__name", "path"]
-    serializer_class = TermSerializer
-    template_name = 'standards/term_detail.html'                 # /terms/{juri}/{vocab}/{term.path}
-
-    def redirect_to_vocab(self, request, *args, **kwargs):       # /terms/{juri}/{vocab}/
-        r = reverse('api-juri-vocab-detail', kwargs=kwargs, request=request)
-        return HttpResponseRedirect(redirect_to=r)
-
-
-juri_vocab_term_create = JurisdictionVocabularyTermViewSet.as_view({
-    'get': 'redirect_to_vocab',
-    'post': 'create'
-})
-juri_vocab_term_detail = JurisdictionVocabularyTermViewSet.as_view({
-    'get': 'retrieve',
-    'put': 'update',
-    'patch': 'partial_update',
-    'delete': 'destroy'
-})
-
-
-
-class JurisdictionTermRelationViewSet(MultipleFieldLookupMixin, CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
-    queryset = TermRelation.objects.select_related('jurisdiction').all()
-    lookup_fields = ["jurisdiction__name", "id"]
-    serializer_class = TermRelationSerializer
-    template_name = 'standards/termrelation_detail.html'        # /termrels/{juri}/{tr.id}
-
-    def list(self, request, *args, **kwargs):                   # /termrels/{juri}/
-        queryset = self.filter_queryset(self.get_queryset())
-        print(queryset)
-        serializer = TermRelationSerializer(queryset, many=True, context={'request': request})
-        publishing_context = get_publishing_context(request=request)
-        processed_datas = []
-        for data in serializer.data:
-            processed_data = self.process_uris(data, publishing_context=publishing_context)
-            processed_datas.append(processed_data)
-        #
-        if request.accepted_renderer.format == 'html':
-            htmlized_datas = [self.htmlize_data_values(pd) for pd in processed_datas]
-            context = {'datas': htmlized_datas}
-            import pprint
-            pprint.pprint(context)
-            return Response(context, template_name='standards/termrelations.html')
-        else:
-            return Response(processed_datas)
-
-
-
-juri_termrel_create = JurisdictionTermRelationViewSet.as_view({
-    'get': 'list',
-    'post': 'create'
-})
-juri_termrel_detail = JurisdictionTermRelationViewSet.as_view({
-    'get': 'retrieve',
-    'put': 'update',
-    'patch': 'partial_update',
-    'delete': 'destroy'
-})
-
-
-
 # JURISDICTION
 ################################################################################
 
@@ -273,6 +147,51 @@ class JurisdictionViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     serializer_class = JurisdictionSerializer
     lookup_field = "name"
     template_name = 'standards/jurisdiction_detail.html'
+
+
+# VOCABULARIES and TERMS
+################################################################################
+
+class ControlledVocabularyViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
+    # /{juri}/terms/{vocab.name}
+    queryset = ControlledVocabulary.objects.all()
+    serializer_class = ControlledVocabularySerializer
+    pagination_class = LargeResultsSetPagination(100)
+    template_name = 'standards/vocabulary_detail.html'
+    lookup_field = "name"
+    lookup_value_regex = '[\w_\-]*'
+
+    def get_queryset(self):
+        return self.queryset.filter(jurisdiction__name=self.kwargs['jurisdiction_name'])
+
+
+class TermViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
+    # /{juri}/terms/{vocab.name}/               GET(list) POST(create)
+    # /{juri}/terms/{vocab.name}/{term.path}    GET PUT PATCH DELETE
+    queryset = Term.objects.all()
+    serializer_class = TermSerializer
+    pagination_class = LargeResultsSetPagination(100)
+    template_name = 'standards/term_detail.html'
+    lookup_field = "path"
+
+    def get_queryset(self):
+        return self.queryset.filter(
+            vocabulary__jurisdiction__name=self.kwargs['jurisdiction_name'],
+            vocabulary__name=self.kwargs['vocabulary_name'],
+        )
+
+class TermRelationViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
+    # /{juri}/termrels/{pk}
+    queryset = TermRelation.objects.all()
+    serializer_class = TermRelationSerializer
+    pagination_class = LargeResultsSetPagination(100)
+    template_name = 'standards/termrelation_detail.html'
+
+    def get_queryset(self):
+        return self.queryset.filter(jurisdiction__name=self.kwargs['jurisdiction_name'])
+
+
+
 
 
 

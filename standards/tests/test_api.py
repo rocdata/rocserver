@@ -25,14 +25,14 @@ def parse_object_properties(html):
 @pytest.mark.django_db
 def test_get_html_endpoints(juri, vocab, vocabterms, client):
     # Jurisdiciton
-    response = client.get('/terms/Ghana')
+    response = client.get('/Ghana')
     data = parse_object_properties(response.content)
     assert data['name'] == juri.name
     assert juri.uri in data['uri']
     assert data['display_name'] == juri.display_name
     #
     # Vocabulary
-    response = client.get('/terms/Ghana/GradeLevels')
+    response = client.get('/Ghana/terms/GradeLevels')
     data = parse_object_properties(response.content)
     # assert data['jurisdiction'] == TEST_SERVER_HOST + juri.uri        # TODO
     assert data['name'] == vocab.name
@@ -40,7 +40,7 @@ def test_get_html_endpoints(juri, vocab, vocabterms, client):
     assert data['label'] == vocab.label
     #
     # Term
-    response = client.get('/terms/Ghana/GradeLevels/B2/2')
+    response = client.get('/Ghana/terms/GradeLevels/B2/2')
     data = parse_object_properties(response.content)
     term = vocabterms['b22']
     # assert data['jurisdiction'] == TEST_SERVER_HOST + juri.uri        # TODO
@@ -53,14 +53,14 @@ def test_get_html_endpoints(juri, vocab, vocabterms, client):
 @pytest.mark.django_db
 def test_get_json_endpoints(juri, vocab, vocabterms, client):
     # Jurisdiciton
-    response = client.get('/terms/Ghana.json')
+    response = client.get('/Ghana.json')
     data = response.json()
     assert data['name'] == juri.name
     assert juri.uri in data['uri']
     assert data['display_name'] == juri.display_name
     #
     # Vocabulary
-    response = client.get('/terms/Ghana/GradeLevels.json')
+    response = client.get('/Ghana/terms/GradeLevels.json')
     data = response.json()
     assert data['jurisdiction'] == TEST_SERVER_HOST + juri.uri
     assert data['name'] == vocab.name
@@ -69,7 +69,7 @@ def test_get_json_endpoints(juri, vocab, vocabterms, client):
     assert len(data['terms']) == 3
     #
     # Term
-    response = client.get('/terms/Ghana/GradeLevels/B2/2.json')
+    response = client.get('/Ghana/terms/GradeLevels/B2/2.json')
     data = response.json()
     term = vocabterms['b22']
     assert data['jurisdiction'] == TEST_SERVER_HOST + juri.uri

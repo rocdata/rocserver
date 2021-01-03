@@ -87,7 +87,7 @@ class ContentCollection(Model):
         return "{} ({})".format(self.name, self.id)
 
     def get_absolute_url(self):
-        return "/contentcollections/" + self.id
+        return "/" + self.jurisdiction.name + "/contentcollections/" + self.id
 
     @property
     def uri(self):
@@ -175,7 +175,7 @@ class ContentNode(MPTTModel):
         return "{}({})".format(title_start, self.id)
 
     def get_absolute_url(self):
-        return "/contentnodes/" + self.id
+        return "/" + self.collection.jurisdiction.name + "/contentnodes/" + self.id
 
     @property
     def uri(self):
@@ -221,7 +221,7 @@ class ContentNodeRelation(Model):
         return str(self.source) + '--' + str(self.kind) + '-->' + str(self.target)
 
     def get_absolute_url(self):
-        return "/contentnoderels/" + self.id
+        return "/" + self.jurisdiction.name + "/contentnoderels/" + self.id
 
     @property
     def uri(self):
@@ -285,7 +285,7 @@ class ContentCorrelation(Model):
         return "{} ({})".format(self.title, self.id)
 
     def get_absolute_url(self):
-        return "/contentcorrelations/" + self.id
+        return "/" + self.jurisdiction.name + "/contentcorrelations/" + self.id
 
     @property
     def uri(self):
@@ -323,7 +323,7 @@ class ContentStandardRelation(Model):
         return str(self.contentnode) + '--' + str(self.kind) + '-->' + str(self.standardnode)
 
     def get_absolute_url(self):
-        return "/contentstandardrels/" + self.id
+        return "/" + self.correlation.jurisdiction.name + "/contentstandardrels/" + self.id
 
     @property
     def uri(self):

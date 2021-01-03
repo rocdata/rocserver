@@ -1,5 +1,3 @@
-
-from django.conf import settings
 from django.db.models import CASCADE
 from django.db.models import CharField
 from django.db.models import DateField
@@ -17,9 +15,8 @@ from django.db.models import Q, UniqueConstraint
 from model_utils import Choices
 from mptt.models import MPTTModel
 from mptt.models import TreeForeignKey
+
 from standards.fields import ShortUUIDField
-
-
 from .jurisdictions import Jurisdiction
 from .terms import Term
 
@@ -96,7 +93,7 @@ class StandardsDocument(Model):
         return "{} ({})".format(self.title, self.id)
 
     def get_absolute_url(self):
-        return "/documents/" + self.id
+        return "/" + self.jurisdiction.name + "/documents/" + self.id
 
     @property
     def uri(self):
@@ -188,7 +185,7 @@ class StandardNode(MPTTModel):
         return "{}({})".format(description_start, self.id)
 
     def get_absolute_url(self):
-        return "/standardnodes/" + self.id
+        return "/" + self.document.jurisdiction.name + "/standardnodes/" + self.id
 
     @property
     def uri(self):
@@ -265,7 +262,7 @@ class StandardsCrosswalk(Model):
         return "{} ({})".format(self.title, self.id)
 
     def get_absolute_url(self):
-        return "/standardscrosswalks/" + self.id
+        return "/" + self.jurisdiction.name + "/standardscrosswalks/" + self.id
 
     @property
     def uri(self):
@@ -301,7 +298,7 @@ class StandardNodeRelation(Model):
         return str(self.source) + '--' + str(self.kind) + '-->' + str(self.target)
 
     def get_absolute_url(self):
-        return "/standardnoderels/" + self.id
+        return "/" + self.crosswalk.jurisdiction.name + "/standardnoderels/" + self.id
 
     @property
     def uri(self):
