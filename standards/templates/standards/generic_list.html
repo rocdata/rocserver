@@ -1,23 +1,24 @@
 {% extends "standards/base.html" %}
 
 {% block extrahead %}
-<title>List of all jurisdictions</title>
+<title>List of all {{ class_name }}s</title>
 {% endblock %}
 
 
 {% block maincontent %}
 <div class="container">
 
+
     {% include "standards/fragments/alt_formats_links.html" %}
     
-    <h2 class="object-title">List of all jurisdictions</h2>
-    <span class="objectkindbadge badge badge-primary">list of Jurisdiction</span>
-
+    <h2 class="object-title">List of all {{ class_name }}s </h2>
     <hr/>
 
     <ul>
         {% for data in datas %}
-            <li>{{ data.uri|safe }}</li>
+            <li>
+                {{ data.uri|safe }}
+            </li>
         {% endfor %}
     </ul>
 
