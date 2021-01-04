@@ -60,7 +60,7 @@ class ContentCollection(Model):
     thumbnail_url = URLField(max_length=512, blank=True, help_text="External thumbnail URL this collection")
     language = CharField(max_length=20, blank=True, null=True, help_text="BCP47/RFC5646 codes like en, es, fr-CA")
     country = CountryField(blank=True, null=True, help_text='Country where content collection was produced')
-    publication_status	= CharField(max_length=30, choices=PUBLICATION_STATUSES, default=PUBLICATION_STATUSES.publicdraft)
+    publication_status = CharField(max_length=30, choices=PUBLICATION_STATUSES, default=PUBLICATION_STATUSES.publicdraft)
     #
     # Educational domain
     subjects = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'subjects'})
@@ -76,7 +76,7 @@ class ContentCollection(Model):
     # Licensing
     license = ForeignKey(Term, related_name='+', null=True, on_delete=SET_NULL,
         default=get_default_license, limit_choices_to={'vocabulary__kind': 'license_kinds'})
-    license_description	= TextField(blank=True, null=True, help_text="Full text of the collection licensing information")
+    license_description = TextField(blank=True, null=True, help_text="Full text of the collection licensing information")
     copyright_holder = CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to this content")
     #
     # Metadata
@@ -150,7 +150,7 @@ class ContentNode(MPTTModel):
     # Licensing
     license = ForeignKey(Term, related_name='+', null=True, on_delete=SET_NULL,
         default=get_default_license, limit_choices_to={'vocabulary__kind': 'license_kinds'})
-    license_description	= TextField(blank=True, null=True, help_text="Full text of the node's licensing information")
+    license_description = TextField(blank=True, null=True, help_text="Full text of the node's licensing information")
     copyright_holder = CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to this content")
     #
     # Metadata
@@ -274,7 +274,7 @@ class ContentCorrelation(Model):
     # Licensing
     license = ForeignKey(Term, related_name='+', null=True, on_delete=SET_NULL,
         default=get_default_license, limit_choices_to={'vocabulary__kind': 'license_kinds'})
-    license_description	= TextField(blank=True, null=True, help_text="Description of the licensing of this content correlation")
+    license_description = TextField(blank=True, null=True, help_text="Description of the licensing of this content correlation")
     copyright_holder = CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to this content correlation")
     #
     # Educational domain
@@ -283,7 +283,7 @@ class ContentCorrelation(Model):
     #
     # Digitization domain
     digitization_method = CharField(max_length=200, choices=CONTENT_CORRELATION_DIGITIZATION_METHODS, help_text="Digitization method")
-    publication_status	= CharField(max_length=30, choices=PUBLICATION_STATUSES, default=PUBLICATION_STATUSES.publicdraft)
+    publication_status = CharField(max_length=30, choices=PUBLICATION_STATUSES, default=PUBLICATION_STATUSES.publicdraft)
 
     def __str__(self):
         return "{} ({})".format(self.title, self.id)
