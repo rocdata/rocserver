@@ -16,10 +16,9 @@ from model_utils import Choices
 from mptt.models import MPTTModel
 from mptt.models import TreeForeignKey
 
-from standards.fields import ShortUUIDField
-from .jurisdictions import Jurisdiction
-from .terms import Term
-
+from standards.fields import CharIdField
+from standards.models import Jurisdiction
+from standards.models import Term
 
 
 
@@ -50,7 +49,7 @@ class StandardsDocument(Model):
     hierarchy of ``StandardNode`` s.
     """
     # IDs
-    id = ShortUUIDField(primary_key=True, editable=False, prefix='D')
+    id = CharIdField(primary_key=True, editable=False, prefix='D')
     name = CharField(unique=True, max_length=200, help_text="A short, unique name for the document, e.g. CCSSM")
     # uri = computed field = localhost + get_absolute_url()
     #
@@ -127,7 +126,7 @@ class StandardNode(MPTTModel):
     An individual standard entry within the a standards document.
     """
     # IDs
-    id = ShortUUIDField(primary_key=True, editable=False, prefix='S')
+    id = CharIdField(primary_key=True, editable=False, prefix='S')
     #
     # Structural
     document = ForeignKey(StandardsDocument, related_name="standardnodes", on_delete=CASCADE)
@@ -225,7 +224,7 @@ class StandardsCrosswalk(Model):
     a mapping between source curriculum nodes and a target curriculum nodes.
     """
     # IDs
-    id = ShortUUIDField(primary_key=True, editable=False, prefix='SC')
+    id = CharIdField(primary_key=True, editable=False, prefix='SC')
     # uri = computed field = localhost + get_absolute_url()
     #
     # Crosswalk info
@@ -274,7 +273,7 @@ class StandardNodeRelation(Model):
     """
     A relations between two ``StandardNode`` s.
     """
-    id = ShortUUIDField(primary_key=True, editable=False, prefix='SR')
+    id = CharIdField(primary_key=True, editable=False, prefix='SR')
     #
     # Structural
     crosswalk = ForeignKey(StandardsCrosswalk, related_name="relations", on_delete=CASCADE)

@@ -8,9 +8,8 @@ from django.db.models import Model
 from django.db.models import TextField
 from django.db.models import URLField
 from django_countries.fields import CountryField
-from standards.fields import ShortUUIDField
 
-
+from standards.fields import CharIdField
 
 
 
@@ -30,7 +29,7 @@ class Jurisdiction(Model):
     published, promulgated. Institutions that publish standards include ministries,
     curriculum bodies, an assessment boards, professional organizations, etc.
     """
-    id = ShortUUIDField(primary_key=True, editable=False, prefix='J')
+    id = CharIdField(primary_key=True, editable=False, prefix='J')
     # data
     display_name = CharField(max_length=200, help_text="Official name of the organization or government body")
     name = CharField(max_length=200, unique=True, help_text="the name used in URIs")

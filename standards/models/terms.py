@@ -9,9 +9,9 @@ from django.db.models import Model
 from django.db.models import TextField
 from django.db.models import URLField
 from model_utils import Choices
-from standards.fields import ShortUUIDField
 
-from .jurisdictions import Jurisdiction
+from standards.fields import CharIdField
+from standards.models import Jurisdiction
 
 
 # CONTROLLED VOCABULARIES
@@ -43,7 +43,7 @@ class ControlledVocabulary(Model):
     A set of controlled terms served under ``/{juri}/terms/{self.name}``. This
     is a Django model (DB table) that closely resembles ``skos:ConceptScheme``.
     """
-    id = ShortUUIDField(primary_key=True, editable=False, prefix='V')
+    id = CharIdField(primary_key=True, editable=False, prefix='V')
     # uri, computed field, e.g., https://rocdata.global/{jury}/terms/{self.name}
     jurisdiction = ForeignKey(Jurisdiction, related_name="vocabularies", on_delete=CASCADE)
     kind = CharField(max_length=50, blank=True, null=True, choices=SPECIAL_VOCABULARY_KINDS, help_text="Vocabulary kind (e.g. education_levels)")
@@ -105,7 +105,7 @@ class Term(Model):
     simple terms or a ``/``-separated taxon path of terms.
     This is a Django model (DB table) that closely resembles ``skos:Concept``.
     """
-    id = ShortUUIDField(primary_key=True, editable=False, prefix='T')
+    id = CharIdField(primary_key=True, editable=False, prefix='T')
     # Data
     vocabulary = ForeignKey("ControlledVocabulary", related_name="terms", on_delete=CASCADE)
     path = CharField(max_length=200, help_text="Term path as it appears in URI")
@@ -185,7 +185,7 @@ class TermRelation(Model):
     A relation between two Terms (``source`` and ``target``) or a source Term
     and an external target URI (``target_uri``).
     """
-    id = ShortUUIDField(primary_key=True, editable=False, prefix='TR', length=10)
+    id = CharIdField(primary_key=True, editable=False, prefix='TR', length=10)
     #
     # Structural
     jurisdiction = ForeignKey(Jurisdiction, related_name="termrelations", on_delete=CASCADE)

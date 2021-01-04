@@ -17,8 +17,8 @@ from django_countries.fields import CountryField
 from model_utils import Choices
 from mptt.models import MPTTModel
 from mptt.models import TreeForeignKey
-from standards.fields import ShortUUIDField
 
+from standards.fields import CharIdField
 from .jurisdictions import Jurisdiction
 from .terms import Term
 from .standards import StandardNode
@@ -49,7 +49,7 @@ class ContentCollection(Model):
     For example, a website with learning resources, a YouTube channel or a Kolibri
     content channel.
     """
-    id = ShortUUIDField(primary_key=True, editable=False, prefix='CC', length=10)  # TODO: revisit prefix
+    id = CharIdField(primary_key=True, editable=False, prefix='CC', length=10)
     # uri = computed field = localhost + get_absolute_url()
     #
     # Collection info
@@ -113,7 +113,7 @@ class ContentNode(MPTTModel):
     Examples of content nodes include web pages, YouTube videos, and the content
     nodes within Kolibri content channels.
     """
-    id = ShortUUIDField(primary_key=True, editable=False, prefix='C', length=10)
+    id = CharIdField(primary_key=True, editable=False, prefix='C', length=10)
     #
     # Structural
     collection = ForeignKey(ContentCollection, related_name="contentnodes", on_delete=CASCADE, help_text='Content collection this node is part of')
@@ -197,7 +197,7 @@ class ContentNodeRelation(Model):
     """
     A relation between two ``ContentNode`` s.
     """
-    id = ShortUUIDField(primary_key=True, editable=False, prefix='CR', length=10)
+    id = CharIdField(primary_key=True, editable=False, prefix='CR', length=10)
     #
     # Structural
     jurisdiction = ForeignKey(Jurisdiction, related_name="contentnoderels", on_delete=CASCADE)
@@ -257,7 +257,7 @@ class ContentCorrelation(Model):
     and the curriculum standards nodes.
     """
     # IDs
-    id = ShortUUIDField(primary_key=True, editable=False, prefix='CS')
+    id = CharIdField(primary_key=True, editable=False, prefix='CS')
     # uri = computed field = localhost + get_absolute_url()
     #
     # Content correlation info
@@ -299,7 +299,7 @@ class ContentStandardRelation(Model):
     Describes an association between a content node and a standard node that
     indicates curriculum alignment of type ``kind`` (default ``majorAlignment``).
     """
-    id = ShortUUIDField(primary_key=True, editable=False, prefix='CSR', length=10)
+    id = CharIdField(primary_key=True, editable=False, prefix='CSR', length=10)
     #
     # Structural
     correlation = ForeignKey(ContentCorrelation, related_name="relations", on_delete=CASCADE)
@@ -328,5 +328,4 @@ class ContentStandardRelation(Model):
     @property
     def uri(self):
         return self.get_absolute_url()
-
 

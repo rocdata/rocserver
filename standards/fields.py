@@ -16,7 +16,7 @@ from django_extensions.db.fields import UniqueFieldMixin, MAX_UNIQUE_QUERY_ATTEM
 # RANDOM STRING ID MODEL FIELD
 ################################################################################
 
-class RandomCharIdField(UniqueFieldMixin, models.CharField):
+class CharIdField(UniqueFieldMixin, models.CharField):
     """
     A random character field that is used as primary key for ROC data models.
     By default uses prefix="", length=9, editable=False, blank=True, unique=True.
@@ -50,7 +50,6 @@ class RandomCharIdField(UniqueFieldMixin, models.CharField):
 
     def random_char_generator(self, chars):
         for i in range(self.max_unique_query_attempts):
-            print('i=', i)
             len_random_chars = self.length - len(self.prefix)
             random_chars = ''.join(get_random_string(len_random_chars, chars))
             yield self.prefix + random_chars
