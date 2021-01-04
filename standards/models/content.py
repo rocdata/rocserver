@@ -19,11 +19,12 @@ from mptt.models import MPTTModel
 from mptt.models import TreeForeignKey
 
 from standards.fields import CharIdField
-from .jurisdictions import Jurisdiction
-from .terms import Term
-from .standards import StandardNode
-from .standards import PUBLICATION_STATUSES
-
+from standards.models import Jurisdiction
+from standards.models import Term
+from standards.models import StandardNode
+from standards.models.standards import PUBLICATION_STATUSES
+from standards.utils import get_default_license
+from standards.utils import get_default_content_standard_relation_kind
 
 
 
@@ -73,7 +74,8 @@ class ContentCollection(Model):
     version = CharField(max_length=200, blank=True, null=True, help_text="Collection version or edition")
     #
     # Licensing
-    license	= ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'license_kinds'})
+    license = ForeignKey(Term, related_name='+', null=True, on_delete=SET_NULL,
+        default=get_default_license, limit_choices_to={'vocabulary__kind': 'license_kinds'})
     license_description	= TextField(blank=True, null=True, help_text="Full text of the collection licensing information")
     copyright_holder = CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to this content")
     #
@@ -146,7 +148,8 @@ class ContentNode(MPTTModel):
     node_id = UUIDField(blank=True, null=True, editable=False, db_index=True, help_text="An identifier for the content node within the collection")
     #
     # Licensing
-    license	= ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'license_kinds'})
+    license = ForeignKey(Term, related_name='+', null=True, on_delete=SET_NULL,
+        default=get_default_license, limit_choices_to={'vocabulary__kind': 'license_kinds'})
     license_description	= TextField(blank=True, null=True, help_text="Full text of the node's licensing information")
     copyright_holder = CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to this content")
     #
@@ -269,7 +272,8 @@ class ContentCorrelation(Model):
     version = CharField(max_length=200, blank=True, null=True, help_text="Content correlation versioning info")
     #
     # Licensing
-    license	= ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'license_kinds'})
+    license = ForeignKey(Term, related_name='+', null=True, on_delete=SET_NULL,
+        default=get_default_license, limit_choices_to={'vocabulary__kind': 'license_kinds'})
     license_description	= TextField(blank=True, null=True, help_text="Description of the licensing of this content correlation")
     copyright_holder = CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to this content correlation")
     #
@@ -306,7 +310,9 @@ class ContentStandardRelation(Model):
     #
     # Edge domain
     contentnode = ForeignKey(ContentNode, related_name="standards_rels", on_delete=CASCADE, help_text='The content node (source)')
-    kind = ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'content_standard_relation_kinds'})
+    kind = ForeignKey(Term, related_name='+', null=True, on_delete=SET_NULL,
+        default=get_default_content_standard_relation_kind, # = majorCorrelation
+        limit_choices_to={'vocabulary__kind': 'content_standard_relation_kinds'})
     standardnode = ForeignKey(StandardNode, related_name="content_rels", on_delete=CASCADE, help_text='The standard node (target)')
     #
     # Publishing domain

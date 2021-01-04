@@ -19,6 +19,8 @@ from mptt.models import TreeForeignKey
 from standards.fields import CharIdField
 from standards.models import Jurisdiction
 from standards.models import Term
+from standards.utils import get_default_license
+from standards.utils import get_default_standard_node_relation_kind
 
 
 
@@ -68,7 +70,8 @@ class StandardsDocument(Model):
     date_retired = DateField(blank=True, null=True, help_text="Date when document stops being valid")
     #
     # Licensing
-    license	= ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'license_kinds'})
+    license = ForeignKey(Term, related_name='+', null=True, on_delete=SET_NULL,
+        default=get_default_license, limit_choices_to={'vocabulary__kind': 'license_kinds'})
     license_description	= TextField(blank=True, null=True, help_text="Full text of the document's licensing information")
     copyright_holder = CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to the document")
     #
@@ -236,7 +239,8 @@ class StandardsCrosswalk(Model):
     version = CharField(max_length=200, blank=True, null=True, help_text="Crosswalks versioning info")
     #
     # Licensing
-    license	= ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'license_kinds'})
+    license = ForeignKey(Term, related_name='+', null=True, on_delete=SET_NULL,
+        default=get_default_license, limit_choices_to={'vocabulary__kind': 'license_kinds'})
     license_description	= TextField(blank=True, null=True, help_text="Description of the licensing of this crosswalks")
     copyright_holder = CharField(max_length=200, blank=True, null=True, help_text="Name of organization that holds the copyright to this crosswalk")
     #
@@ -271,7 +275,8 @@ class StandardsCrosswalk(Model):
 
 class StandardNodeRelation(Model):
     """
-    A relations between two ``StandardNode`` s.
+    A relation between two ``StandardNode`` s, which is part of the standards
+    crosswalk ``crosswalk``. The default relation ``kind`` is ``majorAlignment``.
     """
     id = CharIdField(primary_key=True, editable=False, prefix='SR')
     #
@@ -281,7 +286,9 @@ class StandardNodeRelation(Model):
     # Edge domain
     source = ForeignKey(StandardNode, related_name="source_rels", on_delete=CASCADE)
     target = ForeignKey(StandardNode, related_name="target_rels", on_delete=CASCADE)
-    kind = ForeignKey(Term, related_name='+', blank=True, null=True, on_delete=SET_NULL, limit_choices_to={'vocabulary__kind': 'standard_node_relation_kinds'})
+    kind = ForeignKey(Term, related_name='+', null=True, on_delete=SET_NULL,
+        default=get_default_standard_node_relation_kind,     # == majorAlignment
+        limit_choices_to={'vocabulary__kind': 'standard_node_relation_kinds'})
     #
     # Publishing domain
     canonical_uri = URLField(max_length=512, null=True, blank=True, help_text="URI for this relation used when publishing")
