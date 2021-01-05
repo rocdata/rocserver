@@ -31,7 +31,7 @@
   fields:
     name: CCSS.Math
     jurisdiction:
-    - CCSS
+    - USA
     title: Common Core State Standards for Mathematics
     description: null
     language: en

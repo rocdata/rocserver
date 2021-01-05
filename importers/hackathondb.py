@@ -29,7 +29,7 @@ JURISDICTION_SOURCE_IDS = {
 DOCS_TO_IMPORT_BY_SOURCE_ID = {
     "CCSSM": {
         "source_id": "CCSSM",
-        "jurisdiction": "CCSS",
+        "jurisdiction": "USA",
         "name": "CCSS.Math",
         "title": "Common Core State Standards for Mathematics",
         "language": "en",
