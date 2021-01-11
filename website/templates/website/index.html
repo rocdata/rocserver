@@ -9,66 +9,178 @@
 {% block maincontent %}
 <div class="container">
 
-    <div class="float-right">
-        [<a href="https://learningequality.org/r/designsprint-mar19" title="Design sprint report">DS19</a>,
-         <a href="https://learningequality.org/r/hackathon-oct19-report" title="Hackathon report">HA19</a>]
-    </div>
-    <div class="clearfix"></div>
-
-    <h2 class="object-title">Repository of Organized Curriculums (ROC)</h2>
+    <h2 class="homepage-title">Repository of Organized Curriculums (ROC)</h2>
     <span class="objectkindbadge badge badge-primary">beta</span>
 
-    <hr/>
+    <p></p>
+    <p>Welcome to the Repository of Organized Curriculums (ROC) global data server: a prototype of the
+        <a href="http://learningequality.org/r/digitizing-curriculum">ROC data model</a> for digitally publishing
+        curriculum standards documents used in the educational systems of different countries. The goal of this project
+        is to make curriculum standards data available in machine-readable formats for all countries and facilitate the
+        exchange of learning materials in a global context, in particular Open Educational Resources (OER) that can be
+        freely redistributed and reorganized (aligned to) local educational needs.</p>
+    <p>The ROC data model enables the digital representation and exchange of (1) curriculum standards documents
+        (national standards that define what students should be learning), (2) content correlations (links to relevant
+        learning resources), (3) curriculum crosswalks (mappings between the curriculum standards in different
+        countries).</p>
 
-    <h2>About</h2>
-    <p>
-        This server hosts the digital curriculum standards data for several countries.
-    </p>
 
-    <p>
-        <img style="max-width:70%;" src="{% static 'website/overview_of_domain_fig.png' %}" />
-    </p>
+    <div class="row mt-5 mb-5">
+        <div class="col-md-6">
 
-    <h3>Example of data available for browsing</h3>
-    <ul>
-        <li>
-            Jurisdictions:
-            <a href="/Ghana">Ghana</a>,
-            <a href="/USA">USA</a>,
-            <a href="/KA">Khan Academy</a>, ...
-        </li>
-        <li>
-            Vocabularies and terms:
-            <a href="/Ghana/terms/GradeLevels">Ghana GradeLevels</a>
-            and <a href="/Ghana/terms/GradeLevels/B4">Basic 4</a> grade level.
-        </li>
-        <li>
-            (1) Digitized standards documents:
-            <a href="/CCSS/documents/DayhBeyn">CCSS.Math</a>,
-            ...
-        </li>
-        <li>
-            Content collection:
-            <a href="/KA/contentcollections/CCBwpakEViFm">Khan Academy English</a>,
-            ...
-        </li>
-        <li>
-            (2) Content correlations:
-            <a href="/KA/contentcorrelations/CS5usCvLx">KA-CCSS.Math</a>,
-            ...
-        </li>
-        <li>
-            (3) Standards crosswalks:
-            <a href="/CCSS/standardscrosswalks/SCS6RJNzt">ex1</a>,
-            ...
-        </li>
-    </ul>
+            <h3>Read the reports</h3>
+            <p>Expand your understanding about the digital representation of curriculum standards and curriculum alignment
+                by reading the report <em>Digitizing Curriculum Standards to Unlock the Potential of Open Educational Resources
+                in a Global Context</em> [forthcoming].</p>
+            <p>For additional background, read the reports form the Design Sprint on Curriculum Alignment in Crisis Contexts
+                [<a href="https://learningequality.org/r/designsprint-mar19">DS19</a>] and the Hackathon on Curriculum
+                Alignment [<a href="https://learningequality.org/r/hackathon-oct19-report">HA19</a>].</p>
 
-    <h3>Example of data available for download</h3>
-    <p>
-        The <a href="https://github.com/rocdata/standards-ghana/tree/main/terms">controlled vocabulary terms</a>
-        used in Ghana curriculum standards documents.
-    </p>
+        </div>
+        <div class="col-md-6">
+
+            <h3>Browse ROC data</h3>
+            Explore a representative sample of the data:
+            <ul class="tight-list">
+                <li>
+                    <p>Jurisdictions: <a href="https://rocdata.global/Ghana">Ghana</a>,
+                        <a href="https://rocdata.global/USA">USA</a>,
+                        <a href="https://rocdata.global/KA">Khan Academy</a></p>
+                </li>
+                <li>
+                    <p>Controlled vocabulary terms like
+                        <a href="https://rocdata.global/Ghana">Ghana</a>:<a href="https://rocdata.global/Ghana/terms/GradeLevels">GradeLevels</a>/<a href="https://rocdata.global/Ghana/terms/GradeLevels/B4">B4</a>,
+                        which correponds to the "Basic 4" grade level in the Ghana educaitonal system.
+                    </p>
+                </li>
+                <li>
+                    <p>(1) Sample digitized standards documents:
+                        <a href="https://rocdata.global/CCSS/documents/DayhBeyn">CCSS.Math</a></p>
+                </li>
+                <li>
+                    <p>Sample content collections:
+                        <a href="https://rocdata.global/KA/contentcollections/CCBwpakEViFm">Khan Academy English</a></p>
+                </li>
+                <li>
+                    <p>(2) Sample content correlations:
+                        <a href="https://rocdata.global/KA/contentcorrelations/CS5usCvLx">KA-CCSS.Math</a></p>
+                </li>
+                <li>
+                    <p>(3) Standards crosswalks:
+                        <a href="https://rocdata.global/CCSS/standardscrosswalks/SCS6RJNzt">example</a></p>
+                </li>
+            </p>
+
+            </ul>Curriculum data is also accessible via GitHub, for exame see <a
+                href="https://github.com/rocdata/standards-ghana">standards-ghana</a>.
+
+
+        </div>
+    </div>
+
+    <!-- 
+    <div class="row mt-5 mb-5">
+        <div class="col-md-6">
+
+            <h3>Data model info</h3>
+            <p>Browse the comparison spreadsheet to see all the fields for 
+                <a href="https://learningequality.org/r/std-doc-model">standard documents</a>,
+                <a href="https://learningequality.org/r/std-node-model">standard statements</a>, and 
+                <a href="https://learningequality.org/r/std-node-rels">content correlations</a>.
+            </p>
+
+        </div>
+        <div class="col-md-6">
+
+            <h3>Developer docs</h3>
+            <p>[coming soon]</p>
+
+        </div>
+    </div>
+    -->
+
+
+    <div class="row mt-5 mb-5">
+        <div class="col-md-6">
+
+            <h3>Contribute curriculum data</h3>
+            <ul>
+                <li>
+                    <p>Explore the sample <a
+                            href="https://docs.google.com/spreadsheets/d/1-ei7BBMOx0udbXxyLJjMPYLW0EJWg9wFUyV9ODa8m5o/edit#gid=1031912854&amp;range=A32:D44">spreadsheet
+                            templates</a> used for digitizing curriculum documents.</p>
+                </li>
+                <li>
+                    <p>Submit your curriculum standards documents for potential digitization (coming soon).</p>
+                </li>
+            </ul>
+
+        </div>
+        <div class="col-md-6">
+
+            <h3>Contribute machine learning expertise</h3>
+            <p><em>Machine learning experts wanted!</em> The curriculum data collected is intended to support research and
+                develop algorithms for automated generation of content correlations and standards crosswalks.</p>
+            <p>Consult the report from the Hackathon on Curriculum Alignment to learn about the current progress and
+            results on automated discovery of standards crosswalks <a
+                href="https://learningequality.org/r/hackathon-oct19-report">[HA19</a>]. If you have expertise in
+            natural language processing and you want to participate in the next rounds of research, get in touch via
+            email to obtain the latest data exports.</p>
+
+        </div>
+    </div>
+
+
+    <h2>What is digital curriculum data?</h2>
+    <p></p>
+    <p>The process of publishing curriculum data in digital formats is illustrated in the figure.</p>
+
+    <div>
+    <figure>
+        <a href="{% static 'website/overview_of_domain_fig.png' %}">
+            <img class="img-fluid"
+                src="{% static 'website/overview_of_domain_fig.png' %}"
+                alt="Diagram showing the three different types of curriculum data in the ROC data model: (1) digitized standards, (2) content correlations, and (3) standards crosswalks" />
+            </a>
+        <figcaption class="small">The three types of data: (1) standards documents, (2) content correlations, and (3) standards crosswalks can be created and published in various data formats (spreadsheets, JSON, YAML). For example, digital curriculum standards documents can be created using either a spreadsheet template or by uploading curriculum standards nodes data through a REST API.</figcaption>
+    </figure>
+    </div>
+        
+
+    <div class="row mt-5 mb-5">
+        <div class="col-md-6">
+
+            <h3>Import formats</h3>
+            <ul>
+                <li>
+                    <p>Controlled vocabularies can be loaded from YAML terms definitions, or imported from SKOS/RDF
+                        data.</p>
+                </li>
+                <li>
+                    <p>Digitized standards can uploaded using a spreadsheet format or though an API.</p>
+                </li>
+                <li>
+                    <p>Content correlations can be imported form Kolibri Studio aligned channels.</p>
+                </li>
+            </ul>
+
+        </div>
+        <div class="col-md-6">
+
+            <h3>Export formats</h3>
+            <ul>
+                <li>
+                    <p>Current exporters include JSON and YAML data formats.</p>
+                </li>
+                <li>
+                    <p>Export to ASN RDF and JSON-LD is planned.</p>
+                </li>
+            </ul>
+            <p>Need another format? Consult the exporters docs to learn how to create exporters for different formats.
+            </p>
+
+        </div>
+    </div>
 
 </div><!-- /container -->
 {% endblock %}

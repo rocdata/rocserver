@@ -31,8 +31,14 @@
         display: inline;
         font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
       }
+      h2.homepage-title {
+        display: inline;
+      }
       .objectkindbadge {
         vertical-align:top;
+      }
+      li > p:last-child {
+        margin-bottom: 0 !important;
       }
     </style>
 
@@ -43,22 +49,40 @@
 
   <body>
 
+    {% block navbar %}
+      {% include "website/fragments/navbar.html" %}
+    {% endblock %}
+
     {% block maincontent %}
-    MAINCONTENT GOES HERE!
+      MAINCONTENT GOES HERE!
     {% endblock %}
 
     {% block footer %}
+      <hr/>
+      <footer>
       <div class="container">
-        <hr/>
-        <footer>
-          <div class="d-flex justify-content-center">
-            <p>
-            Repository of Organized Curriculums server.
-            See <a href="https://github.com/rocdata/rocserver">github.com/rocdata/rocserver</a> for source code.
-          </p>
+        <div class="row mt-3 mb-5">
+          <div class="col-4 mt-2 text-right">
+              <img style="width:40%" src="{% static 'standards/icons/cc-by-nc.png' %}">
           </div>
-        </footer>
+
+          <div class="col-8">
+
+            <div class="text-left">
+              <p>
+                Repository of Organized Curriculums server.
+                Established 2020.<br>
+                See <a href="https://github.com/rocdata/rocserver">github.com/rocdata/rocserver</a> for source code.
+            </p>
+            </div>
+
+          </div>
+        </div>
+
+        
+
       </div>
+      </footer>
     {% endblock %}    <!-- /footer -->
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -67,5 +91,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     {% block extrabody %}
     {% endblock %}
+
   </body>
 </html>
