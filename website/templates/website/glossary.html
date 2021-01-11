@@ -1,2 +1,63 @@
+{% extends "standards/base.html" %}
+{% load static %}
 
-GLOSSARY
+{% block extrahead %}
+<title>Repository of Organized Curriculums (ROC)</title>
+{% endblock %}
+
+
+{% block maincontent %}
+<div class="container">
+
+    <h2>Glossary</h2>
+    <p></p>
+
+    <p>The domain of digitized curriculum standards comprises several interacting components that support the provision of
+        published standards and use of OER. <a href="http://learningequality.org/r/digitizing-curriculum">Learn more in the
+            report on digitizing curriculum standards.</a></p><br>
+    <p><b>Curriculum standards</b>: the set of standards, objectives, and concepts required to be taught and learned in a
+        given subject, within each grade level, and subdivided into topics, subtopics, and individual standard statements.
+        Curriculum standards are accessible&nbsp; as print books or PDF documents published by a government organization
+        that has the authority to define curriculum standards within the local jurisdiction.</p>
+    <p><b>Digitization</b>: the conversion of a curriculum standards document into a structured data format like&nbsp;
+        spreadsheets or a database.</p>
+    <p><b>Publishing</b>: making curriculum standard data publicly available for access, browsing, download, reference, and,
+        in some cases, approval by a curricular body.&nbsp;</p>
+    <p><b>Standard statement</b>: an individual entry within a digitized standard, which could be folder-like
+        (intermediate levels of the hierarchy) or an atomic statement. Each statement describes a particular set of
+        competencies expected of learners at that level.</p>
+    <p><b>Official identifiers</b>: short human-readable tags that uniquely identify particular standard statements within a
+        document. For example, the code <a href="http://www.corestandards.org/Math/Content/2/MD/D/10/">2.MD.D.10</a> within
+        the U.S. Common Core Math standards, or the code <a
+            href="https://raw.githubusercontent.com/rocdata/standards-ghana/main/sourcedocuments/MATHS-UPPER-PRIMARY-B4-B6.pdf#page=73">B4.4.1.2</a>
+        within the Ghana Math standards.</p>
+    <p><b>Digitized standards</b>: the digital representation of a curriculum standard document is modeled as a hierarchical
+        collection (tree structure) of standards statements. Digitized standards allow curriculum documents from different
+        countries to be represented using a common data model that enables data interoperability between different systems.
+    </p>
+    <p><b>Content Correlations</b>: a mapping between standard statements and learning resources suitable for teaching or
+        assessing these standards. Content correlations are made of individual associations between learning resources and
+        relevant standard statements.</p>
+    <p><b>Standards crosswalk</b>: a mapping between statements within different standards. Standards crosswalks are made of
+        individual alignment relations that identify statements from one standard to be equivalent or similar to statements
+        in another standard.</p>
+
+    <hr>
+
+    <div>
+        <figure>
+            <a href="{% static 'website/overview_of_domain_fig.png' %}">
+                <img class="img-fluid"
+                    src="{% static 'website/overview_of_domain_fig.png' %}"
+                    alt="An illustration of the curriculum digitzation and publishing process with each data type labelled." />
+                </a>
+            <figcaption class="text-center">An illustration of the concepts from the domain of digitized curriculum standards.</figcaption>
+        </figure>
+    </div>
+
+
+</div><!-- /container -->
+{% endblock %}
+
+
+
