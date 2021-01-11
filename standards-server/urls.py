@@ -20,12 +20,16 @@ ALLOWED_FORMATS_SUFFIX = "\.(?P<format>(%s))" % "|".join(ALLOWED_FORMATS)
 # WEBSITE
 ################################################################################
 
-from website.views import index
+from website.views import index, homepage, page
 
 urlpatterns = [
     path('', index, name='index'),
+    path('pages/', homepage, name='homepage'),
+    path('pages/<val>/', page, name='page'),
+    # tmp fallback
+    path('pages', homepage, name='homepage-noslash'),
+    path('pages/<val>', page, name='page-noslash'),
 ]
-
 
 
 # JURISDICTIONS

@@ -2,18 +2,37 @@ import datetime
 
 from django.contrib.admindocs.views import ModelIndexView, ModelDetailView
 from django.http import HttpResponse
+from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
 
+# INFO WEBPAGES
+################################################################################
 
 def index(request):
+    """
+    Redirect to ROC landing: ``/pages/``.
+    """
+    return redirect('homepage')
+
+
+def homepage(request):
     """
     ROC landing page.
     """
     index_context = {}
     return render(request, 'website/index.html', index_context)
+    return render(request, 'website/index.html', index_context)
 
+
+def page(request, val):
+    """
+    ROC static webpages: ``/pages/<val>``.
+    """
+    context = {}
+    template_name = 'website/' + val + '.html'
+    return render(request, template_name, context)
 
 
 
