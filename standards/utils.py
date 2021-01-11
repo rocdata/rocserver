@@ -13,30 +13,39 @@ def get_default_license():
     Used for StandardsDocument, StandardsCrosswalk, ContentCollection,
     ContentNode, and ContentCorrelation classes.
     """
-    return Term.objects.get(
-        vocabulary__jurisdiction__name="Global",
-        vocabulary__name="LicenseKinds",
-        path="All_Rights_Reserved"
-    )
+    try:
+        return Term.objects.get(
+            vocabulary__jurisdiction__name="Global",
+            vocabulary__name="LicenseKinds",
+            path="All_Rights_Reserved"
+        )
+    except Term.DoesNotExist:
+        return None
 
 
 def get_default_standard_node_relation_kind():
     """
     Return the default ``kind`` for ``StandardNodeRelation`` objects.
     """
-    return Term.objects.get(
-        vocabulary__jurisdiction__name="Global",
-        vocabulary__name="StandardNodeRelationKinds",
-        path="majorAlignment"
-    )
+    try:
+        return Term.objects.get(
+            vocabulary__jurisdiction__name="Global",
+            vocabulary__name="StandardNodeRelationKinds",
+            path="majorAlignment"
+        )
+    except Term.DoesNotExist:
+        return None
 
 
 def get_default_content_standard_relation_kind():
     """
     Return the default ``kind`` for ``ContentStandardRelation`` objects.
     """
-    return Term.objects.get(
-        vocabulary__jurisdiction__name="Global",
-        vocabulary__name="ContentStandardRelationKinds",
-        path="majorCorrelation"
-    )
+    try:
+        return Term.objects.get(
+            vocabulary__jurisdiction__name="Global",
+            vocabulary__name="ContentStandardRelationKinds",
+            path="majorCorrelation"
+        )
+    except Term.DoesNotExist:
+        return None
