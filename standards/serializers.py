@@ -415,9 +415,9 @@ class StandardsCrosswalkSerializer(serializers.ModelSerializer):
 class StandardNodeRelationSerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(source='crosswalk.jurisdiction', required=False)
     crosswalk = StandardsCrowsswalkHyperlinkField(required=True)
-    source = StandardNodeHyperlinkField()
+    source = StandardNodeHyperlinkField(style={'base_template': 'input.html'})
     kind = TermHyperlinkField()
-    target = StandardNodeHyperlinkField()
+    target = StandardNodeHyperlinkField(style={'base_template': 'input.html'})
 
     class Meta:
         model = StandardNodeRelation
@@ -461,9 +461,9 @@ class ContentNodeSerializer(serializers.ModelSerializer):
 
 class ContentNodeRelationSerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(required=True)
-    source = ContentNodeHyperlinkField()
+    source = ContentNodeHyperlinkField(style={'base_template': 'input.html'})
     kind = TermHyperlinkField()
-    target = ContentNodeHyperlinkField()
+    target = ContentNodeHyperlinkField(style={'base_template': 'input.html'})
 
     class Meta:
         model = ContentNodeRelation
@@ -485,13 +485,13 @@ class ContentCorrelationSerializer(serializers.ModelSerializer):
         model = ContentCorrelation
         fields = '__all__'
 
+
 class ContentStandardRelationSerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(source='correlation.jurisdiction', required=False)
     correlation = ContentCorrelationHyperlinkField(required=True)
-    contentnode = ContentNodeHyperlinkField()
+    contentnode = ContentNodeHyperlinkField(style={'base_template': 'input.html'})
     kind = TermHyperlinkField()
-    standardnode = StandardNodeHyperlinkField()
-
+    standardnode = StandardNodeHyperlinkField(style={'base_template': 'input.html'})
 
     class Meta:
         model = ContentStandardRelation
