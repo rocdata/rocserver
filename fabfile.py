@@ -210,6 +210,32 @@ def dump_devfixtures(update=False):
         local(dumpdata_cmd)
 
 
+# DOCS
+################################################################################
+
+@task
+def docsclean():
+    local('make -C docs clean')
+    local('rm -f docs/_build/*')
+
+@task
+def docs():
+    """Generate Sphinx HTML documentation"""
+    local('pip install -r docs/requirements.txt')
+    docsclean()
+    local('make -C docs html')
+    print(blue('Build complete. Open docs/_build/html/index.html to view docs.'))
+
+@task
+def latexdocs():
+    """Generate docs PDF"""
+    local('pip install -r docs/requirements.txt')
+    docsclean()
+    local('make -C docs latex')
+    print(blue('Build complete. Open docs/_build/latex/rocdata.tex and compile.'))
+
+
+
 # PROVISION DOCKER ON REMOTE HOST
 ################################################################################
 

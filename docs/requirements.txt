@@ -1,0 +1,6 @@
+sphinx
+sphinx_rtd_theme
+recommonmark
+nbsphinx
+ipython
+sphinxbootstrap4theme
