@@ -1,7 +1,8 @@
 Design
 ======
-The purpose of this design document is to give a high level overview of the
-ROCSERVER data model and API.
+The purpose of this page is to give a high level overview of the design decisions
+that went into the Repository of Organized Curriculums (ROC) data model.
+
 
 
 Jurisdictions
@@ -28,57 +29,24 @@ is the server hosting the controlled vocabulary, `Ghana` is the jurisdiction nam
 `GradeLevels` is the name of the controlled vocabulary, and `B4` is the term name.
 Using URIs as property values provides the following affordances for data consumers:
 
-  - Browse `https://rocdata.global/Ghana/terms`: all controlled vocabularies define within the Ghana jurisdiction
-  - Browse `https://rocdata.global/Ghana/terms/GradeLevels`: the Ghana grade levels vocabulary, see [standards-ghana/terms/GradeLevels](https://github.com/rocdata/standards-ghana/blob/main/terms/GradeLevels.yml).
-  - Browse `https://rocdata.global/Ghana/terms/GradeLevels/B4`: a webpage with human-readable info about the term "Basic 4"
-  - GET `https://rocdata.global/Ghana/terms/GradeLevels/B4.json`: metadata for term `B4` as JSON
-  - GET `https://rocdata.global/Ghana/terms/GradeLevels/B4.{fmt}`: metadata for term `B4` in `{fmt}` format
 
 
+Standards documents and standard nodes
+--------------------------------------
 
-Term relations
---------------
-
-`{juri}/termrels/{jurisdiction}/{termrel.id}`
-
-
-
-Standards documents and nodes
------------------------------
-
-`{juri}/documents/{document.id}`
-
-`{juri}/standardnodes/{snode.id}`
 
  
 
 Standards crosswalks
 --------------------
 
-`{juri}/standardscrosswalks/{sc.id}`
-
-`{juri}/standardnoderels/{stdrel.id}`
 
 
 
-
-Content nodes
--------------
-
-`{juri}/contentcollections/{cc.id}`
-
-`{juri}/contentnodes/{contentnode.id}`
-
-`{juri}/contentnoderels/{cnode.id}`
-
-
+Content collections and content nodes
+-------------------------------------
 
 
 
 Content correlations
 --------------------
-
-`{juri}/contentcorrelations/{cs.id}`
-
-`{juri}/contentstandardrels/{csr.id}`
-

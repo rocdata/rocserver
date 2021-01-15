@@ -10,8 +10,3 @@ The data model has the following representation limitations compared to RDF:
 
 - Terms with multiple `alt_label` cannot be faithfully represented.
 - 
-
-
-
-
-

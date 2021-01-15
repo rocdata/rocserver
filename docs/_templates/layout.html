@@ -1,0 +1,50 @@
+{% extends "!layout.html" %}
+  {% block footer %} {{ super() }}
+
+  <style>
+    
+    .row {clear: both}
+
+    @media (min-width: 800px) {
+
+        .column {
+            box-sizing: border-box;
+            padding-left: 8px;
+            padding-right: 8px;
+            float: left;
+        }
+
+        .firstcolumn {
+            box-sizing: border-box;
+            padding-right: 8px;
+            float: left;
+        }
+
+        .lastcolumn {
+            box-sizing: border-box;
+            padding-left: 8px;
+            float: left;
+        }
+
+        .column3  {
+            width: 33.3%;
+            font-size: 80%;
+        }
+
+        .column2  {
+            width: 50%;
+        }
+    }
+
+    h2, h3, h4 {
+      margin-bottom: 10px;
+    }
+
+
+    /* push down the RTD banner so it's not confused with menu */
+    .keep-us-sustainable {
+      margin-top: 20em !important;
+    }
+
+  </style>
+{% endblock %}

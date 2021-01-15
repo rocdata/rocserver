@@ -47,17 +47,17 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # -- Options for HTML output -------------------------------------------------
 
-# BOOTSTRAP4 THEME
-################################################################################
-import sphinxbootstrap4theme
-html_theme = "sphinxbootstrap4theme"
-html_theme_path = [sphinxbootstrap4theme.get_path()]
-
-
-# # ALABASTER THEME
+# # BOOTSTRAP4 THEME
 # ################################################################################
-# html_theme = 'alabaster'
-# # Add any paths that contain custom static files (such as style sheets) here,
-# # relative to this directory. They are copied after the builtin static files,
-# # so a file named "default.css" will overwrite the builtin "default.css".
-# html_static_path = ['_static']
+# import sphinxbootstrap4theme
+# html_theme = "sphinxbootstrap4theme"
+# html_theme_path = [sphinxbootstrap4theme.get_path()]
+
+
+# ALABASTER THEME
+################################################################################
+html_theme = 'alabaster'
+# Add any paths that contain custom static files (such as style sheets) here,
+# relative to this directory. They are copied after the builtin static files,
+# so a file named "default.css" will overwrite the builtin "default.css".
+html_static_path = ['_static']

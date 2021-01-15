@@ -20,7 +20,7 @@ resources' `get_absolute_url()` methods and not using `canonical_uri`s.
 
 Publishing context
 ------------------
-See page on [publishing](./publishing.md) for details about publishing contexts.
+See page on [publishing](../publishing.md) for details about publishing contexts.
 
 
 Resolving URIs
