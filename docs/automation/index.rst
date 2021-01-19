@@ -9,3 +9,5 @@ algorithms to find which content nodes are relevant for each standard node.
    :maxdepth: 2
 
    tasks
+   content_correlations_discovery
+   standards_crosswalk_discovery
