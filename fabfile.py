@@ -27,6 +27,8 @@ PROUCTION_DOCKER_HOST = "ssh://{user}@35.203.84.59".format(user=PROUCTION_USER)
 # PROD = rocdata.global = linux server running docker with open ports 80 and 443
 ################################################################################
 
+env.dcfiles = ' --file docker-compose.yml '   # default docker-compose file
+
 @task
 def prod():
     """
@@ -35,7 +37,7 @@ def prod():
     env.hosts = PROUCTION_HOST
     env.user = PROUCTION_USER
     env.DOCKER_HOST = PROUCTION_DOCKER_HOST
-
+    env.dcfiles = ' --file docker-compose.yml --file docker-compose.prod.yml '
 
 
 # DEV TASKS
@@ -339,26 +341,37 @@ def dsysprune(options=''):
 
 @task
 def dclogs(options=''):
-    cmd = 'docker-compose logs '
+    cmd = 'docker-compose '
+    if env.dcfiles:
+       cmd += env.dcfiles
+    cmd += ' logs '
     cmd += options
     dlocal(cmd)
 
 @task
 def dcbuild(service='', options=''):
-    cmd = 'docker-compose build '
+    cmd = 'docker-compose '
+    if env.dcfiles:
+       cmd += env.dcfiles
+    cmd += ' build '
     cmd += options
     cmd += '  ' + service
     dlocal(cmd)
 
 @task
 def dcup(options='-d'):
-    cmd = 'docker-compose up '
+    cmd = 'docker-compose '
+    if env.dcfiles:
+       cmd += env.dcfiles
+    cmd += ' up '
     cmd += options
     dlocal(cmd)
 
 @task
 def dcdown(options=''):
-    cmd = 'docker-compose down '
+    cmd = 'docker-compose '
+    if env.dcfiles:
+       cmd += env.dcfiles
+    cmd += ' down '
     cmd += options
     dlocal(cmd)
-
