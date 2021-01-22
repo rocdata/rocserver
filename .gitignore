@@ -16,6 +16,7 @@ standards/migrations/*
 # project-specific draft stuff
 cut_material.py
 docs/cut_material.md
+runme.py
 
 
 # Byte-compiled / optimized / DLL files

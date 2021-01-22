@@ -1,11 +1,13 @@
 from urllib.parse import urlparse
 
+import pycountry
+
 from standards.models import Term
 
 
 
 # DEFAULT TERM SETTERS
-###############################################################################
+################################################################################
 
 def get_default_license():
     """
@@ -49,3 +51,26 @@ def get_default_content_standard_relation_kind():
         )
     except Term.DoesNotExist:
         return None
+
+
+
+# VALIDATION
+################################################################################
+
+def ensure_language_code(lang_code):
+    """
+    Pass-through function for alpha_2 langauge codes that ensures validity.
+    """
+    lang_obj = pycountry.languages.get(alpha_2=lang_code)
+    if lang_obj is None:
+        print('ERROR: invalid language code specified', lang_code)
+        sys.exit(-4)
+    return lang_obj.alpha_2
+
+
+def ensure_country_code(country_code):
+    """
+    Pass-through function for alpha_2 country codes that ensures validity.
+    """
+    country = pycountry.countries.lookup(country_code)
+    return country.alpha_2
