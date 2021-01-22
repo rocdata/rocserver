@@ -1,0 +1,20 @@
+# Config file for automatic testing at travis-ci.com
+
+os: linux
+dist: xenial
+
+language: python
+
+python:
+  - 3.8
+  - 3.7
+  - 3.6
+
+before_install:
+  - python -m pip install --upgrade pip
+  - pip install -U virtualenv
+
+install:
+  - pip install -r requirements.txt
+
+script: python manage.py makemigrations && python manage.py migrate && pytest -s
