@@ -51,11 +51,12 @@ class ContentCollection(Model):
     content channel.
     """
     id = CharIdField(primary_key=True, editable=False, prefix='CC', length=10)
+    name = CharField(max_length=200, help_text="Short unique name that appears in URIs")
     # uri = computed field = localhost + get_absolute_url()
     #
     # Collection info
     jurisdiction = ForeignKey(Jurisdiction, related_name="contentcollections", on_delete=CASCADE, help_text='Jurisdiction of this collection')
-    name = CharField(max_length=200, help_text="Collection name")
+    title = CharField(max_length=200, help_text="Collection name")
     description = TextField(blank=True, null=True, help_text="Detailed info about this collection")
     thumbnail_url = URLField(max_length=512, blank=True, help_text="External thumbnail URL this collection")
     language = CharField(max_length=20, blank=True, null=True, help_text="BCP47/RFC5646 codes like en, es, fr-CA")
@@ -116,6 +117,7 @@ class ContentNode(MPTTModel):
     nodes within Kolibri content channels.
     """
     id = CharIdField(primary_key=True, editable=False, prefix='C', length=10)
+    path = CharField(max_length=200, null=True, blank=True, help_text="Node path as it appears in URIs")
     #
     # Structural
     collection = ForeignKey(ContentCollection, related_name="contentnodes", on_delete=CASCADE, help_text='Content collection this node is part of')

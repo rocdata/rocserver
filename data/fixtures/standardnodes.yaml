@@ -12,7 +12,7 @@
       multi-digit arithmetic.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '194'
@@ -43,7 +43,7 @@
       into equal shares of 8 objects each.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '129'
@@ -71,7 +71,7 @@
     description: Statistics and Probability
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '450'
@@ -99,7 +99,7 @@
     description: Generalize place value understanding for multi-digit whole numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '190'
@@ -129,7 +129,7 @@
       reasoning about the quantities.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '392'
@@ -158,7 +158,7 @@
       to hundredths.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '249'
@@ -187,7 +187,7 @@
       problems in the context of the data.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '697'
@@ -215,7 +215,7 @@
     description: Grade 2
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '82'
@@ -243,7 +243,7 @@
     description: Derive the equation of a parabola given a focus and directrix.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '668'
@@ -273,7 +273,7 @@
       options in a modeling context.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '539'
@@ -302,7 +302,7 @@
       by drawing an auxiliary line from a vertex perpendicular to the opposite side.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '654'
@@ -332,7 +332,7 @@
       problem.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '229'
@@ -360,7 +360,7 @@
     description: Prove theorems about triangles.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '647'
@@ -391,7 +391,7 @@
       justify the conclusions, e.g., by using a visual model.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '233'
@@ -420,7 +420,7 @@
       way (algebraically, graphically, numerically in tables, or by verbal descriptions).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '459'
@@ -449,7 +449,7 @@
       0.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '376'
@@ -477,7 +477,7 @@
     description: High School — Geometry
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '620'
@@ -507,7 +507,7 @@
       logarithm using technology.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '604'
@@ -535,7 +535,7 @@
     description: Represent and interpret data.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '203'
@@ -564,7 +564,7 @@
       equation relating three whole numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '131'
@@ -594,7 +594,7 @@
       quadrilaterals, polygons, cubes, and right prisms.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '363'
@@ -623,7 +623,7 @@
       frequencies in data generated from a chance process.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '407'
@@ -651,7 +651,7 @@
     description: doc root
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: ''
@@ -679,7 +679,7 @@
     description: Prove geometric theorems
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '632'
@@ -708,7 +708,7 @@
       same length.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '416'
@@ -736,7 +736,7 @@
     description: The Number System
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '373'
@@ -765,7 +765,7 @@
       number, without having to count; explain the reasoning used.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '67'
@@ -793,7 +793,7 @@
     description: Operations and Algebraic Thinking
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '126'
@@ -823,7 +823,7 @@
       the expected value.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '729'
@@ -851,7 +851,7 @@
     description: Relate addition and subtraction to length.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '111'
@@ -879,7 +879,7 @@
     description: Measurement and Data
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '198'
@@ -907,7 +907,7 @@
     description: Measurement and Data
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '27'
@@ -936,7 +936,7 @@
       counting to cardinality.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '9'
@@ -964,7 +964,7 @@
     description: Write a function that describes a relationship between two quantities
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '583'
@@ -992,7 +992,7 @@
     description: Operations and Algebraic Thinking
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '180'
@@ -1022,7 +1022,7 @@
       them in terms of the context.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '616'
@@ -1051,7 +1051,7 @@
       and prove properties of angles for a quadrilateral inscribed in a circle.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '661'
@@ -1079,7 +1079,7 @@
     description: Arithmetic with Polynomials and Rational Expressions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '523'
@@ -1108,7 +1108,7 @@
       hexagons, cubes, cones, cylinders, and spheres).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '34'
@@ -1136,7 +1136,7 @@
     description: Measurement and Data
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '145'
@@ -1166,7 +1166,7 @@
       between the circumference and area of a circle.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '361'
@@ -1195,7 +1195,7 @@
       on two-dimensional figures using coordinates.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '420'
@@ -1226,7 +1226,7 @@
       additive comparison.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '183'
@@ -1255,7 +1255,7 @@
       angle measure of n degrees.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '208'
@@ -1286,7 +1286,7 @@
       and nonlinear association.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '452'
@@ -1314,7 +1314,7 @@
     description: Apply properties of operations as strategies to add and subtract.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '48'
@@ -1344,7 +1344,7 @@
       be constructed.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '615'
@@ -1373,7 +1373,7 @@
       and with exponential functions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '598'
@@ -1402,7 +1402,7 @@
       that is one larger.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '12'
@@ -1432,7 +1432,7 @@
       the problem.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '286'
@@ -1460,7 +1460,7 @@
     description: Grade 1
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '42'
@@ -1498,7 +1498,7 @@
       from a larger unit to a smaller unit.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '199'
@@ -1526,7 +1526,7 @@
     description: Understand ordering and absolute value of rational numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '320'
@@ -1556,7 +1556,7 @@
       add, subtract, and multiply polynomials.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '525'
@@ -1585,7 +1585,7 @@
       residuals.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '698'
@@ -1613,7 +1613,7 @@
     description: Angles are taken to angles of the same measure.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '417'
@@ -1642,7 +1642,7 @@
       problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '268'
@@ -1671,7 +1671,7 @@
       histograms, and box plots.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '348'
@@ -1699,7 +1699,7 @@
     description: Parallel lines are taken to parallel lines.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '418'
@@ -1729,7 +1729,7 @@
       the context of solving real world and mathematical problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '265'
@@ -1757,7 +1757,7 @@
     description: Grade 7
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '354'
@@ -1788,7 +1788,7 @@
       space which compose the event.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '410'
@@ -1816,7 +1816,7 @@
     description: Understand ratio concepts and use ratio reasoning to solve problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '299'
@@ -1845,7 +1845,7 @@
       cubic ft, and improvised units.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '262'
@@ -1873,7 +1873,7 @@
     description: High School — Number and Quantity
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '464'
@@ -1903,7 +1903,7 @@
       points of intersection satisfy both equations simultaneously.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '447'
@@ -1933,7 +1933,7 @@
       + 9 × (1/100) + 2 × (1/1000).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '246'
@@ -1962,7 +1962,7 @@
       in a coordinate system.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '426'
@@ -1990,7 +1990,7 @@
     description: Summarize and describe distributions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '347'
@@ -2022,7 +2022,7 @@
       fraction products as rectangular areas.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '282'
@@ -2052,7 +2052,7 @@
       in solving multi-step, real world problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '255'
@@ -2080,7 +2080,7 @@
     description: Use probability to evaluate outcomes of decisions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '731'
@@ -2109,7 +2109,7 @@
       with graphs), focusing on pairs of linear equations in two variables.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '552'
@@ -2138,7 +2138,7 @@
       are equivalent to whole numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '177'
@@ -2169,7 +2169,7 @@
       conditional probabilities.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '718'
@@ -2198,7 +2198,7 @@
       and subtract.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '99'
@@ -2229,7 +2229,7 @@
       the intersection of the corresponding half-planes.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '559'
@@ -2258,7 +2258,7 @@
       and chords.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '660'
@@ -2289,7 +2289,7 @@
       the problem.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '130'
@@ -2318,7 +2318,7 @@
       and independent variables.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '340'
@@ -2347,7 +2347,7 @@
       of a circle, area of a circle, volume of a cylinder, pyramid, and cone.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '677'
@@ -2377,7 +2377,7 @@
       for vectors and their magnitudes (e.g., v, |v|, ||v||, v).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '491'
@@ -2405,7 +2405,7 @@
     description: Expressions and Equations
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '386'
@@ -2434,7 +2434,7 @@
       of rational numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '314'
@@ -2463,7 +2463,7 @@
       to multiply a fraction by a whole number.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '228'
@@ -2493,7 +2493,7 @@
       double number line diagrams, or equations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '302'
@@ -2524,7 +2524,7 @@
       off in whole-number units.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '118'
@@ -2553,7 +2553,7 @@
       total number of objects in 5 groups of 7 objects each.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '128'
@@ -2584,7 +2584,7 @@
       spreadsheets, and tables to estimate areas under the normal curve.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '693'
@@ -2614,7 +2614,7 @@
       models and equations to represent the problem.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '309'
@@ -2642,7 +2642,7 @@
     description: Compare numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '14'
@@ -2670,7 +2670,7 @@
     description: Understand congruence in terms of rigid motions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '628'
@@ -2700,7 +2700,7 @@
       e.g., by using a visual fraction model.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '223'
@@ -2728,7 +2728,7 @@
     description: Geometry
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '267'
@@ -2757,7 +2757,7 @@
       and tangent and use them to solve problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '619'
@@ -2786,7 +2786,7 @@
       sticks and clay balls) and drawing shapes.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '40'
@@ -2814,7 +2814,7 @@
     description: Apply the properties of operations to generate equivalent expressions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '333'
@@ -2843,7 +2843,7 @@
       triangles in applied problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '652'
@@ -2872,7 +2872,7 @@
       solve problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '679'
@@ -2902,7 +2902,7 @@
       side lengths.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '158'
@@ -2930,7 +2930,7 @@
     description: (+) Compose functions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '586'
@@ -2961,7 +2961,7 @@
       set makes an equation or inequality true.'
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '336'
@@ -2990,7 +2990,7 @@
       and pennies, using $ and ¢ symbols appropriately.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '116'
@@ -3020,7 +3020,7 @@
       difference.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '30'
@@ -3051,7 +3051,7 @@
       the strategy to a written method and explain the reasoning used.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '252'
@@ -3083,7 +3083,7 @@
       a and b are different numbers).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '444'
@@ -3113,7 +3113,7 @@
       expressions, or equations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '19'
@@ -3142,7 +3142,7 @@
       area, and volume.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '293'
@@ -3173,7 +3173,7 @@
       coordinate plane.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '240'
@@ -3204,7 +3204,7 @@
       pairs of angles and the proportionality of all corresponding pairs of sides.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '644'
@@ -3232,7 +3232,7 @@
     description: Represent proportional relationships by equations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '370'
@@ -3260,7 +3260,7 @@
     description: Know number names and the count sequence.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '4'
@@ -3289,7 +3289,7 @@
       a:b with b ≠ 0, and use rate language in the context of a ratio relationship.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '301'
@@ -3319,7 +3319,7 @@
       them).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '334'
@@ -3348,7 +3348,7 @@
       read and write numerals and represent a number of objects with a written numeral.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '58'
@@ -3377,7 +3377,7 @@
       figures also belong to all subcategories of that category.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '272'
@@ -3405,7 +3405,7 @@
     description: Represent complex numbers and their operations on the complex plane.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '481'
@@ -3433,7 +3433,7 @@
     description: Grade 6
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '291'
@@ -3461,7 +3461,7 @@
     description: Perform operations on vectors.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '494'
@@ -3491,7 +3491,7 @@
       the order in which they were counted.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '11'
@@ -3519,7 +3519,7 @@
     description: Use coordinates to prove simple geometric theorems algebraically
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '670'
@@ -3551,7 +3551,7 @@
       as volumes, e.g., to represent the associative property of multiplication.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '264'
@@ -3579,7 +3579,7 @@
     description: Use complex numbers in polynomial identities and equations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '485'
@@ -3607,7 +3607,7 @@
     description: Analyze, compare, create, and compose shapes.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '38'
@@ -3635,7 +3635,7 @@
     description: Extend the domain of trigonometric functions using the unit circle
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '608'
@@ -3664,7 +3664,7 @@
       calculation from a context.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '584'
@@ -3692,7 +3692,7 @@
     description: Grade 4
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '179'
@@ -3721,7 +3721,7 @@
       using the fact that the sum or difference of distances from the foci is constant.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '669'
@@ -3749,7 +3749,7 @@
     description: Building Functions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '581'
@@ -3777,7 +3777,7 @@
     description: Measure and estimate lengths in standard units.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '106'
@@ -3805,7 +3805,7 @@
     description: (+) Prove the Laws of Sines and Cosines and use them to solve problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '655'
@@ -3835,7 +3835,7 @@
       operations and the relationship between addition and subtraction.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '224'
@@ -3863,7 +3863,7 @@
     description: Prove theorems about triangles.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '634'
@@ -3893,7 +3893,7 @@
       or complements of other events ("or," "and," "not").
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '715'
@@ -3924,7 +3924,7 @@
       strategies including rounding.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '138'
@@ -3954,7 +3954,7 @@
       of operations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '144'
@@ -3983,7 +3983,7 @@
       and to prove relationships in geometric figures.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '648'
@@ -4012,7 +4012,7 @@
       data-generating process, e.g., using simulation.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '707'
@@ -4040,7 +4040,7 @@
     description: Conditional Probability and the Rules of Probability
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '713'
@@ -4068,7 +4068,7 @@
     description: Represent and interpret data.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '256'
@@ -4096,7 +4096,7 @@
     description: Expressions and Equations
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '433'
@@ -4124,7 +4124,7 @@
     description: Measurement and Data
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '69'
@@ -4153,7 +4153,7 @@
       same reasoning as in solving equations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '540'
@@ -4181,7 +4181,7 @@
     description: Model periodic phenomena with trigonometric functions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '613'
@@ -4211,7 +4211,7 @@
       shape.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '345'
@@ -4241,7 +4241,7 @@
       a circle given by an equation.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '667'
@@ -4269,7 +4269,7 @@
     description: Number and Operations—Fractions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '274'
@@ -4297,7 +4297,7 @@
     description: Number and Operations—Fractions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '168'
@@ -4326,7 +4326,7 @@
       and observational studies; explain how randomization relates to each.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '709'
@@ -4358,7 +4358,7 @@
       written method and explain the reasoning used.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '68'
@@ -4387,7 +4387,7 @@
       inscribed in a circle.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '638'
@@ -4418,7 +4418,7 @@
       values for x, where x is any real number.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '611'
@@ -4446,7 +4446,7 @@
     description: Reason quantitatively and use units to solve problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '472'
@@ -4474,7 +4474,7 @@
     description: Quantities
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '471'
@@ -4503,7 +4503,7 @@
       patterns in arithmetic.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '137'
@@ -4532,7 +4532,7 @@
       describe the rotations and reflections that carry it onto itself.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '625'
@@ -4560,7 +4560,7 @@
     description: Fluently add and subtract within 5.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '23'
@@ -4590,7 +4590,7 @@
       "how many less" problems using information presented in scaled bar graphs.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '150'
@@ -4620,7 +4620,7 @@
       fraction model.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '176'
@@ -4648,7 +4648,7 @@
     description: Solve systems of equations
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '550'
@@ -4677,7 +4677,7 @@
       parameters based on a random sample from that population.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '706'
@@ -4706,7 +4706,7 @@
       value and properties of operations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '101'
@@ -4738,7 +4738,7 @@
       and a probability near 1 indicates a likely event.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '403'
@@ -4766,7 +4766,7 @@
     description: Number and Operations in Base Ten
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '241'
@@ -4794,7 +4794,7 @@
     description: Expressing Geometric Properties with Equations
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '665'
@@ -4823,7 +4823,7 @@
       how it was measured and its units of measurement.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '351'
@@ -4853,7 +4853,7 @@
       of the model.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '723'
@@ -4882,7 +4882,7 @@
       forms to reveal and explain different properties of the function.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '577'
@@ -4910,7 +4910,7 @@
     description: Use place value understanding to round decimals to any place.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '248'
@@ -4938,7 +4938,7 @@
     description: Geometry
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '355'
@@ -4967,7 +4967,7 @@
       expressions and equations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '390'
@@ -4995,7 +4995,7 @@
     description: (+) Multiply a vector by a scalar.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '499'
@@ -5025,7 +5025,7 @@
       that the product of a nonzero rational number and an irrational number is irrational.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '470'
@@ -5054,7 +5054,7 @@
       and interpret statements that use function notation in terms of a context.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '564'
@@ -5085,7 +5085,7 @@
       of a function that has been described verbally.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '463'
@@ -5114,7 +5114,7 @@
       are available, and showing end behavior.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '574'
@@ -5144,7 +5144,7 @@
       as to produce an equivalent sum or difference of fractions with like denominators.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '276'
@@ -5172,7 +5172,7 @@
     description: Understand a fraction a/b with a > 1 as a sum of fractions 1/b.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '221'
@@ -5201,7 +5201,7 @@
       basis of the size of the other factor, without performing the indicated multiplication.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '284'
@@ -5229,7 +5229,7 @@
     description: Grade 8
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '412'
@@ -5259,7 +5259,7 @@
       quadrilaterals, pentagons, hexagons, and cubes.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '122'
@@ -5287,7 +5287,7 @@
     description: Reasoning with Equations and Inequalities
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '541'
@@ -5317,7 +5317,7 @@
       denominators 10 and 100.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '231'
@@ -5347,7 +5347,7 @@
       points on the line and in the plane with negative number coordinates.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '316'
@@ -5375,7 +5375,7 @@
     description: Gain familiarity with factors and multiples.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '185'
@@ -5404,7 +5404,7 @@
       (e.g., persons per square mile, BTUs per cubic foot).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '685'
@@ -5433,7 +5433,7 @@
       events.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '411'
@@ -5461,7 +5461,7 @@
     description: Trigonometric Functions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '607'
@@ -5490,7 +5490,7 @@
       or minimum value of the function it defines.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '520'
@@ -5522,7 +5522,7 @@
       seven, eight, or nine ones.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '26'
@@ -5550,7 +5550,7 @@
     description: Reason with shapes and their attributes.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '165'
@@ -5579,7 +5579,7 @@
       product testing, medical testing, pulling a hockey goalie at the end of a game).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '736'
@@ -5607,7 +5607,7 @@
     description: Geometry
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '33'
@@ -5635,7 +5635,7 @@
     description: Analyze functions using different representations
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '570'
@@ -5663,7 +5663,7 @@
     description: Convert like measurement units within a given measurement system.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '254'
@@ -5691,7 +5691,7 @@
     description: Generate and analyze patterns.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '187'
@@ -5721,7 +5721,7 @@
       distribution using the same graphical displays as for data distributions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '727'
@@ -5750,7 +5750,7 @@
       a ratio relationship between two quantities.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '300'
@@ -5779,7 +5779,7 @@
       area, surface area, and volume.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '360'
@@ -5807,7 +5807,7 @@
     description: Geometry
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '120'
@@ -5839,7 +5839,7 @@
       arrays, and/or area models.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '251'
@@ -5867,7 +5867,7 @@
     description: Understand subtraction as an unknown-addend problem.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '49'
@@ -5896,7 +5896,7 @@
       numerical expressions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '435'
@@ -5925,7 +5925,7 @@
       solve problems
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '597'
@@ -5956,7 +5956,7 @@
       and trends in the data.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '695'
@@ -5985,7 +5985,7 @@
       and use this relationship to solve problems involving logarithms and exponents.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '595'
@@ -6013,7 +6013,7 @@
     description: Fluently multiply multi-digit whole numbers using the standard algorithm.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '250'
@@ -6041,7 +6041,7 @@
     description: Write and evaluate numerical expressions involving whole-number exponents.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '328'
@@ -6070,7 +6070,7 @@
       shape of the data distribution and the context in which the data were gathered.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '353'
@@ -6099,7 +6099,7 @@
       volume to multiplication and to addition.'
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '258'
@@ -6128,7 +6128,7 @@
       to multiply and divide fractions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '278'
@@ -6157,7 +6157,7 @@
       end behavior, and trigonometric functions, showing period, midline, and amplitude.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '576'
@@ -6185,7 +6185,7 @@
     description: Understand and evaluate random processes underlying statistical experiments
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '705'
@@ -6213,7 +6213,7 @@
     description: Statistics and Probability
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '395'
@@ -6242,7 +6242,7 @@
       and minima.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '572'
@@ -6270,7 +6270,7 @@
     description: Use the structure of an expression to identify ways to rewrite it.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '516'
@@ -6299,7 +6299,7 @@
       and estimate solutions by graphing the equations. Solve simple cases by inspection.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '448'
@@ -6328,7 +6328,7 @@
       it defines.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '519'
@@ -6357,7 +6357,7 @@
       equation relating three whole numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '55'
@@ -6386,7 +6386,7 @@
       constant speed.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '304'
@@ -6414,7 +6414,7 @@
     description: Represent and solve problems involving addition and subtraction.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '84'
@@ -6443,7 +6443,7 @@
       and count to find the total number of them.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '123'
@@ -6473,7 +6473,7 @@
       6 ones. Understand the following as special cases:'
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '93'
@@ -6502,7 +6502,7 @@
       and expanded form.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '97'
@@ -6530,7 +6530,7 @@
     description: Interpret parts of an expression, such as terms, factors, and coefficients.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '514'
@@ -6558,7 +6558,7 @@
     description: Evaluate reports based on data.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '712'
@@ -6588,7 +6588,7 @@
       a number is the number itself, e.g., -(-3) = 3, and that 0 is its own opposite.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '317'
@@ -6616,7 +6616,7 @@
     description: Ratios and Proportional Relationships
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '298'
@@ -6644,7 +6644,7 @@
     description: Calculate expected values and use them to solve problems
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '726'
@@ -6676,7 +6676,7 @@
       scale) to represent the problem.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '148'
@@ -6706,7 +6706,7 @@
       centers by expressing it as a multiple of a measure of variability.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '400'
@@ -6737,7 +6737,7 @@
       a sequence that exhibits the similarity between them.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '421'
@@ -6768,7 +6768,7 @@
       areas or with the same area and different perimeters.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '163'
@@ -6797,7 +6797,7 @@
       such quotients.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '289'
@@ -6825,7 +6825,7 @@
     description: Use coordinates to prove simple geometric theorems algebraically.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '671'
@@ -6853,7 +6853,7 @@
     description: Interpret expressions that represent a quantity in terms of its context
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '513'
@@ -6881,7 +6881,7 @@
     description: Investigate patterns of association in bivariate data.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '451'
@@ -6909,7 +6909,7 @@
     description: Reason with shapes and their attributes.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '121'
@@ -6937,7 +6937,7 @@
     description: Rewrite rational expressions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '532'
@@ -6965,7 +6965,7 @@
     description: Reason with shapes and their attributes.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '78'
@@ -6996,7 +6996,7 @@
       of B given A is the same as the probability of B.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '717'
@@ -7026,7 +7026,7 @@
       how many times as much one is than the other.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '437'
@@ -7054,7 +7054,7 @@
     description: Apply trigonometry to general triangles
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '653'
@@ -7082,7 +7082,7 @@
     description: Prove theorems about lines and angles.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '633'
@@ -7110,7 +7110,7 @@
     description: Understand place value.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '92'
@@ -7138,7 +7138,7 @@
     description: Read, write, and compare decimals to thousandths.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '245'
@@ -7167,7 +7167,7 @@
       to the circle.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '662'
@@ -7196,7 +7196,7 @@
       and mathematical problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '365'
@@ -7225,7 +7225,7 @@
       2 to add 2).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '51'
@@ -7257,7 +7257,7 @@
       to measure angles.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '207'
@@ -7285,7 +7285,7 @@
     description: Fluently divide multi-digit numbers using the standard algorithm.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '311'
@@ -7314,7 +7314,7 @@
       formulas for the volume of a sphere and other solid figures.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '678'
@@ -7343,7 +7343,7 @@
       to payoff values and finding expected values.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '732'
@@ -7371,7 +7371,7 @@
     description: Reason about and solve one-variable equations and inequalities.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '335'
@@ -7400,7 +7400,7 @@
       or geometry software.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '414'
@@ -7429,7 +7429,7 @@
       understandings of operations on whole numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '220'
@@ -7457,7 +7457,7 @@
     description: Prove theorems about parallelograms.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '635'
@@ -7486,7 +7486,7 @@
       and compute such quotients.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '288'
@@ -7515,7 +7515,7 @@
       of bivariate measurement data, interpreting the slope and intercept.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '454'
@@ -7543,7 +7543,7 @@
     description: Use the four operations with whole numbers to solve problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '181'
@@ -7572,7 +7572,7 @@
       as by:'
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '349'
@@ -7600,7 +7600,7 @@
     description: Represent and interpret data.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '75'
@@ -7628,7 +7628,7 @@
     description: Tell and write time.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '73'
@@ -7657,7 +7657,7 @@
       multiplication and division.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '132'
@@ -7692,7 +7692,7 @@
       coordinates correspond (e.g., x-axis and x-coordinate, y-axis and y-coordinate).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '269'
@@ -7721,7 +7721,7 @@
       be represented by vectors.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '493'
@@ -7751,7 +7751,7 @@
       non-overlapping parts, applying this technique to solve real world problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '266'
@@ -7779,7 +7779,7 @@
     description: Work with radicals and integer exponents.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '434'
@@ -7810,7 +7810,7 @@
       a solution method.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '543'
@@ -7839,7 +7839,7 @@
       of Grade 2, know from memory all sums of two one-digit numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '87'
@@ -7869,7 +7869,7 @@
       take-apart, and compare problems using information presented in a bar graph.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '119'
@@ -7897,7 +7897,7 @@
     description: Geometry
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '77'
@@ -7929,7 +7929,7 @@
       >, =, or <, and justify the conclusions, e.g., by using a visual fraction model.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '219'
@@ -7957,7 +7957,7 @@
     description: Interpret functions that arise in applications in terms of the context
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '566'
@@ -7986,7 +7986,7 @@
       properties to add, subtract, and multiply complex numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '479'
@@ -8016,7 +8016,7 @@
       two forms.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '587'
@@ -8044,7 +8044,7 @@
     description: Add and subtract within 20.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '86'
@@ -8073,7 +8073,7 @@
       of their lines and angles.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '212'
@@ -8103,7 +8103,7 @@
       each category, and how many more or less are in one category than in another.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '76'
@@ -8136,7 +8136,7 @@
       to the effect of multiplying a/b by 1.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '285'
@@ -8165,7 +8165,7 @@
       and mathematical problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '202'
@@ -8193,7 +8193,7 @@
     description: Number and Operations in Base Ten
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '140'
@@ -8221,7 +8221,7 @@
     description: Define appropriate quantities for the purpose of descriptive modeling.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '474'
@@ -8250,7 +8250,7 @@
       to divide fractions by fractions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '308'
@@ -8281,7 +8281,7 @@
       divide rational expressions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '534'
@@ -8312,7 +8312,7 @@
       onto another.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '627'
@@ -8341,7 +8341,7 @@
       and observational studies
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '708'
@@ -8370,7 +8370,7 @@
       three-dimensional ("solid").
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '37'
@@ -8403,7 +8403,7 @@
       scale.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '201'
@@ -8431,7 +8431,7 @@
     description: Use equivalent fractions as a strategy to add and subtract fractions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '275'
@@ -8459,7 +8459,7 @@
     description: High School — Algebra
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '510'
@@ -8489,7 +8489,7 @@
       equation to express an even number as a sum of two equal addends.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '89'
@@ -8517,7 +8517,7 @@
     description: Use decimal notation for fractions with denominators 10 or 100.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '232'
@@ -8545,7 +8545,7 @@
     description: Perform operations on matrices and use matrices in applications.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '502'
@@ -8576,7 +8576,7 @@
       of comparisons.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '192'
@@ -8605,7 +8605,7 @@
       indirectly by using a third object.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '71'
@@ -8635,7 +8635,7 @@
       associative and distributive properties.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '506'
@@ -8668,7 +8668,7 @@
       exponential, and logarithmic functions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '558'
@@ -8697,7 +8697,7 @@
       angles.'
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '205'
@@ -8729,7 +8729,7 @@
       horizontal stretch).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '624'
@@ -8757,7 +8757,7 @@
     description: Number and Operations in Base Ten
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '91'
@@ -8787,7 +8787,7 @@
       or perpendicular to a given line that passes through a given point).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '672'
@@ -8816,7 +8816,7 @@
       relationships between them.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '356'
@@ -8845,7 +8845,7 @@
       the properties of exponents.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '468'
@@ -8873,7 +8873,7 @@
     description: Measurement and Data
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '253'
@@ -8902,7 +8902,7 @@
       angles.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '651'
@@ -8932,7 +8932,7 @@
       in minutes, e.g., by representing the problem on a number line diagram.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '147'
@@ -8960,7 +8960,7 @@
     description: Add and subtract within 20.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '50'
@@ -8990,7 +8990,7 @@
       equations with a symbol for the unknown number to represent the problem.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '46'
@@ -9018,7 +9018,7 @@
     description: Perform arithmetic operations on polynomials
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '524'
@@ -9052,7 +9052,7 @@
       to compose a ten.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '66'
@@ -9081,7 +9081,7 @@
       size.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '36'
@@ -9110,7 +9110,7 @@
       equations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '442'
@@ -9141,7 +9141,7 @@
       of a sector.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '664'
@@ -9171,7 +9171,7 @@
       compound event occurs.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '409'
@@ -9200,7 +9200,7 @@
       by restricting the domain.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '594'
@@ -9228,7 +9228,7 @@
     description: The Complex Number System
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '476'
@@ -9257,7 +9257,7 @@
       value and the properties of operations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '104'
@@ -9287,7 +9287,7 @@
       non-overlapping parts, applying this technique to solve real world problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '161'
@@ -9315,7 +9315,7 @@
     description: Expressions and Equations
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '326'
@@ -9344,7 +9344,7 @@
       of an initial point from the coordinates of a terminal point.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '492'
@@ -9373,7 +9373,7 @@
       position of two numbers on a number line diagram.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '321'
@@ -9401,7 +9401,7 @@
     description: Congruence
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '621'
@@ -9431,7 +9431,7 @@
       total as a sum of equal addends.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '90'
@@ -9462,7 +9462,7 @@
       objects.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '13'
@@ -9491,7 +9491,7 @@
       interpret numerical expressions without evaluating them.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '238'
@@ -9522,7 +9522,7 @@
       unit. Record measurement equivalents in a two column table.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '200'
@@ -9550,7 +9550,7 @@
     description: Evaluate and compare strategies on the basis of expected values.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '734'
@@ -9579,7 +9579,7 @@
       magnitude and direction of their sum.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '497'
@@ -9608,7 +9608,7 @@
       with rational numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '385'
@@ -9636,7 +9636,7 @@
     description: Distinguish between correlation and causation.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '703'
@@ -9666,7 +9666,7 @@
       with a drawing or equation.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '22'
@@ -9697,7 +9697,7 @@
       triangles.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '214'
@@ -9727,7 +9727,7 @@
       e.g., as c(v<sub>x</sub>, v<sub>y</sub>) = (cv<sub>x</sub>, cv<sub>y</sub>).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '500'
@@ -9761,7 +9761,7 @@
       equivalent 6 + 6 + 1 = 12 + 1 = 13).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '52'
@@ -9790,7 +9790,7 @@
       for quadratic polynomials.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '488'
@@ -9819,7 +9819,7 @@
       a fraction or whole number by a fraction.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '280'
@@ -9850,7 +9850,7 @@
       exponents to denote powers of 10.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '244'
@@ -9878,7 +9878,7 @@
     description: Number and Operations—Fractions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '216'
@@ -9908,7 +9908,7 @@
       are any numbers, with coefficients determined for example by Pascal's Triangle.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '531'
@@ -9939,7 +9939,7 @@
       the number 1/b on the number line.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '172'
@@ -9970,7 +9970,7 @@
       attributes (e.g., having sides of equal length).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '39'
@@ -10000,7 +10000,7 @@
       and polar forms of a given complex number represent the same number.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '482'
@@ -10029,7 +10029,7 @@
       (instead of having to begin at 1).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '6'
@@ -10059,7 +10059,7 @@
       rate of change from a graph.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '569'
@@ -10087,7 +10087,7 @@
     description: Creating Equations
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '535'
@@ -10116,7 +10116,7 @@
       that the decimal form of a rational number terminates in 0s or eventually repeats.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '384'
@@ -10145,7 +10145,7 @@
       objects
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '680'
@@ -10175,7 +10175,7 @@
       of angles traversed counterclockwise around the unit circle.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '610'
@@ -10203,7 +10203,7 @@
     description: Extend the counting sequence.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '57'
@@ -10232,7 +10232,7 @@
       using the standard algorithm for each operation.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '312'
@@ -10261,7 +10261,7 @@
       algorithm.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '195'
@@ -10290,7 +10290,7 @@
       rational numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '379'
@@ -10321,7 +10321,7 @@
       3, know from memory all products of two one-digit numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '136'
@@ -10353,7 +10353,7 @@
       examples, a computer algebra system.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '533'
@@ -10382,7 +10382,7 @@
       to all outcomes, and use the model to determine probabilities of events.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '406'
@@ -10413,7 +10413,7 @@
       b for a line intercepting the vertical axis at b.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '441'
@@ -10441,7 +10441,7 @@
     description: The Number System
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '307'
@@ -10471,7 +10471,7 @@
       a horizontal or vertical number line diagram.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '375'
@@ -10499,7 +10499,7 @@
     description: Prove polynomial identities and use them to describe numerical relationships.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '530'
@@ -10527,7 +10527,7 @@
     description: Apply geometric concepts in modeling situations
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '683'
@@ -10556,7 +10556,7 @@
       and expand linear expressions with rational coefficients.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '388'
@@ -10585,7 +10585,7 @@
       AA criterion for two triangles to be similar.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '645'
@@ -10613,7 +10613,7 @@
     description: Find inverse functions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '590'
@@ -10641,7 +10641,7 @@
     description: Compare two numbers between 1 and 10 presented as written numerals.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '16'
@@ -10669,7 +10669,7 @@
     description: Use random sampling to draw inferences about a population.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '396'
@@ -10698,7 +10698,7 @@
       amplitude, frequency, and midline.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '614'
@@ -10726,7 +10726,7 @@
     description: Geometry
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '413'
@@ -10754,7 +10754,7 @@
     description: Represent and model with vector quantities.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '490'
@@ -10785,7 +10785,7 @@
       which repeats eventually into a rational number.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '431'
@@ -10813,7 +10813,7 @@
     description: (+) Verify by composition that one function is the inverse of another.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '592'
@@ -10842,7 +10842,7 @@
       parts as a single entity.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '515'
@@ -10871,7 +10871,7 @@
       between addition and subtraction.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '47'
@@ -10902,7 +10902,7 @@
       problem.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '112'
@@ -10930,7 +10930,7 @@
     description: Modeling with Geometry
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '682'
@@ -10959,7 +10959,7 @@
       of time, liquid volumes, and masses of objects.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '146'
@@ -10989,7 +10989,7 @@
       ÷ b.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '281'
@@ -11017,7 +11017,7 @@
     description: Extend understanding of fraction equivalence and ordering.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '217'
@@ -11045,7 +11045,7 @@
     description: Make geometric constructions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '636'
@@ -11073,7 +11073,7 @@
     description: Solve quadratic equations in one variable.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '547'
@@ -11101,7 +11101,7 @@
     description: Understand and apply theorems about circles
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '658'
@@ -11133,7 +11133,7 @@
       in real-world contexts, explaining the meaning of 0 in each situation.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '315'
@@ -11161,7 +11161,7 @@
     description: Find arc lengths and areas of sectors of circles
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '663'
@@ -11189,7 +11189,7 @@
     description: (+) Add, subtract, and multiply matrices of appropriate dimensions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '505'
@@ -11218,7 +11218,7 @@
       step functions and absolute value functions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '573'
@@ -11247,7 +11247,7 @@
       rays share a common endpoint, and understand concepts of angle measurement:'
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '206'
@@ -11279,7 +11279,7 @@
       and b.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '549'
@@ -11308,7 +11308,7 @@
       within 10, e.g., by using objects or drawings to represent the problem.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '20'
@@ -11337,7 +11337,7 @@
       and multiples.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '310'
@@ -11365,7 +11365,7 @@
     description: Solve linear equations in one variable.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '443'
@@ -11393,7 +11393,7 @@
     description: Represent and interpret data.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '117'
@@ -11422,7 +11422,7 @@
       the unit circle subtended by the angle.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '609'
@@ -11452,7 +11452,7 @@
       Derive the quadratic formula from this form.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '548'
@@ -11481,7 +11481,7 @@
       model
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '605'
@@ -11510,7 +11510,7 @@
       to any place.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '193'
@@ -11539,7 +11539,7 @@
       them by rational numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '430'
@@ -11570,7 +11570,7 @@
       Determine whether a given whole number in the range 1—100 is prime or composite.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '186'
@@ -11599,7 +11599,7 @@
       right triangles in real-world and mathematical problems in two and three dimensions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '425'
@@ -11627,7 +11627,7 @@
     description: Use functions to model relationships between quantities.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '461'
@@ -11656,7 +11656,7 @@
       suitable factorizations are available, and showing end behavior.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '575'
@@ -11686,7 +11686,7 @@
       given a part and the percent.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '305'
@@ -11716,7 +11716,7 @@
       formed by a parts of size 1/b.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '170'
@@ -11744,7 +11744,7 @@
     description: Find the expected payoff for a game of chance.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '733'
@@ -11774,7 +11774,7 @@
       if (x - a) is a factor of p(x).'
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '527'
@@ -11803,7 +11803,7 @@
       in real-world contexts.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '322'
@@ -11831,7 +11831,7 @@
     description: Use polynomial identities to solve problems
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '529'
@@ -11860,7 +11860,7 @@
       and linear equations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '439'
@@ -11889,7 +11889,7 @@
       rate per unit interval relative to another.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '600'
@@ -11918,7 +11918,7 @@
       equations, diagrams, and verbal descriptions of proportional relationships.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '369'
@@ -11946,7 +11946,7 @@
     description: Geometry
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '211'
@@ -11976,7 +11976,7 @@
       whole-number sums and differences within 100 on a number line diagram.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '113'
@@ -12004,7 +12004,7 @@
     description: Linear, Quadratic, and Exponential Models
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '596'
@@ -12032,7 +12032,7 @@
     description: Build new functions from existing functions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '588'
@@ -12060,7 +12060,7 @@
     description: Counting and Cardinality
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '3'
@@ -12089,7 +12089,7 @@
       percent rate per unit interval relative to another.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '601'
@@ -12118,7 +12118,7 @@
       clocks.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '74'
@@ -12147,7 +12147,7 @@
       in a vector variable.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '554'
@@ -12175,7 +12175,7 @@
     description: Represent and solve equations and inequalities graphically
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '556'
@@ -12205,7 +12205,7 @@
       cut by a transversal, and the angle-angle criterion for similarity of triangles.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '422'
@@ -12233,7 +12233,7 @@
     description: Represent and solve problems involving multiplication and division.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '127'
@@ -12263,7 +12263,7 @@
       and 0 ones).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '95'
@@ -12293,7 +12293,7 @@
       angle in a figure.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '362'
@@ -12321,7 +12321,7 @@
     description: Classify objects and count the number of objects in each category.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '31'
@@ -12351,7 +12351,7 @@
       ratios for acute angles.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '650'
@@ -12381,7 +12381,7 @@
       solution set of the inequality and interpret it in the context of the problem.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '394'
@@ -12410,7 +12410,7 @@
       standing for numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '330'
@@ -12439,7 +12439,7 @@
       10 or 100.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '142'
@@ -12467,7 +12467,7 @@
     description: Perform arithmetic operations with complex numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '477'
@@ -12495,7 +12495,7 @@
     description: Operations and Algebraic Thinking
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '83'
@@ -12525,7 +12525,7 @@
       3 or greater).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '555'
@@ -12554,7 +12554,7 @@
       four, five, six, seven, eight, or nine ones.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '62'
@@ -12586,7 +12586,7 @@
       graph of the equation y = f(x).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '563'
@@ -12614,7 +12614,7 @@
     description: Operations and Algebraic Thinking
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '43'
@@ -12643,7 +12643,7 @@
       of a linear fit.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '702'
@@ -12671,7 +12671,7 @@
     description: Define, evaluate, and compare functions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '457'
@@ -12699,7 +12699,7 @@
     description: Relate area to the operations of multiplication and addition.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '157'
@@ -12728,7 +12728,7 @@
       develop a margin of error through the use of simulation models for random sampling.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '710'
@@ -12760,7 +12760,7 @@
       samples and support valid inferences.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '397'
@@ -12788,7 +12788,7 @@
     description: Classify two-dimensional figures into categories based on their properties.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '271'
@@ -12821,7 +12821,7 @@
       compose or decompose tens or hundreds.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '102'
@@ -12849,7 +12849,7 @@
     description: Making Inferences and Justifying Conclusions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '704'
@@ -12879,7 +12879,7 @@
       of the angle.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '618'
@@ -12910,7 +12910,7 @@
       mathematical problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '294'
@@ -12939,7 +12939,7 @@
       and explain properties of the quantity represented by the expression.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '518'
@@ -12968,7 +12968,7 @@
       rational numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '383'
@@ -12996,7 +12996,7 @@
     description: Understand similarity in terms of similarity transformations
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '640'
@@ -13024,7 +13024,7 @@
     description: Represent and solve problems involving addition and subtraction.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '44'
@@ -13052,7 +13052,7 @@
     description: Count to 100 by ones and by tens.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '5'
@@ -13080,7 +13080,7 @@
     description: Draw informal comparative inferences about two populations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '399'
@@ -13109,7 +13109,7 @@
       when all of the payoffs in a game are doubled.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '504'
@@ -13137,7 +13137,7 @@
     description: Using Probability to Make Decisions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '725'
@@ -13166,7 +13166,7 @@
       equations with coefficients represented by letters.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '546'
@@ -13194,7 +13194,7 @@
     description: Apply properties of operations as strategies to multiply and divide.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '133'
@@ -13222,7 +13222,7 @@
     description: Understand the concept of a function and use function notation
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '562'
@@ -13252,7 +13252,7 @@
       model.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '721'
@@ -13283,7 +13283,7 @@
       reference to the context in which the data were gathered.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '352'
@@ -13311,7 +13311,7 @@
     description: Ratios and Proportional Relationships
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '364'
@@ -13340,7 +13340,7 @@
       to interpret data
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '714'
@@ -13369,7 +13369,7 @@
       table or multiplication table), and explain them using properties of operations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '139'
@@ -13398,7 +13398,7 @@
       angles of specified measure.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '209'
@@ -13426,7 +13426,7 @@
     description: Number and Operations in Base Ten
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '189'
@@ -13455,7 +13455,7 @@
       and subtract.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '65'
@@ -13484,7 +13484,7 @@
       context can shed light on the problem and how the quantities in it are related.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '389'
@@ -13514,7 +13514,7 @@
       as a single entity.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '331'
@@ -13543,7 +13543,7 @@
       have "one cubic unit" of volume, and can be used to measure volume.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '260'
@@ -13573,7 +13573,7 @@
       representation for computation.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '483'
@@ -13604,7 +13604,7 @@
       of such inequalities on number line diagrams.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '339'
@@ -13636,7 +13636,7 @@
       even and odd functions from their graphs and algebraic expressions for them.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '589'
@@ -13664,7 +13664,7 @@
     description: Understand the place value system.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '242'
@@ -13693,7 +13693,7 @@
       expressions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '327'
@@ -13723,7 +13723,7 @@
       and (1, r) where r is the unit rate.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '371'
@@ -13754,7 +13754,7 @@
       of solving real-world and mathematical problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '296'
@@ -13783,7 +13783,7 @@
       represents ten times what it represents in the place to its right.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '191'
@@ -13811,7 +13811,7 @@
     description: Reporting the number of observations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '350'
@@ -13840,7 +13840,7 @@
       interpret the answer in terms of the model.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '722'
@@ -13868,7 +13868,7 @@
     description: Number and Operations in Base Ten
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '56'
@@ -13901,7 +13901,7 @@
       a given line through a point not on the line.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '637'
@@ -13930,7 +13930,7 @@
       that partitions the segment in a given ratio.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '673'
@@ -13960,7 +13960,7 @@
       it represents in the place to its left.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '243'
@@ -13989,7 +13989,7 @@
       on a number line diagram.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '171'
@@ -14020,7 +14020,7 @@
       the appropriate order, and perform vector subtraction component-wise.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '498'
@@ -14049,7 +14049,7 @@
       use simulations to decide if differences between parameters are significant.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '711'
@@ -14077,7 +14077,7 @@
     description: Develop understanding of fractions as numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '169'
@@ -14107,7 +14107,7 @@
       all nonnegative rational numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '338'
@@ -14136,7 +14136,7 @@
       tens, and ones digits, using >, =, and < symbols to record the results of comparisons.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '98'
@@ -14165,7 +14165,7 @@
       give examples showing how extraneous solutions may arise.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '544'
@@ -14193,7 +14193,7 @@
     description: Seeing Structure in Expressions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '511'
@@ -14222,7 +14222,7 @@
       to have "one square unit" of area, and can be used to measure area.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '154'
@@ -14253,7 +14253,7 @@
       principle in real-world contexts.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '378'
@@ -14281,7 +14281,7 @@
     description: Solve equations and inequalities in one variable
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '545'
@@ -14311,7 +14311,7 @@
       of the numbers at its endpoints.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '484'
@@ -14341,7 +14341,7 @@
       how its values vary with a single number.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '346'
@@ -14369,7 +14369,7 @@
     description: Understand division as an unknown-factor problem.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '134'
@@ -14399,7 +14399,7 @@
       samples) of the same size to gauge the variation in estimates or predictions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '398'
@@ -14427,7 +14427,7 @@
     description: Develop understanding of statistical variability.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '343'
@@ -14455,7 +14455,7 @@
     description: Geometric Measurement and Dimension
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '675'
@@ -14486,7 +14486,7 @@
       the closeness of the data points to the line.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '453'
@@ -14515,7 +14515,7 @@
       evaluate expressions with these symbols.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '237'
@@ -14544,7 +14544,7 @@
       of tens and ones. Understand the following as special cases:'
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '60'
@@ -14576,7 +14576,7 @@
       Operations).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '332'
@@ -14607,7 +14607,7 @@
       Interpret sums of rational numbers by describing real-world contexts.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '377'
@@ -14635,7 +14635,7 @@
     description: Define trigonometric ratios and solve problems involving right triangles
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '649'
@@ -14664,7 +14664,7 @@
       each part as a unit fraction of the whole.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '167'
@@ -14692,7 +14692,7 @@
     description: Understand the relationship between zeros and factors of polynomials
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '526'
@@ -14725,7 +14725,7 @@
       of solving real-world and mathematical problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '295'
@@ -14757,7 +14757,7 @@
       of answers using mental computation and estimation strategies.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '391'
@@ -14785,7 +14785,7 @@
     description: Geometry
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '164'
@@ -14814,7 +14814,7 @@
       compound events and solve problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '724'
@@ -14842,7 +14842,7 @@
     description: Prove theorems involving similarity
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '646'
@@ -14870,7 +14870,7 @@
     description: Represent and interpret data.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '149'
@@ -14899,7 +14899,7 @@
       figures and distinguish between linear and area measures.'
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '162'
@@ -14929,7 +14929,7 @@
       property and collecting like terms.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '445'
@@ -14961,7 +14961,7 @@
       numbers by describing real-world contexts.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '381'
@@ -14989,7 +14989,7 @@
     description: Recognize and represent proportional relationships between quantities.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '367'
@@ -15017,7 +15017,7 @@
     description: Write expressions in equivalent forms to solve problems
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '517'
@@ -15046,7 +15046,7 @@
       and rectangles, e.g., using the distance formula.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '674'
@@ -15076,7 +15076,7 @@
       plane and observing whether the graph is a straight line through the origin.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '368'
@@ -15105,7 +15105,7 @@
       the reasoning
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '542'
@@ -15134,7 +15134,7 @@
       of a context.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '606'
@@ -15162,7 +15162,7 @@
     description: Distinguish comparisons of absolute value from statements about order.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '324'
@@ -15192,7 +15192,7 @@
       with typographic grid systems based on ratios).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '686'
@@ -15221,7 +15221,7 @@
       parts referring to the same whole.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '222'
@@ -15249,7 +15249,7 @@
     description: Grade 3
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '125'
@@ -15278,7 +15278,7 @@
       it as the mean of the probability distribution.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '728'
@@ -15306,7 +15306,7 @@
     description: Work with time and money.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '114'
@@ -15336,7 +15336,7 @@
       this characterization to determine if they are independent.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '716'
@@ -15365,7 +15365,7 @@
       follow from the definition of congruence in terms of rigid motions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '631'
@@ -15393,7 +15393,7 @@
     description: Geometry
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '292'
@@ -15422,7 +15422,7 @@
       to add, subtract, multiply, and divide rational numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '374'
@@ -15451,7 +15451,7 @@
       fractions by whole numbers and whole numbers by unit fractions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '287'
@@ -15479,7 +15479,7 @@
     description: Interpreting Categorical and Quantitative Data
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '688'
@@ -15508,7 +15508,7 @@
       problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '372'
@@ -15537,7 +15537,7 @@
       variables
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '694'
@@ -15568,7 +15568,7 @@
       Know that √2 is irrational.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '436'
@@ -15596,7 +15596,7 @@
     description: Compose simple shapes to form larger shapes.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '41'
@@ -15625,7 +15625,7 @@
       and translations:'
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '415'
@@ -15657,7 +15657,7 @@
       for rows or columns to describe possible association between the two variables.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '455'
@@ -15689,7 +15689,7 @@
       arrays, and/or area models.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '197'
@@ -15718,7 +15718,7 @@
       transform units appropriately when multiplying or dividing quantities.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '306'
@@ -15749,7 +15749,7 @@
       set.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '337'
@@ -15777,7 +15777,7 @@
     description: Circles
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '657'
@@ -15806,7 +15806,7 @@
       a conic section
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '666'
@@ -15835,7 +15835,7 @@
       numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '329'
@@ -15863,7 +15863,7 @@
     description: Prove that all circles are similar.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '659'
@@ -15893,7 +15893,7 @@
       matching and counting strategies.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '15'
@@ -15923,7 +15923,7 @@
       fraction models and equations to represent the problem.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '225'
@@ -15951,7 +15951,7 @@
     description: High School — Statistics and Probability
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '687'
@@ -15982,7 +15982,7 @@
       to create a composite shape, and compose new shapes from the composite shape.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '80'
@@ -16010,7 +16010,7 @@
     description: Explain a proof of the Pythagorean Theorem and its converse.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '424'
@@ -16039,7 +16039,7 @@
       term) of a linear model in the context of the data.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '701'
@@ -16068,7 +16068,7 @@
       in the data related to the question and accounts for it in the answers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '344'
@@ -16099,7 +16099,7 @@
       across one or both axes.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '318'
@@ -16129,7 +16129,7 @@
       objects.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '681'
@@ -16159,7 +16159,7 @@
       two input-output pairs (include reading these from a table).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '602'
@@ -16188,7 +16188,7 @@
       whose graph is a straight line; give examples of functions that are not linear.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '460'
@@ -16218,7 +16218,7 @@
       as a polynomial function.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '603'
@@ -16246,7 +16246,7 @@
     description: Describe and compare measurable attributes.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '28'
@@ -16274,7 +16274,7 @@
     description: Operations and Algebraic Thinking
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '235'
@@ -16304,7 +16304,7 @@
       problems involving information presented in line plots.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '257'
@@ -16332,7 +16332,7 @@
     description: ROOT
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: ''
@@ -16360,7 +16360,7 @@
     description: Measure lengths indirectly and by iterating length units.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '70'
@@ -16390,7 +16390,7 @@
       of two or more different data sets.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '691'
@@ -16420,7 +16420,7 @@
       expected value.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '730'
@@ -16448,7 +16448,7 @@
     description: Build a function that models a relationship between two quantities
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '582'
@@ -16477,7 +16477,7 @@
       solve real world and mathematical problems involving volume.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '263'
@@ -16506,7 +16506,7 @@
       objects (e.g., modeling a tree trunk or a human torso as a cylinder).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '684'
@@ -16534,7 +16534,7 @@
     description: The Number System
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '429'
@@ -16566,7 +16566,7 @@
       fraction model.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '178'
@@ -16594,7 +16594,7 @@
     description: 100 can be thought of as a bundle of ten tens — called a "hundred."
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '94'
@@ -16623,7 +16623,7 @@
       events in a uniform probability model
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '720'
@@ -16655,7 +16655,7 @@
       using mental computation and estimation strategies including rounding.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '184'
@@ -16685,7 +16685,7 @@
       choose and interpret the scale and the origin in graphs and data displays.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '473'
@@ -16713,7 +16713,7 @@
     description: Understand place value.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '59'
@@ -16742,7 +16742,7 @@
       models.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '402'
@@ -16773,7 +16773,7 @@
       equations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '182'
@@ -16803,7 +16803,7 @@
       addition and subtraction.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '143'
@@ -16833,7 +16833,7 @@
       of fractions by using information presented in line plots.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '204'
@@ -16862,7 +16862,7 @@
       three, four, five, six, seven, eight, or nine tens (and 0 ones).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '63'
@@ -16891,7 +16891,7 @@
       intervals, and that exponential functions grow by equal factors over equal intervals.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '599'
@@ -16924,7 +16924,7 @@
       table of values.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '462'
@@ -16956,7 +16956,7 @@
       reasonableness of answers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '277'
@@ -16986,7 +16986,7 @@
       the size of the unit chosen.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '108'
@@ -17015,7 +17015,7 @@
       to a parallel line, and leaves a line passing through the center unchanged.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '642'
@@ -17044,7 +17044,7 @@
       independence in everyday language and everyday situations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '719'
@@ -17073,7 +17073,7 @@
       equations in two variables.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '449'
@@ -17103,7 +17103,7 @@
       and represent whole-number products as rectangular areas in mathematical reasoning.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '159'
@@ -17133,7 +17133,7 @@
       and corresponding pairs of angles are congruent.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '630'
@@ -17164,7 +17164,7 @@
       with a symbol for the unknown number to represent the problem.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '45'
@@ -17193,7 +17193,7 @@
       in, square ft, and improvised units).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '156'
@@ -17221,7 +17221,7 @@
     description: Use properties of rational and irrational numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '469'
@@ -17249,7 +17249,7 @@
     description: The Real Number System
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '465'
@@ -17278,7 +17278,7 @@
       interpret the absolute value of the determinant in terms of area.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '509'
@@ -17307,7 +17307,7 @@
       expressing the length difference in terms of a standard length unit.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '110'
@@ -17335,7 +17335,7 @@
     description: Create equations that describe numbers or relationships
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '536'
@@ -17364,7 +17364,7 @@
       multi-digit arithmetic.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '141'
@@ -17392,7 +17392,7 @@
     description: Classify two-dimensional figures in a hierarchy based on properties.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '273'
@@ -17422,7 +17422,7 @@
       size); build and draw shapes to possess defining attributes.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '79'
@@ -17451,7 +17451,7 @@
       number has the form a + bi with a and b real.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '478'
@@ -17480,7 +17480,7 @@
       of the data sets, accounting for possible effects of extreme data points (outliers).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '692'
@@ -17509,7 +17509,7 @@
       and perpendicular and parallel lines. Identify these in two-dimensional figures.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '213'
@@ -17541,7 +17541,7 @@
       spreading). Interpret scientific notation that has been generated by technology.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '438'
@@ -17571,7 +17571,7 @@
       on the coordinate plane. Use tables to compare ratios.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '303'
@@ -17599,7 +17599,7 @@
     description: (+) Extend polynomial identities to the complex numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '487'
@@ -17628,7 +17628,7 @@
       using a random number generator).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '735'
@@ -17657,7 +17657,7 @@
       terms of angles, circles, perpendicular lines, parallel lines, and line segments.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '626'
@@ -17689,7 +17689,7 @@
       equal shares creates smaller shares.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '81'
@@ -17718,7 +17718,7 @@
       variable
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '689'
@@ -17746,7 +17746,7 @@
     description: Statistics and Probability
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '342'
@@ -17775,7 +17775,7 @@
       has an inverse and write an expression for the inverse.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '591'
@@ -17806,7 +17806,7 @@
       of rational numbers by describing real-world contexts.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '382'
@@ -17834,7 +17834,7 @@
     description: (+) Add and subtract vectors.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '495'
@@ -17865,7 +17865,7 @@
       has a multiplicative inverse.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '507'
@@ -17895,7 +17895,7 @@
       parts. Identify line-symmetric figures and draw lines of symmetry.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '215'
@@ -17923,7 +17923,7 @@
     description: Explain volume formulas and use them to solve problems
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '676'
@@ -17951,7 +17951,7 @@
     description: Analyze patterns and relationships.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '239'
@@ -17980,7 +17980,7 @@
       the common ratio is not 1), and use the formula to solve problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '522'
@@ -18010,7 +18010,7 @@
       units.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '366'
@@ -18038,7 +18038,7 @@
     description: Multiply and divide within 100.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '135'
@@ -18067,7 +18067,7 @@
       and of fractions to multiply and divide rational numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '380'
@@ -18095,7 +18095,7 @@
     description: Estimate lengths using units of inches, feet, centimeters, and meters.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '109'
@@ -18123,7 +18123,7 @@
     description: Work with addition and subtraction equations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '53'
@@ -18152,7 +18152,7 @@
       equation in two variables algebraically and graphically.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '553'
@@ -18181,7 +18181,7 @@
       data from random samples to draw informal comparative inferences about two populations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '401'
@@ -18212,7 +18212,7 @@
       same second coordinate.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '325'
@@ -18241,7 +18241,7 @@
       10 or 100 from a given number 100—900.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '103'
@@ -18273,7 +18273,7 @@
       problem.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '85'
@@ -18302,7 +18302,7 @@
       in each category and sort the categories by count.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '32'
@@ -18330,7 +18330,7 @@
     description: Experiment with transformations in the plane
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '622'
@@ -18360,7 +18360,7 @@
       these techniques in the context of solving real-world and mathematical problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '297'
@@ -18389,7 +18389,7 @@
       functions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '521'
@@ -18418,7 +18418,7 @@
       and a scale factor:'
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '641'
@@ -18448,7 +18448,7 @@
       and predict the approximate relative frequency given the probability.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '404'
@@ -18477,7 +18477,7 @@
       a fraction by a whole number.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '226'
@@ -18508,7 +18508,7 @@
       fraction models or equations to represent the problem.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '279'
@@ -18537,7 +18537,7 @@
       graph, by hand in simple cases and using technology for more complicated cases.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '571'
@@ -18568,7 +18568,7 @@
       that equal shares of identical wholes need not have the same shape.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '124'
@@ -18598,7 +18598,7 @@
       is not good, explain possible sources of the discrepancy.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '405'
@@ -18628,7 +18628,7 @@
       a system with the same solutions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '551'
@@ -18659,7 +18659,7 @@
       identifying the sequence of the operations used in each approach.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '393'
@@ -18687,7 +18687,7 @@
     description: Work with numbers 11—19 to gain foundations for place value.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '25'
@@ -18716,7 +18716,7 @@
       given by the scale factor.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '643'
@@ -18746,7 +18746,7 @@
       these in terms of a context.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '578'
@@ -18775,7 +18775,7 @@
       tools such as rulers, yardsticks, meter sticks, and measuring tapes.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '107'
@@ -18804,7 +18804,7 @@
       five minutes, using a.m. and p.m.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '115'
@@ -18832,7 +18832,7 @@
     description: Use properties of operations to generate equivalent expressions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '387'
@@ -18860,7 +18860,7 @@
     description: Count within 1000; skip-count by 5s, 10s, and 100s.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '96'
@@ -18890,7 +18890,7 @@
       rational numbers on a coordinate plane.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '319'
@@ -18919,7 +18919,7 @@
       concepts of volume measurement.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '259'
@@ -18949,7 +18949,7 @@
       one and only one object.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '10'
@@ -18980,7 +18980,7 @@
       length units that span it with no gaps or overlaps.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '72'
@@ -19009,7 +19009,7 @@
       apparent features of the pattern that were not explicit in the rule itself.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '188'
@@ -19037,7 +19037,7 @@
     description: Similarity, Right Triangles, and Trigonometry
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '639'
@@ -19070,7 +19070,7 @@
       to the equation.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '341'
@@ -19099,7 +19099,7 @@
       to the quantitative relationship it describes.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '568'
@@ -19128,7 +19128,7 @@
       and use them to solve real-world and mathematical problems.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '428'
@@ -19156,7 +19156,7 @@
     description: Interpreting Functions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '561'
@@ -19184,7 +19184,7 @@
     description: Understand decimal notation for fractions, and compare decimal fractions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '230'
@@ -19215,7 +19215,7 @@
       if they are congruent.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '629'
@@ -19244,7 +19244,7 @@
       describe how the variables are related.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '696'
@@ -19273,7 +19273,7 @@
       of area measurement.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '153'
@@ -19302,7 +19302,7 @@
       subtraction as taking apart and taking from.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '18'
@@ -19330,7 +19330,7 @@
     description: Interpret linear models
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '700'
@@ -19358,7 +19358,7 @@
     description: Number and Operations in Base Ten
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '24'
@@ -19386,7 +19386,7 @@
     description: 'Interpret multiplication as scaling (resizing), by:'
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '283'
@@ -19415,7 +19415,7 @@
       written numeral 0-20 (with 0 representing a count of no objects).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '7'
@@ -19443,7 +19443,7 @@
     description: Interpret the structure of expressions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '512'
@@ -19471,7 +19471,7 @@
     description: Functions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '456'
@@ -19503,7 +19503,7 @@
       and draw examples of quadrilaterals that do not belong to any of these subcategories.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '166'
@@ -19533,7 +19533,7 @@
       in different ways.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '440'
@@ -19563,7 +19563,7 @@
       in front of, behind, and next to.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '35'
@@ -19591,7 +19591,7 @@
     description: Analyze and solve pairs of simultaneous linear equations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '446'
@@ -19620,7 +19620,7 @@
       when reporting quantities.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '475'
@@ -19650,7 +19650,7 @@
       drawing at a different scale.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '357'
@@ -19681,7 +19681,7 @@
       Use this principle to recognize and generate equivalent fractions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '218'
@@ -19710,7 +19710,7 @@
       way (algebraically, graphically, numerically in tables, or by verbal descriptions).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '580'
@@ -19738,7 +19738,7 @@
     description: Write and interpret numerical expressions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '236'
@@ -19767,7 +19767,7 @@
       and box plots).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '690'
@@ -19796,7 +19796,7 @@
       Describe several measurable attributes of a single object.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '29'
@@ -19824,7 +19824,7 @@
     description: Count to tell the number of objects.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '8'
@@ -19852,7 +19852,7 @@
     description: 10 can be thought of as a bundle of ten ones — called a "ten."
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '61'
@@ -19881,7 +19881,7 @@
       of trigonometric functions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '612'
@@ -19909,7 +19909,7 @@
     description: Grade 1
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: ''
@@ -19937,7 +19937,7 @@
     description: Grade 5
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '234'
@@ -19965,7 +19965,7 @@
     description: Prove and apply trigonometric identities
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '617'
@@ -19994,7 +19994,7 @@
       size, or the same point on a number line.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '175'
@@ -20024,7 +20024,7 @@
       pyramids.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '359'
@@ -20053,7 +20053,7 @@
       that the function has an inverse.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '593'
@@ -20082,7 +20082,7 @@
       n unit cubes is said to have a volume of n cubic units.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '261'
@@ -20110,7 +20110,7 @@
     description: Vector and Matrix Quantities
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '489'
@@ -20138,7 +20138,7 @@
     description: Understand and apply the Pythagorean Theorem.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '423'
@@ -20168,7 +20168,7 @@
       for a notation for radicals in terms of rational exponents.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '467'
@@ -20197,7 +20197,7 @@
       whose domain is a subset of the integers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '565'
@@ -20227,7 +20227,7 @@
       polynomial.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '528'
@@ -20255,7 +20255,7 @@
     description: Fit a linear function for a scatter plot that suggests a linear association.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '699'
@@ -20285,7 +20285,7 @@
       subtraction.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '100'
@@ -20314,7 +20314,7 @@
       cones, and spheres.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '427'
@@ -20343,7 +20343,7 @@
       in each place, using >, =, and < symbols to record the results of comparisons.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '247'
@@ -20375,7 +20375,7 @@
       no common factor.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '313'
@@ -20405,7 +20405,7 @@
       that its endpoint locates the number a/b on the number line.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '173'
@@ -20433,7 +20433,7 @@
     description: Work with equal groups of objects to gain foundations for multiplication.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '88'
@@ -20462,7 +20462,7 @@
       tree diagrams, and simulation.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '408'
@@ -20492,7 +20492,7 @@
       along a line, and distance around a circular arc.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '623'
@@ -20522,7 +20522,7 @@
       problems, resultant forces).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '656'
@@ -20552,7 +20552,7 @@
       and estimate the value of expressions (e.g., π²).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '432'
@@ -20582,7 +20582,7 @@
       area models to represent the distributive property in mathematical reasoning.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '160'
@@ -20612,7 +20612,7 @@
       sketch graphs showing key features given a verbal description of the relationship.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '567'
@@ -20641,7 +20641,7 @@
       to multiplication and to addition.'
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '152'
@@ -20672,7 +20672,7 @@
       the congruence between them.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '419'
@@ -20701,7 +20701,7 @@
       payoffs or incidence relationships in a network.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '503'
@@ -20729,7 +20729,7 @@
     description: Grade K
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '2'
@@ -20760,7 +20760,7 @@
       or quarters.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '151'
@@ -20791,7 +20791,7 @@
       by using equations, rectangular arrays, and/or area models.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '196'
@@ -20820,7 +20820,7 @@
       digits, recording the results of comparisons with the symbols >, =, and <.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '64'
@@ -20848,7 +20848,7 @@
     description: Combine standard function types using arithmetic operations.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '585'
@@ -20878,7 +20878,7 @@
       the sum of the magnitudes.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '496'
@@ -20908,7 +20908,7 @@
       as transformations of vectors.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '508'
@@ -20937,7 +20937,7 @@
       between quantities; graph equations on coordinate axes with labels and scales.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '538'
@@ -20967,7 +20967,7 @@
       and simple rational and exponential functions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '537'
@@ -20997,7 +20997,7 @@
       is either along v (for c > 0) or against v (for c < 0).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '501'
@@ -21027,7 +21027,7 @@
       a drawing or equation (e.g., 5 = 2 + 3 and 5 = 4 + 1).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '21'
@@ -21057,7 +21057,7 @@
       of points in the context of the situation.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '270'
@@ -21085,7 +21085,7 @@
     description: High School — Functions
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '560'
@@ -21113,7 +21113,7 @@
     description: Measurement and Data
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '105'
@@ -21142,7 +21142,7 @@
       moduli and quotients of complex numbers.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '480'
@@ -21170,7 +21170,7 @@
     description: Extend the properties of exponents to rational exponents.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '466'
@@ -21200,7 +21200,7 @@
       or negative quantity in a real-world situation.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '323'
@@ -21230,7 +21230,7 @@
       (which could be a line).
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '557'
@@ -21259,7 +21259,7 @@
       solutions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '486'
@@ -21291,7 +21291,7 @@
       using an equation with a symbol for the unknown angle measure.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '210'
@@ -21322,7 +21322,7 @@
       more than one triangle, or no triangle.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '358'
@@ -21351,7 +21351,7 @@
       by reasoning about their size.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '174'
@@ -21380,7 +21380,7 @@
       unit squares is said to have an area of n square units.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '155'
@@ -21408,7 +21408,7 @@
     description: Understand a fraction a/b as a multiple of 1/b.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '227'
@@ -21438,7 +21438,7 @@
       by using visual fraction models and equations to represent the problem.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '290'
@@ -21467,7 +21467,7 @@
       involving addition and subtraction are true or false.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '54'
@@ -21496,7 +21496,7 @@
       functions.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '579'
@@ -21526,7 +21526,7 @@
       an input and the corresponding output.
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '458'
@@ -21554,7 +21554,7 @@
     description: Operations and Algebraic Thinking
     language: null
     concept_keywords: null
-    path: ''
+    path: null
     canonical_uri: null
     source_uri: null
     source_id: '17'

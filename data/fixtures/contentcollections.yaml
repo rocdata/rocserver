@@ -3,7 +3,8 @@
   fields:
     jurisdiction:
     - KA
-    name: Khan Academy English
+    name: KA-en
+    title: Khan Academy English
     description: ''
     thumbnail_url: ''
     language: null

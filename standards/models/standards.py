@@ -52,7 +52,7 @@ class StandardsDocument(Model):
     """
     # IDs
     id = CharIdField(primary_key=True, editable=False, prefix='D')
-    name = CharField(unique=True, max_length=200, help_text="A short, unique name for the document, e.g. CCSSM")
+    name = CharField(unique=True, max_length=200, help_text="A short, unique name for the document, e.g. CCSS.Math")
     # uri = computed field = localhost + get_absolute_url()
     #
     # Document info
@@ -155,7 +155,7 @@ class StandardNode(MPTTModel):
     # knowledge_dimensions         m2m --> Term[kind=knowledge_dimensions]
     #
     # Publishing domain
-    path = CharField(max_length=200, blank=True, help_text="Full path of node. Usually ends in notation.")
+    path = CharField(max_length=200, null=True, blank=True, help_text="Full path of node. Usually ends in notation.")
     canonical_uri = URLField(max_length=512, null=True, blank=True, help_text="URI for the standard node used when publishing")
     source_uri = URLField(max_length=512, null=True, blank=True, help_text="External URI for imported standard nodes")
     source_id = CharField(max_length=100, blank=True, help_text="An external identifier (usually part of source_uri)")
