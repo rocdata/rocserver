@@ -51,3 +51,24 @@ ministries of education, curriculum developers, etc.):
  - Recall: what proportion of the `[(sx, srkind, sy), ...]` identified by human
    experts are present in the output.
 
+
+
+
+Challenges
+----------
+One concern/limitation about the overall goal of using standards crosswalks to
+"port" content correlations data between different educational contexts, is the
+"compounding of inaccuracy" aspect of alignment relations:
+ - if `(Lesson)--[lrmi:teaches]->(StdX)` is an 80% match,
+   and `(StdX)--[asn:narrowAlignment]->(Std1)` is also 80% accurate,
+   then the combined two-hop graph traversal will only be ~60% accurate.
+   
+This is why it's important to think about the semi-automated workflow strategies 
+based on graph data as recommendations that need to be vetted by humans in the loop
+(curriculum experts that know about the nuances of alignment work who can accept/reject
+these recommendations). Still though, if we can use classical NLP and the latest
+language models to give curriculum experts (and teachers, and learners) a 
+"shortlist" of 10-100 content correlations recommendations based on the graph,
+this will majorly improve their work (otherwise they have to wade through **O(100k)**
+learning resources, and must fallback on generic keyword search tools, which are
+known to have limitations for this task).

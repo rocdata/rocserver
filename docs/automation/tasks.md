@@ -34,7 +34,7 @@ general domain of automated discovery of content correlations and standards cros
    and other key stakeholders from the educational domain with a common interest
    to make relevant learning resources accessible to teachers and learners in low-resource contexts. 
  - October 2019: the San Francisco hackathon on automation of curriculum alignment
-   was held that included a prototypes of `Task  SC`. The hackathon is part of
+   was held that included a prototypes of standards crosswalks discovery task.
    Read the [hackathon report](https://learningequality.org/r/hackathon-oct19-report)
    for additional info and links to relevant GitHub repositories,
    [watch the video](https://learningequality.org/r/hackathon-oct19-video),
@@ -57,4 +57,3 @@ All datasets and models developed as part of this collaboration have been releas
 as public goods (open source) on [GitHub](https://github.com/rocdata).
 Feel free to explore the available data, and code samples, and be on the lookout
 for ML challenges and organized events in the coming year.
-

@@ -1,7 +1,9 @@
-Design
-======
-The purpose of this page is to give a high level overview of the design decisions
-that went into the Repository of Organized Curriculums (ROC) data model.
+Software Design Specification
+=============================
+The purpose of this page is to give a high level overview of the technical design
+decisions that went into the Repository of Organized Curriculums (ROC) data model
+and its reference implementation [rocdata.global](https://rocdata.global).
+
 
 
 
@@ -27,18 +29,12 @@ is an example of one such identifiers, specifically the identifiers for the "Bas
 grade level within the Ghana educational system. In this URI, `https://rocdata.global`
 is the server hosting the controlled vocabulary, `Ghana` is the jurisdiction name,
 `GradeLevels` is the name of the controlled vocabulary, and `B4` is the term name.
-Using URIs as property values provides the following affordances for data consumers:
 
 
 
 Standards documents and standard nodes
 --------------------------------------
 
-
- 
-
-Standards crosswalks
---------------------
 
 
 
@@ -50,3 +46,10 @@ Content collections and content nodes
 
 Content correlations
 --------------------
+
+
+
+
+Standards crosswalks
+--------------------
+
