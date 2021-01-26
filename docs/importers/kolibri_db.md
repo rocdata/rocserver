@@ -16,7 +16,7 @@ Usage
 1. Obtain the `channel_id` of the channel you want to import. You can find the
    a channel's ID from the URL when viewing the channel in Kolirbi or Kolibri Studio.
 2. Run the script in the [rocdata/contentcollections-kolibri](https://github.com/rocdata/contentcollections-kolibri)
-   repository to obtain the kolibritrees JSON dump of the channel database:  
+   repository to obtain the kolibritree JSON dump of the channel database:  
    `./kolibri_db/reader.py --channel_id=<channel_id>`
 3. Import the channel as a content collection using the rocserver management command:  
    ```

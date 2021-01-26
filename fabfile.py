@@ -212,6 +212,47 @@ def dump_devfixtures(update=False):
         local(dumpdata_cmd)
 
 
+# KOLIBRI CONTENT COLLECTIONS
+################################################################################
+
+KOLIBRI_CONTENT_COLLECTIONS_MANIFEST = [
+    {
+        "name": "KICD-aligned-math",
+        "title": "KICD Mathematics Curriculum (DRAFT)",
+        "channel_id": "fdab6fb66ba24d05acd011e85bdb36ba",
+        "jurisdiction": "LE",
+        "kolibritree_url": "https://raw.githubusercontent.com/rocdata/contentcollections-kolibri/main/data/kolibritrees/fdab6fb66ba24d05acd011e85bdb36ba.json",
+    },
+    {
+        "name": "Ghana-aligned-math-JHS",
+        "title": "Ghana JHS Curriculum (in progress)",
+        "channel_id": "35e861b0d611474ca169501e2bf19825",
+        "jurisdiction": "LE",
+        "kolibritree_url": "https://raw.githubusercontent.com/rocdata/contentcollections-kolibri/main/data/kolibritrees/35e861b0d611474ca169501e2bf19825.json"
+    }
+]
+
+@task
+def load_kolibri_contentcollections():
+    """
+    ETL Kolibri content collections data (Kolibri JSON tree format).
+    See https://github.com/rocdata/contentcollections-kolibri/tree/main/data/kolibritrees
+    """
+    for collection_info in KOLIBRI_CONTENT_COLLECTIONS_MANIFEST[0:1]:
+        print("Importing Kolibri tree content collection", collection_info["name"])
+        kolibritree_url = collection_info["kolibritree_url"]
+        if "raw.githubusercontent" in kolibritree_url:
+            kolibritree_url += '?flush_cache=True'  # bypass 5 minute cache
+        cmd = "./manage.py ccimport_kolibri "
+        cmd += " --jurisdiction " + collection_info['jurisdiction']
+        cmd += " --name " + collection_info['name']
+        cmd += " --update "
+        cmd += " {}".format(kolibritree_url)  # 
+        print('running:', cmd)
+        local(cmd)
+
+
+
 # DOCS
 ################################################################################
 
