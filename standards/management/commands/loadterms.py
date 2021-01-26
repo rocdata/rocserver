@@ -8,20 +8,7 @@ import requests
 import yaml
 
 from standards.models import Jurisdiction, ControlledVocabulary, Term, TermRelation
-
-
-
-
-def ensure_language_code(lang_code):
-    """
-    Pass-through function for alpha_2 langauge codes that ensures validity.
-    """
-    lang_obj = pycountry.languages.get(alpha_2=lang_code)
-    if lang_obj is None:
-        print('ERROR: invalid language code specified', lang_code)
-        sys.exit(-4)
-    return lang_obj.alpha_2
-
+from standards.utils import ensure_language_code
 
 
 class Command(BaseCommand):
@@ -151,9 +138,6 @@ class Command(BaseCommand):
         parser.add_argument(
             "path", help="A local path or URL path for the vocabulary to import."
         )
-        # parser.add_argument(
-        #     "--status", type=bool, default=True, help="Set to false when ready."
-        # )
 
 
     def handle(self, *args, **options):
@@ -162,7 +146,6 @@ class Command(BaseCommand):
         """
         path = options['path']
         print('Loading controlled vocabulary and terms data from', path)
-        print(os.getcwd())
         
         if path.startswith('http'):
             response = requests.get(path)

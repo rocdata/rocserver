@@ -1,3 +1,4 @@
+import sys
 from urllib.parse import urlparse
 
 import pycountry
@@ -59,7 +60,7 @@ def get_default_content_standard_relation_kind():
 
 def ensure_language_code(lang_code):
     """
-    Pass-through function for alpha_2 langauge codes that ensures validity.
+    Pass-through function for alpha_2 language codes that ensures validity.
     """
     lang_obj = pycountry.languages.get(alpha_2=lang_code)
     if lang_obj is None:
