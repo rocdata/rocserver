@@ -12,11 +12,20 @@ from standards.models import ContentCollection, ContentNode
 from standards.utils import ensure_country_code, ensure_language_code
 
 
+# Studio Source URL templates
+STUDIO_SOURCE_URL_BASE_TMPL = "https://studio.learningequality.org/en/channels/{channel_id}"
+STUDIO_FILE_URL_BASE = "https://studio.learningequality.org/content/storage/"
 
-SOURCE_URL_BASE = "https://studio.learningequality.org/en/channels/"
+# Kolibri demoserver instance URL templates
+KOLIBRI_CHANNEL_SOURCE_URL_TMPL = "{demoserver}/en/learn/#/topics/{channel_id}"
+# e.g. http://alejandro-demo.learningequality.org/en/learn/#/topics/fdab6fb66ba24d05acd011e85bdb36ba
+KOLIBRI_TOPIC_SOURCE_URL_TMPL = "{demoserver}/en/learn/#/topics/t/{node_id}"
+# e.g. http://alejandro-demo.learningequality.org/en/learn/#/topics/t/501bff553f464e7f8a27ff3bef689d40
+KOLIBRI_CONTENTNODE_SOURCE_URL_TMPL = "{demoserver}/en/learn/#/topics/c/{node_id}"
+# e.g. http://alejandro-demo.learningequality.org/en/learn/#/topics/c/a1602eb28a014abb9d5e724eaed42e23
 
 
-def import_col_from_kolibri_channel(col, kolibri_tree):
+def import_col_from_kolibri_channel(col, kolibri_tree, options):
     """
     Load the data contained in `kolibri_tree` (JSON) into the collection `col`.
     Nodes that already exist will be updated
@@ -26,28 +35,54 @@ def import_col_from_kolibri_channel(col, kolibri_tree):
     # 1. Set content collection attributes from channel attributes
     col.title = kolibri_tree['title']
     col.description = kolibri_tree['description']
-    col.language = ensure_language_code(kolibri_tree['lang_id'])  # TODO: add le-utils->pycountries mapping
-    col.source_domain = "studio.learningequality.org"
-    col.collection_id = kolibri_tree['channel_id']    
-    col.source_url = col.source_url if col.source_url else SOURCE_URL_BASE+kolibri_tree['channel_id']
+    if col.source_domain is None:
+        col.source_domain = "studio.learningequality.org"
+    col.collection_id = kolibri_tree['channel_id']
     col.digitization_method = "kolibri_channel"
     col.publication_status = "publicdraft"
     # TODO: parse kolibri_tree['license_name'] || kolibri_tree['license_id']
     col.license = None
     col.license_description = kolibri_tree['license_description']
     col.copyright_holder = kolibri_tree['license_owner']
-    # TODO: other nice-to-have attributes:
+
+    # Set collection language (prefer collection language specified on command line)
+    if 'language' in options and options['language']:
+        col.language = ensure_language_code(options['language'])
+    else:
+        channel_language = kolibri_tree['lang_id']
+        # TODO: add le-utils -> pycountries mapping
+        col.language = ensure_language_code(channel_language)
+
+    # Set source_url
+    # Use demoserver or source_url if specified, else fallback to studio URL
+    if 'demoserver' in options and options['demoserver']:
+        demoserver = options['demoserver']
+        col.source_url = KOLIBRI_CHANNEL_SOURCE_URL_TMPL.format(
+                demoserver=demoserver,
+                channel_id=kolibri_tree['channel_id'])
+    elif col.source_url:
+        col.source_url =  col.source_url
+    else:
+        col.source_url = STUDIO_SOURCE_URL_BASE_TMPL.format(channel_id=kolibri_tree['channel_id'])
+    # version TODO
+    # Other nice-to-have attributes:
     #   thumbnail_url
-    #   version
-    #   published version changelogs? resource counts?  --> extra_fields
+    #   published version changelogs? resource counts? -> extra_fields
     col.save()
 
     # 2. Add root content node
-    add_collection_root_node(col, kolibri_tree)
+    root = add_collection_root_node(col, kolibri_tree)
+
+    # 3. Recursively add children
+    add_children_recursive(root, kolibri_tree['children'], options)
+
 
 
 def add_collection_root_node(col, kolibri_tree):
-
+    """
+    Get or create the collection root node. Note this is a logically "hidden"
+    node that should not be visible to end users of the ROC server.
+    """
     try:
         root = col.root
     except ContentNode.DoesNotExist:
@@ -55,103 +90,110 @@ def add_collection_root_node(col, kolibri_tree):
             collection=col,
             title='HIDDEN ROOT of ' + col.name,
             description='HIDDEN ROOT of ' + col.name,
+            language=col.language,     # used for inherit-lang-from-parent logic
         )
-    print('root=', root)
-    add_children_recursive(root, kolibri_tree['children'])
+    return root
 
 
-def add_children_recursive(rocparentnode, children):
+KOLIBRI_KIND_TO_ContentNodeKind_MAP = {}
+kind_terms = Term.objects.filter(
+    vocabulary__jurisdiction__name="LE",
+    vocabulary__name="KolibriContentNodeKinds")
+for kind_term in kind_terms:
+    KOLIBRI_KIND_TO_ContentNodeKind_MAP[kind_term.path] = kind_term
+
+KOLIBRI_LICENSE_NAME_TO_LicenseKind_MAP = {}
+license_terms = Term.objects.filter(
+    vocabulary__jurisdiction__name="LE",
+    vocabulary__name="LicenseKinds")
+for license_term in license_terms:
+    KOLIBRI_LICENSE_NAME_TO_LicenseKind_MAP[license_term.label] = license_term
+
+
+def add_children_recursive(rocparentnode, children, options):
     """
-    Add the children (list of dicts) to the ROC ContentNode `rocparentnode`.
+    Add `children` (list of Kolibri node dicts) to `rocparentnode` (ContentNode).
     """
-    print('Adding', len(children), 'children to', rocparentnode.title)
-#     for i, child_dict in enumerate(children):        
-#         child_node = StandardNode.objects.create(
-#             parent=stdnode,
-#             document=stdnode.collection,
-#             # kind=child_dict["fields"]["kind"]     # TODO
-#             sort_order=float(i+1),
-#             notation=child_dict["fields"]["identifier"],
-#             description=child_dict["fields"]["title"],
-#             notes=child_dict["fields"]["notes"],
-#             extra_fields=child_dict["fields"]["extra_fields"],
-#             source_id=child_dict['pk'],
-#         )
-#         add_children_recustive(child_node, child_dict['children'])
+    print('  - Adding', len(children), 'children to', rocparentnode.title)
+
+    oldchildren = rocparentnode.children.all()
+    oldchildren_by_source_id = dict((och.source_id, och) for och in oldchildren)
+    oldchildren.delete()
+
+    for i, child_dict in enumerate(children):
+
+        child_node = ContentNode.objects.create(
+            # Structural
+            collection=rocparentnode.collection,
+            parent=rocparentnode,
+            kind=KOLIBRI_KIND_TO_ContentNodeKind_MAP[child_dict["kind"]],
+            sort_order=float(i+1),
+            # Content info
+            title=child_dict["title"],
+            description=child_dict["description"],
+            language = ensure_language_code(child_dict.get('lang_id', rocparentnode.language)),
+            author=child_dict["author"],
+            # aggregator and provider not available from Kolibri DB; only Studio
+            # Content source info
+            source_id=child_dict['id'],  # Kolibri node_id (unique within channel)
+            content_id=child_dict['content_id'],
+            node_id=child_dict['id'],
+            # Licensing
+            license = KOLIBRI_LICENSE_NAME_TO_LicenseKind_MAP.get(child_dict.get("license_name")),
+            license_description=child_dict.get('license_description'),
+            copyright_holder=child_dict.get('license_owner'),
+        )
+        # OTHER (FUTURE):
+        #   path?
+        #   source_domain => not accessible from Kolibri DB, but this info would
+        #                    be good to have for source_domain:source_id ids.
+        #   subjects/education_levels/concept_terms/concept_keywords/tags FUTURE
+
+        if 'demoserver' in options and options['demoserver']:
+            demoserver = options['demoserver']
+            kind = child_dict["kind"]
+            if kind == 'topic':
+                source_url = KOLIBRI_TOPIC_SOURCE_URL_TMPL.format(
+                    demoserver=demoserver,
+                    node_id=child_dict['id'])
+            else:
+                source_url = KOLIBRI_CONTENTNODE_SOURCE_URL_TMPL.format(
+                    demoserver=demoserver,
+                    node_id=child_dict['id'])
+            child_node.source_url = source_url
+
+        # Process files and assessment items associated with this content node
+        total_file_size = 0        # Total file storage size required (in bytes)
+        node_extra_fields = {}     # Store info about files and assessment items
+        if 'files' in child_dict:
+            file_extra_list = []
+            for file_dict in child_dict['files']:
+                md5 = file_dict["checksum"]
+                file_extra = dict(
+                    checksum=file_dict["checksum"],
+                    extension=file_dict["extension"],
+                    file_size=file_dict["file_size"],
+                    lang_id=file_dict["lang_id"],
+                    preset=file_dict["preset"],
+                    file_url=STUDIO_FILE_URL_BASE + md5[0] + '/' + md5[1] + '/' + md5 + '.' + file_dict["extension"],
+                )
+                file_extra_list.append(file_extra)
+                total_file_size += file_dict['file_size']
+            node_extra_fields['files'] = file_extra_list
+        if 'assessmentmetadata' in child_dict:
+            node_extra_fields['assessmentmetadata'] = {}
+            node_extra_fields["assessmentmetadata"]["number_of_assessments"] = \
+                   child_dict["assessmentmetadata"]["number_of_assessments"]
+
+        child_node.size = total_file_size
+        child_node.extra_fields = node_extra_fields
 
 
+        child_node.save()
 
-# NODE
-        # {
-        #   "author": "",
-        #   "available": 1,
-        #   "channel_id": "fdab6fb66ba24d05acd011e85bdb36ba",
-        #   "children": [
-        #     {
-        #       "assessment_item_ids": [
-        #         "0eef62cf45c65cf9afeca4b6593b7f73",
-        #         "46f750a9308f5aaea72f2a062a9919a9",
-        #         "85f21d7fc79454e0970aa867e3c2196d",
-        #         "960d5673b0b153859fdcd0a4ae7da92f",
-        #       ],
-        #       "assessmentmetadata": {
-        #         "is_manipulable": 1,
-        #         "mastery_model": "{\"type\":\"m_of_n\",\"m\":5,\"n\":7}",
-        #         "number_of_assessments": 18,
-        #         "randomize": 1
-        #       },
-        #       "author": "",
-        #       "available": 1,
-        #       "channel_id": "fdab6fb66ba24d05acd011e85bdb36ba",
-        #       "coach_content": 0,
-        #       "content_id": "ada51f57a22259ac89da5976eb661da8",
-        #       "description": "Identify prime numbers less than 100.",
-        #       "files": [
-        #         {
-        #           "available": 1,
-        #           "checksum": "9a19b81905f8b1c4aefe162778425039",
-        #           "contentnode_id": "99a49cc38358455a9c58e66d1be1d472",
-        #           "extension": "perseus",
-        #           "file_size": 33969,
-        #           "id": "2b3d28a6e02c48c6b105fe7fe33f858c",
-        #           "lang_id": null,
-        #           "local_file_id": "9a19b81905f8b1c4aefe162778425039",
-        #           "preset": "exercise",
-        #           "priority": 1,
-        #           "supplementary": 0,
-        #           "thumbnail": 0
-        #         },
-        #         {
-        #           "available": 1,
-        #           "checksum": "89b87f512f3972abdd5c57adbca2fb6d",
-        #           "contentnode_id": "99a49cc38358455a9c58e66d1be1d472",
-        #           "extension": "png",
-        #           "file_size": 21949,
-        #           "id": "c11ca383f7a54455a280ca6f47bcd7b0",
-        #           "lang_id": null,
-        #           "local_file_id": "89b87f512f3972abdd5c57adbca2fb6d",
-        #           "preset": "exercise_thumbnail",
-        #           "priority": 2,
-        #           "supplementary": 1,
-        #           "thumbnail": 1
-        #         }
-        #       ],
-        #       "id": "99a49cc38358455a9c58e66d1be1d472",
-        #       "kind": "exercise",
-        #       "lang_id": "en",
-        #       "level": 3,
-        #       "lft": 4,
-        #       "license_description": "Permission granted to distribute through Kolibri for non-commercial use",
-        #       "license_id": 2,
-        #       "license_name": "Special Permissions",
-        #       "license_owner": "Khan Academy",
-        #       "parent_id": "355a543c327640d19f0c9b100aada80c",
-        #       "rght": 5,
-        #       "sort_order": 5.0,
-        #       "stemmed_metaphone": "ATNTF PRM NMPR ATNTF PRM NMPR LS 0N TN",
-        #       "title": "Identify prime numbers",
-        #       "tree_id": 1
-        #     },
+        # Recurse into children
+        if 'children' in child_dict:
+            add_children_recursive(child_node, child_dict['children'], options)
 
 
 class Command(BaseCommand):
@@ -159,20 +201,26 @@ class Command(BaseCommand):
     Import a kolibri tree JSON dump obtained from a Kolibri content channel DB.
     """
     def add_arguments(self, parser):
-        parser.add_argument("path", help="A local path or URL for the collection to import")
+        parser.add_argument("path", help="A local path or URL for the collection data (JSON kolibri tree)")
         # attributes
         parser.add_argument("--jurisdiction", required=True, help="Jurisdiction name")
         parser.add_argument("--name", required=True, help="short name for content collection")
         parser.add_argument("--country", help="Country where content collection was produced")
+        parser.add_argument("--language", help="BCP47 lang codes like en, es, fr-CA")
         parser.add_argument("--source_domain", help="Collection source domain")
         parser.add_argument("--source_url", help="Collection source URL")
-        parser.add_argument("--kolibritree_url", help="Location of ")
-        # parser.add_argument("--language", help="BCP47 lang codes like en, es, fr-CA")
+        parser.add_argument("--demoserver", help="Link to a Kolibri instance to use for source_url links")
+        parser.add_argument("--notes", help="Additional info about this collection")
+        #
         # workflow
         parser.add_argument("--update", action='store_true', help="Update an existing collection with new data.")
 
 
     def handle(self, *args, **options):
+        # options cleaning
+        if 'demoserver' in options and options['demoserver'] and options['demoserver'].endswith('/'):
+            options['demoserver'] = options['demoserver'].rstrip('/')
+
         # Parse and validate Jurisdiction
         jurisdiction_name = options['jurisdiction']
         try:
@@ -209,22 +257,27 @@ class Command(BaseCommand):
             col = ContentCollection(jurisdiction=juri, name=colname)
 
         # Set collection attributes
-        optional_attrs = ["source_domain", "source_url"]
+        optional_attrs = ["source_domain", "notes"]
         for attr in optional_attrs:
             if attr in options and options[attr]:
-                setattr(juri, attr, options[attr])
+                setattr(col, attr, options[attr])
+
         country_raw = options.get('country', None)
         if country_raw:
             country = ensure_country_code(country_raw)
-            juri.country = country
-        
+            col.country = country
+
+        language_raw = options.get('language', None)
+        if language_raw:
+            language = ensure_language_code(language_raw)
+            col.language = language
+
         # Save it
         col.save()
 
         # Add nodes
-        import_col_from_kolibri_channel(col, kolibri_tree)
+        import_col_from_kolibri_channel(col, kolibri_tree, options)
         if updating_existing:
             print('Updated content collection', col.name, '   id=', col.id)
         else:
             print('Created content collection', col.name, '   id=', col.id)
-

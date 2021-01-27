@@ -222,13 +222,21 @@ KOLIBRI_CONTENT_COLLECTIONS_MANIFEST = [
         "channel_id": "fdab6fb66ba24d05acd011e85bdb36ba",
         "jurisdiction": "LE",
         "kolibritree_url": "https://raw.githubusercontent.com/rocdata/contentcollections-kolibri/main/data/kolibritrees/fdab6fb66ba24d05acd011e85bdb36ba.json",
+        "demoserver": "http://alejandro-demo.learningequality.org",
+        "notes": "This is a manually-curated Kolibri channel with contents aligned to the KICD mathematics curriculum. " \
+            + "To view, reuse, or remix this channel on Kolibri Studio visit: " \
+            + "https://studio.learningequality.org/en/channels/fdab6fb66ba24d05acd011e85bdb36ba " \
+            + "If the studio link don't open, you don't have access the channel (non-Public channels). " \
+            + "Send an email to content@learningequality.org to request view access for channel id fdab6fb66ba24d05acd011e85bdb36ba."
     },
     {
         "name": "Ghana-aligned-math-JHS",
         "title": "Ghana JHS Curriculum (in progress)",
         "channel_id": "35e861b0d611474ca169501e2bf19825",
         "jurisdiction": "LE",
-        "kolibritree_url": "https://raw.githubusercontent.com/rocdata/contentcollections-kolibri/main/data/kolibritrees/35e861b0d611474ca169501e2bf19825.json"
+        "kolibritree_url": "https://raw.githubusercontent.com/rocdata/contentcollections-kolibri/main/data/kolibritrees/35e861b0d611474ca169501e2bf19825.json",
+        "demoserver": "http://alejandro-demo.learningequality.org",
+        # "notes": TODO
     }
 ]
 
@@ -238,7 +246,7 @@ def load_kolibri_contentcollections():
     ETL Kolibri content collections data (Kolibri JSON tree format).
     See https://github.com/rocdata/contentcollections-kolibri/tree/main/data/kolibritrees
     """
-    for collection_info in KOLIBRI_CONTENT_COLLECTIONS_MANIFEST[0:1]:
+    for collection_info in KOLIBRI_CONTENT_COLLECTIONS_MANIFEST:
         print("Importing Kolibri tree content collection", collection_info["name"])
         kolibritree_url = collection_info["kolibritree_url"]
         if "raw.githubusercontent" in kolibritree_url:
@@ -246,6 +254,11 @@ def load_kolibri_contentcollections():
         cmd = "./manage.py ccimport_kolibri "
         cmd += " --jurisdiction " + collection_info['jurisdiction']
         cmd += " --name " + collection_info['name']
+        cmd += " --demoserver " + '"' + collection_info['demoserver'] + '"'
+        if 'language' in collection_info:
+            cmd += " --language " + collection_info['language']
+        if 'notes' in collection_info:
+            cmd += " --notes " + '"' + collection_info['notes'] + '"'
         cmd += " --update "
         cmd += " {}".format(kolibritree_url)  # 
         print('running:', cmd)
