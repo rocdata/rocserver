@@ -64,6 +64,7 @@ def ensure_language_code(lang_code):
     """
     lang_obj = pycountry.languages.get(alpha_2=lang_code)
     if lang_obj is None:
+        # TODO: add le-utils -> pycountries lookup as fallback
         print('ERROR: invalid language code specified', lang_code)
         sys.exit(-4)
     return lang_obj.alpha_2
