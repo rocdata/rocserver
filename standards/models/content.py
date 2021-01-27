@@ -133,6 +133,7 @@ class ContentNode(MPTTModel):
     aggregator = CharField(max_length=200, blank=True, help_text="Website or org. hosting the content collection")
     provider = CharField(max_length=200, blank=True, help_text="Organization that made the creation or distribution this content possible")
     size = IntegerField(blank=True, null=True, help_text="File storage size required (in bytes)")
+    publication_status = CharField(max_length=30, choices=PUBLICATION_STATUSES, default=PUBLICATION_STATUSES.publicdraft)
     #
     # Educational domain
     subjects = ManyToManyField(Term, blank=True, related_name="+", limit_choices_to={'vocabulary__kind': 'subjects'})
