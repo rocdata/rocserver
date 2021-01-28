@@ -6,6 +6,7 @@ from django.db.models import FloatField
 from django.db.models import ForeignKey
 from django.db.models import IntegerField
 from django.db.models import JSONField
+from django.db.models import Manager
 from django.db.models import ManyToManyField
 from django.db.models import Model
 from django.db.models import SET_NULL
@@ -106,6 +107,18 @@ class ContentCollection(Model):
 
 
 
+class ContentNodeManager(Manager):
+    def get_queryset(self):
+        return super(ContentNodeManager, self).get_queryset().prefetch_related(
+            "collection__jurisdiction",
+            "collection",
+            "parent",
+            "kind",
+            "children",
+            "subjects",
+            "education_levels",
+            "concept_terms",
+        )
 
 class ContentNode(MPTTModel):
     """
@@ -161,6 +174,7 @@ class ContentNode(MPTTModel):
     date_modified = DateTimeField(auto_now=True, help_text="Date of last modification to node metadata")
     extra_fields = JSONField(default=dict, blank=True)  # for data extensibility
 
+    objects = ContentNodeManager()
 
     class Meta:
         # Make sure every content collections has at most one tree

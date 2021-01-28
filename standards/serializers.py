@@ -1,6 +1,6 @@
 import functools
 
-
+from django_countries.serializers import CountryFieldMixin
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 
@@ -430,7 +430,7 @@ class StandardNodeRelationSerializer(serializers.ModelSerializer):
 # CONTENT
 ################################################################################
 
-class ContentCollectionSerializer(serializers.ModelSerializer):
+class ContentCollectionSerializer(CountryFieldMixin, serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(required=True)
     license = TermHyperlinkField()
     subjects = TermHyperlinkField(many=True)
@@ -442,6 +442,17 @@ class ContentCollectionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class FullContentCollectionSerializer(ContentCollectionSerializer):
+    """
+    Full content collection serialization recursive traversal of content nodes.
+    """
+    children = serializers.SerializerMethodField()
+
+    def get_children(self, obj):
+        return [
+            FullContentNodeSerializer(node, context=self.context).data
+            for node in obj.root.children.all()
+        ]
 
 class ContentNodeSerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(source='document.jurisdiction', required=False)
@@ -458,6 +469,17 @@ class ContentNodeSerializer(serializers.ModelSerializer):
         model = ContentNode
         fields = '__all__'
 
+class FullContentNodeSerializer(ContentNodeSerializer):
+    """
+    Recursive variant of ``ContentNodeSerializer`` to use for ``/full`` action.
+    """
+    children = serializers.SerializerMethodField()
+
+    def get_children(self, obj):
+        return [
+            FullContentNodeSerializer(node, context=self.context).data
+            for node in obj.children.all()
+        ]
 
 class ContentNodeRelationSerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(required=True)

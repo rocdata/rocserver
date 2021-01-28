@@ -3,6 +3,7 @@ from collections import OrderedDict
 from django.shortcuts import get_object_or_404
 from django.http.response import HttpResponseRedirect
 from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 
@@ -22,7 +23,7 @@ from standards.models import ContentCollection, ContentNode, ContentNodeRelation
 from standards.models import ContentCorrelation, ContentStandardRelation
 from standards.serializers import ContentCollectionSerializer, ContentNodeSerializer, ContentNodeRelationSerializer
 from standards.serializers import ContentCorrelationSerializer, ContentStandardRelationSerializer
-
+from standards.serializers import FullContentCollectionSerializer
 
 
 
@@ -258,6 +259,14 @@ class ContentCollectionViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet
 
     def get_queryset(self):
         return self.queryset.filter(jurisdiction__name=self.kwargs['jurisdiction_name'])
+
+    @action(detail=True, methods=['get'])
+    def full(self, request, jurisdiction_name=None, pk=None, format=None):
+        collection = self.queryset.get(jurisdiction__name=jurisdiction_name, pk=pk)
+        serializer = FullContentCollectionSerializer(collection, context={'request':request})
+        # print(serializer)
+        print(serializer.data)
+        return Response(serializer.data)
 
 
 class ContentNodeViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
