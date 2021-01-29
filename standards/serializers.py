@@ -431,6 +431,7 @@ class StandardNodeRelationSerializer(serializers.ModelSerializer):
 ################################################################################
 
 class ContentCollectionSerializer(CountryFieldMixin, serializers.ModelSerializer):
+    uri = serializers.SerializerMethodField()
     jurisdiction = JurisdictionHyperlinkField(required=True)
     license = TermHyperlinkField()
     subjects = TermHyperlinkField(many=True)
@@ -440,7 +441,9 @@ class ContentCollectionSerializer(CountryFieldMixin, serializers.ModelSerializer
     class Meta:
         model = ContentCollection
         fields = '__all__'
-
+    
+    def get_uri(self, obj):
+        return obj.uri
 
 class FullContentCollectionSerializer(ContentCollectionSerializer):
     """
@@ -454,7 +457,9 @@ class FullContentCollectionSerializer(ContentCollectionSerializer):
             for node in obj.root.children.all()
         ]
 
+
 class ContentNodeSerializer(serializers.ModelSerializer):
+    uri = serializers.SerializerMethodField()
     jurisdiction = JurisdictionHyperlinkField(source='document.jurisdiction', required=False)
     collection = ContentCollectionHyperlinkField(required=True)
     parent = ContentNodeHyperlinkField()
@@ -469,6 +474,10 @@ class ContentNodeSerializer(serializers.ModelSerializer):
         model = ContentNode
         fields = '__all__'
 
+    def get_uri(self, obj):
+        return obj.uri
+
+
 class FullContentNodeSerializer(ContentNodeSerializer):
     """
     Recursive variant of ``ContentNodeSerializer`` to use for ``/full`` action.
@@ -480,6 +489,7 @@ class FullContentNodeSerializer(ContentNodeSerializer):
             FullContentNodeSerializer(node, context=self.context).data
             for node in obj.children.all()
         ]
+
 
 class ContentNodeRelationSerializer(serializers.ModelSerializer):
     jurisdiction = JurisdictionHyperlinkField(required=True)

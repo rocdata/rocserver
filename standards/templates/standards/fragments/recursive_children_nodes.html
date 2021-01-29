@@ -1,0 +1,27 @@
+{% load property_types %}
+
+{% for child in children %}
+
+
+    {% if not child.children %}
+
+        <li>
+            <a href="{{ child.uri }}">{{ child.title }} ({{ child.id }})</a>
+        </li>
+    
+    {% elif child.children %}
+
+        <li class="list-group-item">
+            <h5 class="list-group-item-heading bullet-prefix">
+                <a href="{{ child.uri }}">{{ child.title }} ({{ child.id }})</a>
+            </h5>
+            <ul>
+                {% include "standards/fragments/recursive_children_nodes.html" with children=child.children %}
+            </ul>
+        </li>
+
+    {% endif %}
+
+
+{% endfor %}
+

@@ -101,6 +101,15 @@ class CustomHTMLRendererRetrieve:
                 pc = publishing_context
                 base_url = pc['scheme'] + '://' + pc['netloc'] + pc['path_prefix']
                 processed_data[key] = base_url + value
+            elif key == 'children' and isinstance(value, list):
+                newchildren = []
+                for child in value:
+                    if isinstance(child, dict):
+                        newchild = self.process_uris(child, publishing_context=publishing_context)
+                    else:
+                        newchild = child
+                    newchildren.append(newchild)
+                processed_data[key] = newchildren
             else:
                 processed_data[key] = value
         return processed_data
@@ -116,7 +125,7 @@ class CustomHTMLRendererRetrieve:
 
         def htmlize_list(values):
             newvalues = []
-            for el in value:
+            for el in values:
                 if isinstance(el, str) and el.startswith('http'):
                     newel = htmlize_hyperlink(el)
                 else:
@@ -261,13 +270,22 @@ class ContentCollectionViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet
         return self.queryset.filter(jurisdiction__name=self.kwargs['jurisdiction_name'])
 
     @action(detail=True, methods=['get'])
-    def full(self, request, jurisdiction_name=None, pk=None, format=None):
-        collection = self.queryset.get(jurisdiction__name=jurisdiction_name, pk=pk)
-        serializer = FullContentCollectionSerializer(collection, context={'request':request})
-        # print(serializer)
-        print(serializer.data)
-        return Response(serializer.data)
-
+    def full(self, request, *args, **kwargs):
+        instance = self.queryset.get(
+            jurisdiction__name=kwargs['jurisdiction_name'],
+            pk=kwargs['pk']
+        )
+        serializer = FullContentCollectionSerializer(instance, context={'request':request})
+        publishing_context = get_publishing_context(request=request)
+        processed_data = self.process_uris(serializer.data, publishing_context=publishing_context)
+        if request.accepted_renderer.format == 'html':
+            # HTML browsing
+            htmlized_data = self.htmlize_data_values(processed_data)
+            context = {'data': htmlized_data, 'object': instance}
+            return Response(context, template_name='standards/contentcollection_full.html')
+        else:
+            # JSON + API
+            return Response(processed_data)
 
 class ContentNodeViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     # /{juri}/contentnodes/{c.id}

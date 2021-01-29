@@ -43,6 +43,14 @@ CONTENTIMPORT_METHODS = Choices(
 )
 
 
+class ContentCollectionManager(Manager):
+    def get_queryset(self):
+        return super(ContentCollectionManager, self).get_queryset().prefetch_related(
+            "jurisdiction",
+            "subjects",
+            "education_levels",
+        )
+
 class ContentCollection(Model):
     """
     A content collection in the form of an external website, content archive, or
@@ -86,6 +94,8 @@ class ContentCollection(Model):
     date_created = DateTimeField(auto_now_add=True, help_text="When the collection was added to the repository")
     date_modified = DateTimeField(auto_now=True, help_text="Date of last modification to collection metadata")
     extra_fields = JSONField(default=dict, blank=True)  # for data extensibility
+
+    objects = ContentCollectionManager()
 
     def __str__(self):
         return "{} ({})".format(self.name, self.id)
