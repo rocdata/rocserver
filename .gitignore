@@ -18,6 +18,9 @@ cut_material.py
 docs/cut_material.md
 runme.py
 
+# Performance profiles
+profiles/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

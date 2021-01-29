@@ -159,11 +159,10 @@ urlpatterns += [
 
 
 
-# DEBUG TOOLBAR
+# DEBUGGING AND PROFILING TOOLS (DEV ONLY)
 ################################################################################
 
 if settings.DEBUG:
-    import debug_toolbar
     urlpatterns += [
-        path(r'__debug__/', include(debug_toolbar.urls)),
+        path(r'silk/', include('silk.urls', namespace='silk')),
     ]

@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     "importers",
     "website",
     "admin_reorder",
-
 ]
 
 MIDDLEWARE = [
@@ -144,13 +143,17 @@ APPEND_SLASH = False
 
 if DEBUG:
     INTERNAL_IPS = ["127.0.0.1"]
+    # Setup django-silk profiling and DEBUG utils
     INSTALLED_APPS += [
-        "debug_toolbar",
+        "silk",
     ]
-    MIDDLEWARE = ["debug_toolbar.middleware.DebugToolbarMiddleware"] + MIDDLEWARE
-    TEMPLATES[0]["OPTIONS"]["context_processors"] = [
-        "django.template.context_processors.debug"
-    ] + TEMPLATES[0]["OPTIONS"]["context_processors"]
+    MIDDLEWARE = MIDDLEWARE + ["silk.middleware.SilkyMiddleware"]
+    SILKY_PYTHON_PROFILER = True
+    SILKY_PYTHON_PROFILER_BINARY = True
+    SILKY_PYTHON_PROFILER_RESULT_PATH = os.path.join(BASE_DIR, 'profiles')
+    if not os.path.exists(SILKY_PYTHON_PROFILER_RESULT_PATH):
+        os.makedirs(SILKY_PYTHON_PROFILER_RESULT_PATH)
+
 
 
 ADMIN_REORDER = (
@@ -218,3 +221,5 @@ ROCDATA_PUBLISHING_CONTEXTS = {
         "path_prefix": "/standards-ghana/rocdata",
     },
 }
+
+
