@@ -6,6 +6,19 @@ and its reference implementation [rocdata.global](https://rocdata.global).
 
 
 
+Tech stack
+----------
+### Graph data as SQL
+
+### Django web frameworks
+
+
+### MPTT Trees
+The
+Note this is a logically "hidden" node that should not be visible to end users of the ROC server.
+
+### Linked data
+
 
 Jurisdictions
 -------------
