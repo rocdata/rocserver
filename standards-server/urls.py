@@ -162,7 +162,7 @@ urlpatterns += [
 # DEBUGGING AND PROFILING TOOLS (DEV ONLY)
 ################################################################################
 
-if settings.DEBUG:
+if 'silk' in settings.INSTALLED_APPS:
     urlpatterns += [
-        path(r'silk/', include('silk.urls', namespace='silk')),
+        re_path(r'^silk/', include('silk.urls', namespace='silk')),
     ]
