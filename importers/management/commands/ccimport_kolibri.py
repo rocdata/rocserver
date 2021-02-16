@@ -25,6 +25,23 @@ KOLIBRI_CONTENTNODE_SOURCE_URL_TMPL = "{demoserver}/en/learn/#/topics/c/{node_id
 # e.g. http://alejandro-demo.learningequality.org/en/learn/#/topics/c/a1602eb28a014abb9d5e724eaed42e23
 
 
+KOLIBRI_KIND_TO_ContentNodeKind_MAP = {}
+kind_terms = Term.objects.filter(
+    vocabulary__jurisdiction__name="LE",
+    vocabulary__name="KolibriContentNodeKinds")
+for kind_term in kind_terms:
+    KOLIBRI_KIND_TO_ContentNodeKind_MAP[kind_term.path] = kind_term
+
+KOLIBRI_LICENSE_NAME_TO_LicenseKind_MAP = {}
+license_terms = Term.objects.filter(
+    vocabulary__jurisdiction__name="LE",
+    vocabulary__name="LicenseKinds")
+for license_term in license_terms:
+    KOLIBRI_LICENSE_NAME_TO_LicenseKind_MAP[license_term.label] = license_term
+
+
+
+
 def import_col_from_kolibri_channel(col, kolibri_tree, options):
     """
     Load the data contained in `kolibri_tree` (JSON) into the collection `col`.
@@ -95,20 +112,6 @@ def add_collection_root_node(col, kolibri_tree):
     return root
 
 
-KOLIBRI_KIND_TO_ContentNodeKind_MAP = {}
-kind_terms = Term.objects.filter(
-    vocabulary__jurisdiction__name="LE",
-    vocabulary__name="KolibriContentNodeKinds")
-for kind_term in kind_terms:
-    KOLIBRI_KIND_TO_ContentNodeKind_MAP[kind_term.path] = kind_term
-
-KOLIBRI_LICENSE_NAME_TO_LicenseKind_MAP = {}
-license_terms = Term.objects.filter(
-    vocabulary__jurisdiction__name="LE",
-    vocabulary__name="LicenseKinds")
-for license_term in license_terms:
-    KOLIBRI_LICENSE_NAME_TO_LicenseKind_MAP[license_term.label] = license_term
-
 
 def add_children_recursive(rocparentnode, children, options):
     """
@@ -118,37 +121,48 @@ def add_children_recursive(rocparentnode, children, options):
 
     oldchildren = rocparentnode.children.all()
     oldchildren_by_source_id = dict((och.source_id, och) for och in oldchildren)
-    oldchildren.delete()
 
+    # STEP 1: Add or update all the nodes in children
+    ############################################################################
+    children_source_ids = set()  # Keep track of all `source_id`s in `children`
     for i, child_dict in enumerate(children):
 
-        child_node = ContentNode.objects.create(
-            # Structural
-            collection=rocparentnode.collection,
-            parent=rocparentnode,
-            kind=KOLIBRI_KIND_TO_ContentNodeKind_MAP[child_dict["kind"]],
-            sort_order=float(i+1),
-            # Content info
-            title=child_dict["title"],
-            description=child_dict["description"],
-            language = ensure_language_code(child_dict.get('lang_id', rocparentnode.language)),
-            author=child_dict["author"],
-            # aggregator and provider not available from Kolibri DB; only Studio
-            # Content source info
-            source_id=child_dict['id'],  # Kolibri node_id (unique within channel)
-            content_id=child_dict['content_id'],
-            node_id=child_dict['id'],
-            # Licensing
-            license = KOLIBRI_LICENSE_NAME_TO_LicenseKind_MAP.get(child_dict.get("license_name")),
-            license_description=child_dict.get('license_description'),
-            copyright_holder=child_dict.get('license_owner'),
-        )
-        # OTHER (FUTURE):
-        #   path?
-        #   source_domain => not accessible from Kolibri DB, but this info would
-        #                    be good to have for source_domain:source_id ids.
-        #   subjects/education_levels/concept_terms/concept_keywords/tags FUTURE
+        source_id = child_dict['id']   # Kolibri node_id (unique within channel)
+        children_source_ids.add(source_id)
 
+        if source_id in oldchildren_by_source_id:
+            # CASE A: updating an existing node
+            child_node = oldchildren_by_source_id[source_id]
+        else:
+            # CASE B: adding a new node
+            child_node = ContentNode.objects.create(
+                collection=rocparentnode.collection,
+                parent=rocparentnode,
+                source_id=source_id)
+
+        # Set or update attributes on child_node
+        child_node.kind = KOLIBRI_KIND_TO_ContentNodeKind_MAP[child_dict["kind"]]
+        child_node.sort_order = float(i+1)
+        # Content info
+        child_node.title = child_dict["title"]
+        child_node.description = child_dict["description"]
+        child_node.language = ensure_language_code(child_dict.get('lang_id', rocparentnode.language))
+        child_node.author = child_dict["author"]
+        # aggregator and provider not available from Kolibri DB; only Studio
+        # Content source info
+        child_node.content_id = child_dict['content_id']
+        child_node.node_id=source_id
+        # Licensing
+        child_node.license = KOLIBRI_LICENSE_NAME_TO_LicenseKind_MAP.get(child_dict.get("license_name"))
+        child_node.license_description=child_dict.get('license_description')
+        child_node.copyright_holder=child_dict.get('license_owner')
+        # OTHER ATTRIBUTES (FUTURE WORK):
+        #   path?
+        #   subjects/education_levels/concept_terms/concept_keywords/tags
+        #   source_domain => not accessible from Kolibri DB, but this info would
+        #                    be good to add in future `source_domain:source_id`
+
+        # Set `source_url` based on `demoserver` base URL provided
         if 'demoserver' in options and options['demoserver']:
             demoserver = options['demoserver']
             kind = child_dict["kind"]
@@ -163,8 +177,8 @@ def add_children_recursive(rocparentnode, children, options):
             child_node.source_url = source_url
 
         # Process files and assessment items associated with this content node
-        total_file_size = 0        # Total file storage size required (in bytes)
         node_extra_fields = {}     # Store info about files and assessment items
+        total_file_size = 0        # Total file storage size required (in bytes)
         if 'files' in child_dict:
             file_extra_list = []
             for file_dict in child_dict['files']:
@@ -180,20 +194,33 @@ def add_children_recursive(rocparentnode, children, options):
                 file_extra_list.append(file_extra)
                 total_file_size += file_dict['file_size']
             node_extra_fields['files'] = file_extra_list
+        child_node.size = total_file_size
         if 'assessmentmetadata' in child_dict:
             node_extra_fields['assessmentmetadata'] = {}
             node_extra_fields["assessmentmetadata"]["number_of_assessments"] = \
                    child_dict["assessmentmetadata"]["number_of_assessments"]
-
-        child_node.size = total_file_size
         child_node.extra_fields = node_extra_fields
 
-
+        # Save child_node info to DB and recurse into children
         child_node.save()
-
-        # Recurse into children
         if 'children' in child_dict:
             add_children_recursive(child_node, child_dict['children'], options)
+
+    # STEP 2: Mark any non-updated `oldchildren` nodes as retired
+    ############################################################################
+    retired_sort_order = float(len(children) + 1)  # put retired nodes last
+    for old_source_id, old_child in oldchildren_by_source_id.items():
+        if old_source_id not in children_source_ids:
+            old_child.publication_status = "retired"
+            old_child.sort_order = retired_sort_order
+            retired_sort_order += 1.0
+            old_child.save()
+            print('  - Marked node', old_child.id, 'as retired')
+            for desc_node in old_child.get_descendants(include_self=False):
+                desc_node.publication_status = "retired"
+                desc_node.save()
+                print('    - Marked descendant', desc_node.id, 'as retired')
+
 
 
 class Command(BaseCommand):
@@ -251,13 +278,12 @@ class Command(BaseCommand):
         if col and not options['update']:
             print('Content collection', options['name'], 'already exist.')
             print('Use ./manage.py ccimport_kolibri --update to re-create.')
-            # TODO: 
             sys.exit(-8)
         if col is None:
             col = ContentCollection(jurisdiction=juri, name=colname)
 
         # Set collection attributes
-        optional_attrs = ["source_domain", "notes"]
+        optional_attrs = ["source_domain", "source_url", "notes"]
         for attr in optional_attrs:
             if attr in options and options[attr]:
                 setattr(col, attr, options[attr])
@@ -272,11 +298,12 @@ class Command(BaseCommand):
             language = ensure_language_code(language_raw)
             col.language = language
 
-        # Save it
+        # Save the collection
         col.save()
 
-        # Add nodes
+        # Add collection nodes
         import_col_from_kolibri_channel(col, kolibri_tree, options)
+
         if updating_existing:
             print('Updated content collection', col.name, '   id=', col.id)
         else:
