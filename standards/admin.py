@@ -115,11 +115,13 @@ class ContentCollectionAdmin(admin.ModelAdmin):
 
 @admin.register(ContentNode)
 class ContentNodeAdmin(DraggableMPTTAdmin):
-    list_display = ["tree_actions", "indented_title", "title", "source_id"]
+    list_display = ["tree_actions", "indented_title", "source_id"]
     list_display_links=["indented_title",]
+    raw_id_fields = ("parent",)
     list_filter = ("collection", "kind", "language", "concept_keywords")
-    search_fields = ["id", "notation", "title", "description", "concept_keywords", "notes", "extra_fields"]
+    search_fields = ["id", "title", "description", "concept_keywords", "notes", "extra_fields"]
     readonly_fields = ["id"]
+    expand_tree_by_default = False
 
 
 @admin.register(ContentNodeRelation)
