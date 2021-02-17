@@ -381,8 +381,21 @@ class StandardsDocumentSerializer(serializers.ModelSerializer):
         except StandardNode.DoesNotExist:
             return None
 
+class FullStandardsDocumentSerializer(StandardsDocumentSerializer):
+    """
+    Full standard document serialization recursive traversal of standard nodes.
+    """
+    children = serializers.SerializerMethodField()
+
+    def get_children(self, obj):
+        return [
+            FullStandardNodeSerializer(node, context=self.context).data
+            for node in obj.root.children.all()
+        ]
+
 
 class StandardNodeSerializer(serializers.ModelSerializer):
+    uri = serializers.SerializerMethodField()
     jurisdiction = JurisdictionHyperlinkField(source='document.jurisdiction', required=False) # check this...
     document = StandardsDocumentHyperlinkHyperlinkField(required=True)
     parent = StandardNodeHyperlinkField()
@@ -395,6 +408,22 @@ class StandardNodeSerializer(serializers.ModelSerializer):
     class Meta:
         model = StandardNode
         fields = '__all__'
+
+    def get_uri(self, obj):
+        return obj.uri
+
+
+class FullStandardNodeSerializer(StandardNodeSerializer):
+    """
+    Recursive variant of ``StandardNodeSerializer`` to use for ``/full`` action.
+    """
+    children = serializers.SerializerMethodField()
+
+    def get_children(self, obj):
+        return [
+            FullStandardNodeSerializer(node, context=self.context).data
+            for node in obj.children.all()
+        ]
 
 
 # STANDARDS CROSSWALKS

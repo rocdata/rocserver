@@ -24,7 +24,7 @@ from standards.models import ContentCorrelation, ContentStandardRelation
 from standards.serializers import ContentCollectionSerializer, ContentNodeSerializer, ContentNodeRelationSerializer
 from standards.serializers import ContentCorrelationSerializer, ContentStandardRelationSerializer
 from standards.serializers import FullContentCollectionSerializer
-
+from standards.serializers import FullStandardsDocumentSerializer
 
 
 # HELPERS
@@ -218,6 +218,24 @@ class StandardsDocumentViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet
     def get_queryset(self):
         return self.queryset.filter(jurisdiction__name=self.kwargs['jurisdiction_name'])
 
+    @action(detail=True, methods=['get'])
+    def full(self, request, *args, **kwargs):
+        instance = self.queryset.get(
+            jurisdiction__name=kwargs['jurisdiction_name'],
+            pk=kwargs['pk']
+        )
+        serializer = FullStandardsDocumentSerializer(instance, context={'request': request})
+        publishing_context = get_publishing_context(request=request)
+        processed_data = self.process_uris(serializer.data, publishing_context=publishing_context)
+        if request.accepted_renderer.format == 'html':
+            # HTML browsing
+            htmlized_data = self.htmlize_data_values(processed_data)
+            context = {'data': htmlized_data, 'object': instance}
+            return Response(context, template_name=self.template_name)
+        else:
+            # JSON + API
+            return Response(processed_data)
+
 
 class StandardNodeViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet):
     # /{juri}/standardnodes/{sn.id}
@@ -275,7 +293,7 @@ class ContentCollectionViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet
             jurisdiction__name=kwargs['jurisdiction_name'],
             pk=kwargs['pk']
         )
-        serializer = FullContentCollectionSerializer(instance, context={'request':request})
+        serializer = FullContentCollectionSerializer(instance, context={'request': request})
         publishing_context = get_publishing_context(request=request)
         processed_data = self.process_uris(serializer.data, publishing_context=publishing_context)
         if request.accepted_renderer.format == 'html':

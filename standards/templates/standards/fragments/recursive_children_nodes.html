@@ -6,14 +6,26 @@
     {% if not child.children %}
 
         <li>
-            <a href="{{ child.uri }}">{{ child.title }} ({{ child.id }})</a>
+            {% if object|get_type == "ContentCollection" %}
+                <a href="{{ child.uri }}">{{ child.title }} ({{ child.id }})</a>
+            {% elif object|get_type == "StandardsDocument" %}
+                <a href="{{ child.uri }}">{{ child.notation }} - {{ child.title }} {{ child.description|truncatechars:40 }} ({{ child.id }})</a>
+            {% else %}
+                unexpected object type (only content collections and document supported)
+            {% endif %}
         </li>
     
     {% elif child.children %}
 
         <li class="list-group-item">
             <h5 class="list-group-item-heading bullet-prefix">
-                <a href="{{ child.uri }}">{{ child.title }} ({{ child.id }})</a>
+                {% if object|get_type == "ContentCollection" %}
+                    <a href="{{ child.uri }}">{{ child.title }} ({{ child.id }})</a>
+                {% elif object|get_type == "StandardsDocument" %}
+                    <a href="{{ child.uri }}">{{ child.notation }} - {{ child.title }} {{ child.description|truncatechars:40 }} ({{ child.id }})</a>
+                {% else %}
+                    unexpected object type (only content collections and document supported)
+                {% endif %}
             </h5>
             <ul>
                 {% include "standards/fragments/recursive_children_nodes.html" with children=child.children %}
