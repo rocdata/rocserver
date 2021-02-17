@@ -15,7 +15,7 @@
                     </p>
                 </li>
 
-            {% elif value|get_type == 'list' %}
+            {% elif value|get_type == 'list' and not name == 'children' %}
 
                 <li class="list-group-item">
                     <h5 class="list-group-item-heading">{{ name }}</h5>
@@ -25,6 +25,10 @@
                     {% endfor %}
                     </ul>
                 </li>
+
+            {% elif value and value|get_type == 'list' and name == 'children' %}
+
+                {# Skip printing children; handled in a second pass below #}
 
             {% elif value|get_type == 'dict' %}
 
@@ -43,5 +47,35 @@
 
         {% endif %}
     {% endfor %}
+
+
+    {# SPECIAL HANDLING OF CHILDREN DEPENDING IF /full ACTION REQUESTED #}
+    {% with value=data.children %}
+        {% if value %}
+        
+            <li class="list-group-item">
+                <h5 class="list-group-item-heading">children</h5>
+                <ul>
+
+                    {% if request.resolver_match.view_name|slice:"-4:" != 'full' %}
+
+                        {# JUST SHOW IMMEDIATE CHILDREN #}
+                        {% for item in value %}
+                            <li>{{ item|safe }}</li>
+                        {% endfor %}
+
+                    {% else %}
+
+                        {# RECUSIVELY DISPLAY ALL DESCENDANTS FOR /full ACTION #}
+                        {% include "standards/fragments/recursive_children_nodes.html" with children=value %}
+
+                    {% endif %}
+
+                </ul>
+            </li>
+
+        {% endif %}
+    {% endwith %}
+
 
 </ul>

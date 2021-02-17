@@ -282,7 +282,7 @@ class ContentCollectionViewSet(CustomHTMLRendererRetrieve, viewsets.ModelViewSet
             # HTML browsing
             htmlized_data = self.htmlize_data_values(processed_data)
             context = {'data': htmlized_data, 'object': instance}
-            return Response(context, template_name='standards/contentcollection_full.html')
+            return Response(context, template_name=self.template_name)
         else:
             # JSON + API
             return Response(processed_data)
