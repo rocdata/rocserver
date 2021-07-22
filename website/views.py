@@ -10,6 +10,21 @@ from django.views.generic import TemplateView
 # INFO WEBPAGES
 ################################################################################
 
+# google docs embed URL lookup dict
+GOOGLE_DOCS_PAGES = {
+    "background": {
+        "name": "background",
+        "title": "Understanding how to #design2align curricula to national standards",
+        "meta_description": "Learn about the multi-stakeholder collaboration to create "
+            "a set of tools that can automate the mapping of digital learning "
+            "resources to national curriculum standards.",
+        "gdoc_url": "https://docs.google.com/document/d/1YkWBaEFzzaZMnrR3JITg2JmA45BElV1M8XGXwZ7jgIk/edit",
+        "embed_url": "https://docs.google.com/document/d/e/2PACX-1vTWmDDroUbrqanSsPZfbcWChzNabMtWYkHTUSKQW_oAi_x-v_BSyyZNoWMj8hNhJY9bKUCfws41m2jC/pub?embedded=true",
+        "iframe_height": "700"
+    }
+}
+
+
 def index(request):
     """
     Redirect to ROC landing: ``/pages/``.
@@ -23,17 +38,23 @@ def homepage(request):
     """
     index_context = {}
     return render(request, 'website/index.html', index_context)
-    return render(request, 'website/index.html', index_context)
 
 
 def page(request, val):
     """
-    ROC static webpages: ``/pages/<val>``.
+    ROC info pages ``/pages/<val>`` are served using google docs HTML embeds.
+    See `GOOGLE_DOCS_PAGES` above for the info about each page.
+    To change the website will change, edit the google doc with at ``gdoc_url``.
     """
-    context = {}
-    template_name = 'website/' + val + '.html'
-    return render(request, template_name, context)
+    val = val.rstrip('/')
+    if val in GOOGLE_DOCS_PAGES:
+        context = GOOGLE_DOCS_PAGES[val]
+        template_name = 'website/google_doc_embed_page.html'
+    else:
+        context = {}
+        template_name = 'website/' + val + '.html'
 
+    return render(request, template_name, context)
 
 
 # PUBLIC ADMIN DOC FOR MODELS
