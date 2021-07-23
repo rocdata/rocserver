@@ -4,13 +4,7 @@
 {% block extrahead %}
     <title>{{ title }}</title>
 
-    <style>
-        iframe {
-            margin: 0;
-            padding: 0;
-            border: 0;
-        }
-    </style>
+    {{ google_doc_styles|safe }}
 
 {% endblock %}
 
@@ -19,7 +13,7 @@
 <div class="container">
 
     <!-- embed google goc HTML to make updating the content easy -->
-    <iframe width="100%" height="{{ iframe_height }}" src="{{ embed_url }}"></iframe>
+    {{ body_contents|safe }}
 
 </div><!-- /container -->
 {% endblock %}

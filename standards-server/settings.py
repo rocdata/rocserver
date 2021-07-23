@@ -223,3 +223,26 @@ ROCDATA_PUBLISHING_CONTEXTS = {
 }
 
 
+
+# Static pages (served as google docs HTML embeds)
+
+WEBSITE_PAGES_GOOGLE_DOCS = {
+    "homepage": {
+        "name": "homepage",
+        "title": "Repository of Organized Curriculums (ROC)",
+        "meta_description": "The Repository of Organized Curriculums (ROC) is "
+            "a database that supports the mapping of digital learning resources "
+            "to national curriculum standards.",
+        "gdoc_url": "https://docs.google.com/document/d/1affxpkmUNIsbEV-vFGVdrS1-QX-c6psV5tMWMi29OcA/edit",
+        "embed_url": "https://docs.google.com/document/d/e/2PACX-1vSpoVgrGxjdX6zvflSKzSwnxEvWb7yiVAyj9wz421Q-TBMP5hUksO12aE9StNKd5udafC1ylCmwdooZ/pub?embedded=true",
+    },
+    "background": {
+        "name": "background",
+        "title": "Understanding how to #design2align curricula to national standards",
+        "meta_description": "Learn about the multi-stakeholder collaboration to create "
+            "a set of tools that can automate the mapping of digital learning "
+            "resources to national curriculum standards.",
+        "gdoc_url": "https://docs.google.com/document/d/1YkWBaEFzzaZMnrR3JITg2JmA45BElV1M8XGXwZ7jgIk/edit",
+        "embed_url": "https://docs.google.com/document/d/e/2PACX-1vTWmDDroUbrqanSsPZfbcWChzNabMtWYkHTUSKQW_oAi_x-v_BSyyZNoWMj8hNhJY9bKUCfws41m2jC/pub?embedded=true",
+    },
+}

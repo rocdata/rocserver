@@ -1,5 +1,8 @@
-import datetime
+from bs4 import BeautifulSoup
+import requests
+from urllib.parse import unquote
 
+from django.conf import settings
 from django.contrib.admindocs.views import ModelIndexView, ModelDetailView
 from django.http import HttpResponse
 from django.shortcuts import redirect
@@ -7,22 +10,10 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 
 
+
 # INFO WEBPAGES
 ################################################################################
 
-# google docs embed URL lookup dict
-GOOGLE_DOCS_PAGES = {
-    "background": {
-        "name": "background",
-        "title": "Understanding how to #design2align curricula to national standards",
-        "meta_description": "Learn about the multi-stakeholder collaboration to create "
-            "a set of tools that can automate the mapping of digital learning "
-            "resources to national curriculum standards.",
-        "gdoc_url": "https://docs.google.com/document/d/1YkWBaEFzzaZMnrR3JITg2JmA45BElV1M8XGXwZ7jgIk/edit",
-        "embed_url": "https://docs.google.com/document/d/e/2PACX-1vTWmDDroUbrqanSsPZfbcWChzNabMtWYkHTUSKQW_oAi_x-v_BSyyZNoWMj8hNhJY9bKUCfws41m2jC/pub?embedded=true",
-        "iframe_height": "700"
-    }
-}
 
 
 def index(request):
@@ -47,10 +38,36 @@ def page(request, val):
     To change the website will change, edit the google doc with at ``gdoc_url``.
     """
     val = val.rstrip('/')
-    if val in GOOGLE_DOCS_PAGES:
-        context = GOOGLE_DOCS_PAGES[val]
+    if val == "about":
+        # for backward compatibility since previously we had `/page/about`
+        return redirect('page', val="background")
+
+    elif val in settings.WEBSITE_PAGES_GOOGLE_DOCS:
+        context = settings.WEBSITE_PAGES_GOOGLE_DOCS[val]
         template_name = 'website/google_doc_embed_page.html'
+
+        # GET the `embed_url` HTML source and extract the parts we need from it
+        # 1. get doc styles from head
+        response = requests.get(context["embed_url"])
+        soup = BeautifulSoup(response.content, 'html5lib')
+        styles = soup.head.find_all('style')
+        styles_str = "\n".join(str(style) for style in styles)
+        context["google_doc_styles"] = styles_str
+        # 2. clean links from google prefix
+        links = soup.body.find_all('a')
+        for link in links:
+            if link.has_attr('href') and 'https://www.google.com/url?q=' in link['href']:
+                old_href = link['href']
+                href = old_href[len('https://www.google.com/url?q='):]
+                print(href)
+                new_href = href.split("&")[0] if "&" in href else href
+                link['href'] = unquote(new_href)
+        # 3. put body inside the main container div
+        body_contents_str = "\n".join(str(el) for el in soup.body.contents)
+        context["body_contents"] = body_contents_str
+
     else:
+        # old pages (deprecated)
         context = {}
         template_name = 'website/' + val + '.html'
 
