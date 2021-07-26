@@ -4,74 +4,90 @@ from urllib.parse import unquote
 
 from django.conf import settings
 from django.contrib.admindocs.views import ModelIndexView, ModelDetailView
-from django.http import HttpResponse
+from django.http import HttpResponseNotFound
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views.generic import TemplateView
 
 
-
 # INFO WEBPAGES
 ################################################################################
 
-
-
-def index(request):
+def get_context_from_gdoc_html(page_dict):
     """
-    Redirect to ROC landing: ``/pages/``.
+    Given ``page_dict`` containing an ``embed_url`` key, this function will
+    GET the HTML source of the page and extract and parts we need from it.
+    Returns a ``context`` dict ready to pass onto ``google_doc_embed_page.html``.
     """
-    return redirect('homepage')
+    context = page_dict.copy()
+
+    # 0. get the HTML of the gdoc
+    response = requests.get(page_dict["embed_url"])
+    soup = BeautifulSoup(response.content, 'html5lib')
+
+    # 1. get doc styles from head
+    styles = soup.head.find_all('style')
+    styles_str = "\n".join(str(style) for style in styles)
+    context["google_doc_styles"] = styles_str
+
+    # 2. clean links from google prefix
+    links = soup.body.find_all('a')
+    for link in links:
+        if link.has_attr('href') and 'https://www.google.com/url?q=' in link['href']:
+            old_href = link['href']
+            href = old_href[len('https://www.google.com/url?q='):]
+            print(href)
+            new_href = href.split("&")[0] if "&" in href else href
+            link['href'] = unquote(new_href)
+
+    # 3. put body inside the main container div
+    body_contents_str = "\n".join(str(el) for el in soup.body.contents)
+    context["body_contents"] = body_contents_str
+
+    return context
+
 
 
 def homepage(request):
     """
-    ROC landing page.
+    ROC homepage served under ``/`` (the website root).
     """
-    index_context = {}
-    return render(request, 'website/index.html', index_context)
+    page_dict = settings.WEBSITE_PAGES_GOOGLE_DOCS['homepage']
+    context = get_context_from_gdoc_html(page_dict)
+    template_name = 'website/google_doc_embed_page.html'
+    return render(request, template_name, context)
+
+
+def pagesroot(request):
+    """
+    Redirect ``/pages/`` to the ROC homepage ``/``.
+    """
+    return redirect('homepage')
 
 
 def page(request, val):
     """
     ROC info pages ``/pages/<val>`` are served using google docs HTML embeds.
-    See `GOOGLE_DOCS_PAGES` above for the info about each page.
-    To change the website will change, edit the google doc with at ``gdoc_url``.
+    See ``settings.WEBSITE_PAGES_GOOGLE_DOCS`` for the info about each page.
+    To modify a website page, change the google doc under the ``gdoc_url`` key.
     """
     val = val.rstrip('/')
+
     if val == "about":
         # for backward compatibility since previously we had `/page/about`
         return redirect('page', val="background")
 
     elif val in settings.WEBSITE_PAGES_GOOGLE_DOCS:
-        context = settings.WEBSITE_PAGES_GOOGLE_DOCS[val]
+        # google doc embed pages
+        page_dict = settings.WEBSITE_PAGES_GOOGLE_DOCS[val]
+        context = get_context_from_gdoc_html(page_dict)
         template_name = 'website/google_doc_embed_page.html'
-
-        # GET the `embed_url` HTML source and extract the parts we need from it
-        # 1. get doc styles from head
-        response = requests.get(context["embed_url"])
-        soup = BeautifulSoup(response.content, 'html5lib')
-        styles = soup.head.find_all('style')
-        styles_str = "\n".join(str(style) for style in styles)
-        context["google_doc_styles"] = styles_str
-        # 2. clean links from google prefix
-        links = soup.body.find_all('a')
-        for link in links:
-            if link.has_attr('href') and 'https://www.google.com/url?q=' in link['href']:
-                old_href = link['href']
-                href = old_href[len('https://www.google.com/url?q='):]
-                print(href)
-                new_href = href.split("&")[0] if "&" in href else href
-                link['href'] = unquote(new_href)
-        # 3. put body inside the main container div
-        body_contents_str = "\n".join(str(el) for el in soup.body.contents)
-        context["body_contents"] = body_contents_str
+        return render(request, template_name, context)
 
     else:
-        # old pages (deprecated)
-        context = {}
-        template_name = 'website/' + val + '.html'
+        return HttpResponseNotFound('<h1>Page not found</h1>')
 
-    return render(request, template_name, context)
+
 
 
 # PUBLIC ADMIN DOC FOR MODELS

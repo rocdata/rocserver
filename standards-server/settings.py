@@ -225,10 +225,13 @@ ROCDATA_PUBLISHING_CONTEXTS = {
 
 
 # Static pages (served as google docs HTML embeds)
+# Each page is represented as a dictionary with value:
+#  - `title` and `meta_description` are the page metadata (important for SEO)
+#  - `gdoc_url` is the source google doc (editable)
+#  - `embed_url` is the URL resulting from "Publish to the web" step of the gdoc
 
 WEBSITE_PAGES_GOOGLE_DOCS = {
     "homepage": {
-        "name": "homepage",
         "title": "Repository of Organized Curriculums (ROC)",
         "meta_description": "The Repository of Organized Curriculums (ROC) is "
             "a database that supports the mapping of digital learning resources "
@@ -237,12 +240,23 @@ WEBSITE_PAGES_GOOGLE_DOCS = {
         "embed_url": "https://docs.google.com/document/d/e/2PACX-1vSpoVgrGxjdX6zvflSKzSwnxEvWb7yiVAyj9wz421Q-TBMP5hUksO12aE9StNKd5udafC1ylCmwdooZ/pub?embedded=true",
     },
     "background": {
-        "name": "background",
         "title": "Understanding how to #design2align curricula to national standards",
         "meta_description": "Learn about the multi-stakeholder collaboration to create "
             "a set of tools that can automate the mapping of digital learning "
             "resources to national curriculum standards.",
         "gdoc_url": "https://docs.google.com/document/d/1YkWBaEFzzaZMnrR3JITg2JmA45BElV1M8XGXwZ7jgIk/edit",
         "embed_url": "https://docs.google.com/document/d/e/2PACX-1vTWmDDroUbrqanSsPZfbcWChzNabMtWYkHTUSKQW_oAi_x-v_BSyyZNoWMj8hNhJY9bKUCfws41m2jC/pub?embedded=true",
+    },
+    "glossary": {
+        "title": "Glossary of terms",
+        "meta_description": "A reference glossary and list of terminology from the Repository of Organized Curriculums report and website.",
+        "gdoc_url": "https://docs.google.com/document/d/1IFkY9Znm9pnhZIjdQOtR7PtO1WE8MXhDEsHgUTRrwNQ/edit",
+        "embed_url": "https://docs.google.com/document/d/e/2PACX-1vTtvILmMC7A_eax42xDOI8dXAcf0-W86rbc3z4nrHPXbLo3URyZEHGnWlmXzixgIOKTxS6WVDqC_VD_/pub?embedded=true",
+    },
+    "contribute": {
+        "title": "Get involved",
+        "meta_description": "Learn how you can get involved and contribute curriculum standards data to the Repository of Organized Curriculums (ROC) data project.",
+        "gdoc_url": "https://docs.google.com/document/d/1hGk62PlLga55vh-RrPb4-Pt5OsiobO9IHDuR5Mzfvl8/edit",
+        "embed_url": "https://docs.google.com/document/d/e/2PACX-1vT40TlZmF91lx6ZSZFMxyeBdGmSzIQGMvvgLtlKDAweJcpF8L8WWGh6KQBLtBIIm33dygIsYsjDJI-o/pub?embedded=true",
     },
 }

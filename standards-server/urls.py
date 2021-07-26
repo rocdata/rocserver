@@ -17,17 +17,17 @@ ALLOWED_FORMATS_SUFFIX = "\.(?P<format>(%s))" % "|".join(ALLOWED_FORMATS)
 
 
 
-# WEBSITE
+# WEBSITE INFO PAGES
 ################################################################################
 
-from website.views import index, homepage, page
+from website.views import homepage, pagesroot, page
 
 urlpatterns = [
-    path('', index, name='index'),
-    path('pages/', homepage, name='homepage'),
+    path('', homepage, name='homepage'),
+    path('pages/', pagesroot, name='pagesroot'),
     path('pages/<val>/', page, name='page'),
-    # tmp fallback
-    path('pages', homepage, name='homepage-noslash'),
+    # handlers in case of no trailing slash (since using APPEND_SLASH=False)
+    path('pages', pagesroot, name='pagesroot-noslash'),
     path('pages/<val>', page, name='page-noslash'),
 ]
 
