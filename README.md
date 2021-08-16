@@ -74,7 +74,8 @@ This will run all docker commands agains the production docker host. After the
 migrations, data-loading, and fixtures loading steps complete (up to 5 mins),
 the production server and all data will be available at https://rocdata.global/
 
-Use `fab prod dclogs:'-f'` to see what's going on.
+Use `fab prod dclogs:'-f'` to see what's going on. The re-deploy takes a few minutes,
+during which the website will be unavailable (showing the "Bad Gateway" error message).
 
 
 
