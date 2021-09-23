@@ -20,43 +20,72 @@ DOCS_DUMPDATA_FILENAME = "hackathon_CurriculumDocument_data.json"
 NODES_DUMPDATA_FILENAME = "hackathon_StandardNode_data.json"
 JUDGMENTS_DUMPDATA_FILENAME = "hackathon_HumanRelevanceJudgment_data.json"
 
-JURISDICTION_SOURCE_IDS = {
-    "CCSS": [],
-    "NGSS": [],
-}
-
 
 DOCS_TO_IMPORT_BY_SOURCE_ID = {
-    "CCSSM": {
-        "source_id": "CCSSM",
-        "jurisdiction": "USA",
-        "name": "CCSS.Math",
-        "title": "Common Core State Standards for Mathematics",
+    # "CCSSM": {
+    #     "source_id": "CCSSM",
+    #     "jurisdiction": "USA",
+    #     "name": "CCSS.Math",
+    #     "title": "Common Core State Standards for Mathematics",
+    #     "language": "en",
+    #     "country": "US",
+    #     "publisher": "NGA Center for Best Practices and the Council of Chief State School Officers",
+    #     "license_description": "© Copyright 2010. National Governors Association Center for Best Practices and Council of Chief State School Officers. All rights reserved.",
+    #     "digitization_method": "hackathon_import",
+    #     "source_doc": "http://www.corestandards.org/Math/",
+    # },
+    "kicd-secondary-vol-ii": {
+        "source_id": "kicd-secondary-vol-ii",
+        "jurisdiction": "Kenya",
+        "name": "KICD-SEC-volII",
+        "title": "KICD Secondary Curriculum Vol II",
         "language": "en",
-        "country": "US",
-        "publisher": "NGA Center for Best Practices and the Council of Chief State School Officers",
-        "license_description": "© Copyright 2010. National Governors Association Center for Best Practices and Council of Chief State School Officers. All rights reserved.",    
+        "country": "KE",
+        "publisher": "Kenya Institute of Education",
+        "license_description": "© 2002, Kenya Institute of Education",
         "digitization_method": "hackathon_import",
-        "source_doc": "http://www.corestandards.org/Math/",
+        "source_doc": "https://drive.google.com/file/d/1lEqE85xMmgZTr-t2Z-KbUCgBi4NVDzPv/view",
+    },
+    "zambia-math-5to7": {
+        "source_id": "zambia-math-5to7",
+        "jurisdiction": "Zambia",
+        "name": "zambia-math-5to7",
+        "title": "Zambia mathematics syllabus and competencies",
+        "language": "en",
+        "country": "ZM",
+        "publisher": "Curriculum Development Centre, Lusaka, Zambia",
+        "license_description": "© Zambia Ministry of Education, Science, Vocational Training and Early Education",
+        "digitization_method": "hackathon_import",
+        "source_doc": "https://drive.google.com/file/d/16yi0ALDhhPBRP4Q0v_dZZoVTcoZb9jUK/view",
+    },
+    "zambia-english-5to7": {
+        "source_id": "zambia-english-5to7",
+        "jurisdiction": "Zambia",
+        "name": "zambia-english-5to7",
+        "title": "Zambia English syllabus and competencies",
+        "language": "en",
+        "country": "ZM",
+        "publisher": "Curriculum Development Centre, Lusaka, Zambia",
+        "license_description": "© Zambia Ministry of Education, Science, Vocational Training and Early Education",
+        "digitization_method": "hackathon_import",
+        "source_doc": "https://drive.google.com/file/d/17ey31c8yQ_cgDOK9P8rB7n0s9KOhveRc/view"
     },
 }
+
+# TEMPORARILY SKIPPED (to import later or from other sources)
+#     {   "source_id": gov.uk.math
+#     {   "source_id": gov.uk.science
 #     {   "source_id": australia_standards_australia_science_f-10
 #     {   "source_id": australia_standards_australia_mathematics_f-10
 #     {   "source_id": australia_standards_technologies_f-10
 #     {   "source_id": australia_standards_australia_work_studies_f-10
 #     {   "source_id": CA-CTE
-#     {   "source_id": zambia-math-5to7
-#     {   "source_id": zambia-english-5to7
-#     {   "source_id": gov.uk.math
-#     {   "source_id": gov.uk.science
-#     {   "source_id": kicd-secondary-vol-ii
 
 
-# SKIPPED
-# khan_academy_us
-# kenya-math
-# KICDvolumeII
-
+# PERMANENTLY SKIPPED (because better version available)
+#   khan_academy_us
+#   kenya-math
+#   KICDvolumeII
 
 
 def pathstr_to_pathlist(pathstr):
@@ -92,26 +121,26 @@ def import_doc(doc_dict):
     print('in import_doc', doc["source_id"], 'titled', doc["title"])
 
     # 1. Document
-    juri = Jurisdiction.objects.get(name="CCSS")
     doc_info = DOCS_TO_IMPORT_BY_SOURCE_ID[source_id]
+    juri = Jurisdiction.objects.get(name=doc_info["jurisdiction"])
     print(doc_info)
 
     try:
         stddoc = StandardsDocument.objects.get(name=doc_info["name"], jurisdiction=juri)
-        print("Deleting old verison of curriculum document...")
+        print("Deleting old version of curriculum document...")
         stddoc.delete()
     except StandardsDocument.DoesNotExist:
         pass
 
     stddoc = StandardsDocument.objects.create(name=doc_info["name"], jurisdiction=juri)
-    stddoc.title=doc_info['title']
-    stddoc.language=doc_info['language']
-    stddoc.country=doc_info['country']
-    stddoc.publisher=doc_info['publisher']
-    stddoc.license_description=doc_info['license_description']
-    stddoc.digitization_method=doc_info['digitization_method']
-    stddoc.source_doc=doc_info['source_doc']
-    stddoc.source_id=doc_dict['pk']
+    stddoc.title = doc_info['title']
+    stddoc.language = doc_info['language']
+    stddoc.country = doc_info['country']
+    stddoc.publisher = doc_info['publisher']
+    stddoc.license_description = doc_info['license_description']
+    stddoc.digitization_method = doc_info['digitization_method']
+    stddoc.source_doc = doc_info['source_doc']
+    stddoc.source_id = doc_dict['pk']
     stddoc.save()
     print('created...')
     print(stddoc)
@@ -122,7 +151,7 @@ def import_doc(doc_dict):
         print("loading form cache...")
         doc_nodes = yaml.safe_load(open(doc_nodes_cache_yaml).read())
     else:
-        print('selecting inneficiently from list; this may take some time...')
+        print('selecting inefficiently from list; this may take some time...')
         nodes_path = os.path.join(DUMPADTAS_DIR, NODES_DUMPDATA_FILENAME)
         allnodes_list = yaml.safe_load(open(nodes_path).read())
         doc_nodes = [nd for nd in allnodes_list if nd['fields']['document'] == doc_pk]
