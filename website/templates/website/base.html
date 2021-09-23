@@ -9,7 +9,7 @@
 
     <meta name="description" content="{{ meta_description }}">
     
-    <link rel="shortcut icon" href="{% static 'standards/icons/favicon.ico' %}">
+    <link rel="shortcut icon" href="{% static 'website/icons/favicon.ico' %}">
 
 
     <!-- Bootstrap CSS -->
@@ -68,24 +68,32 @@
       <hr/>
       <footer>
       <div class="container">
-        <div class="row mt-3 mb-5">
-          <div class="col-4 mt-1 text-right">
-              <img style="width:30%" src="{% static 'standards/icons/cc-by-nc.png' %}">
-          </div>
 
-          <div class="col-8">
-
-            <div class="text-left">
-              <p>
-                Repository of Organized Curriculums server.
-                Established 2020.<br>
-                See <a href="https://github.com/rocdata/rocserver">github.com/rocdata/rocserver</a> for source code.
-            </p>
+        <!-- Logos strip -->
+        <div class="row mt-2 mb-2">
+          <div class="col-12">
+            <div class="text-center">
+              <img class="img-fluid" src="{% static 'website/logos_strip.png' %}">
             </div>
-
           </div>
         </div>
 
+        <!-- Text footer -->
+        <div class="row mb-4">
+          <div class="col-12">
+            <div class="text-center small">
+              <p>
+                <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">
+                  <img style="height:1em" src="{% static 'website/icons/cc-by-nc.png' %}"></a>
+                &nbsp;
+                <small>
+                  Repository of Organized Curriculums data server.
+                  See <a href="https://github.com/rocdata/rocserver">here</a> for the source code.
+                </small>
+              </p>
+            </div>
+          </div>
+        </div>
         
 
       </div>

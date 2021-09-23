@@ -92,7 +92,7 @@ called [Website](https://drive.google.com/drive/u/0/folders/1PrR0zGaYRsXOsXDojjS
 Other types of changes to the website require technical expertise, editing HTML,
 and re-deploying the server code (`fab prod dcbuild; fab prod dcup`):
 
-- To modify the website footer, change the HTML template in `standards/templates/standards/base.html`.
+- To modify the website footer, change the HTML template in `standards/templates/website/base.html`.
 - To change the website header (navigation links), edit the template
   `website/templates/website/fragments/navbar.html`.
 - To add a new page to the website, follow the steps:
