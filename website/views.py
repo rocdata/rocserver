@@ -36,7 +36,6 @@ def get_context_from_gdoc_html(page_dict):
         if link.has_attr('href') and 'https://www.google.com/url?q=' in link['href']:
             old_href = link['href']
             href = old_href[len('https://www.google.com/url?q='):]
-            print(href)
             new_href = href.split("&")[0] if "&" in href else href
             link['href'] = unquote(new_href)
 
@@ -108,8 +107,6 @@ class PublicModelIndexView(ModelIndexView):
         context_data['is_nav_sidebar_enabled'] = False
         context_data['site_header'] = 'ROC documentation'
         context_data['site_title'] = 'ROC documentation'
-        # import pprint
-        # pprint.pprint(context_data)
         return context_data
 
 
@@ -126,8 +123,4 @@ class PublicModelDetailView(ModelDetailView):
     def get_context_data(self, **kwargs):
         context_data = super().get_context_data(**kwargs)
         context_data['is_nav_sidebar_enabled'] = False
-        # context_data['site_header'] = 'ROC documentation'
-        # context_data['site_title'] = 'ROC documentation'
-        #import pprint
-        # pprint.pprint(context_data)
         return context_data
