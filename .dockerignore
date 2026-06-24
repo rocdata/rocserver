@@ -1,5 +1,13 @@
 # local dev virtualenv
+.git/
+.DS_Store
 venv
+.venv/
+.oldvenv
 __pycache__
-
+.pytest_cache/
+.vscode/
+profiles
+.ipynb_checkpoints
+db.sqlite3
 credentials
